@@ -3,13 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalvin Shah | Portfolio</title>
+    <title>Kalvin Shah | Game Developer & Ethical Hacker</title>
+    
+    <!-- Meta tags for SEO -->
+    <meta name="description" content="Portfolio of Kalvin Shah - Computer Science Engineering student, Game Developer, and Ethical Hacking enthusiast.">
+    <meta name="keywords" content="Kalvin Shah, Game Development, Ethical Hacking, Unreal Engine 5, Portfolio, Developer">
+    <meta name="author" content="Kalvin Shah">
+    
+    <!-- Open Graph Meta Tags for social sharing -->
+    <meta property="og:title" content="Kalvin Shah - Game Developer & Ethical Hacker">
+    <meta property="og:description" content="Explore the portfolio of Kalvin Shah - CSE student, Game Developer & Ethical Hacking enthusiast">
+    <meta property="og:image" content="https://pusparaj99op.github.io/assets/images/og-image.jpg">
+    <meta property="og:url" content="https://pusparaj99op.github.io/">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Preload key resources -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style">
+    <link rel="preload" href="js/script.js" as="script">
+    
+    <!-- Import model-viewer component -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
 </head>
 <body>
+    <!-- Custom cursor for desktop users -->
+    <div class="custom-cursor">
+        <div class="cursor-dot"></div>
+    </div>
+
     <!-- Preloader -->
     <div class="preloader">
         <div class="loader"></div>
@@ -29,9 +59,12 @@
                 <ul id="navbar">
                     <li><a href="#home" class="active">Home</a></li>
                     <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
                     <li><a href="#skills">Skills</a></li>
                     <li><a href="#projects">Projects</a></li>
                     <li><a href="#achievements">Achievements</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <div class="hamburger">
@@ -43,33 +76,71 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Enhanced Hero Section with 3D elements -->
     <section id="home" class="hero">
+        <canvas id="particles-canvas"></canvas> <!-- Particle animation canvas -->
         <div class="container">
             <div class="hero-content animate-on-load" data-animation="fade-up">
-                <h1 class="animated">Hello, I'm <span>Kalvin Shah</span></h1>
+                <h1 class="animated">Hello, I'm <span class="gradient-text">Kalvin Shah</span></h1>
                 <h2 class="animated delay-1">Also known as Pranay Gajbhiye</h2>
-                <p class="animated delay-2">Computer Science Engineering Student | <span class="typing-text" data-words='["Game Developer", "Ethical Hacker", "Tech Enthusiast"]'>Game Developer</span></p>
+                <p class="animated delay-2">Computer Science Engineering Student | <span class="typing-text" data-words='["Game Developer", "Ethical Hacker", "Tech Enthusiast", "Problem Solver"]'>Game Developer</span></p>
                 <div class="hero-buttons animated delay-3">
-                    <a href="#contact" class="btn primary-btn">Contact Me</a>
-                    <a href="#projects" class="btn secondary-btn">View My Work</a>
+                    <a href="#contact" class="btn primary-btn magnetic-btn">Contact Me</a>
+                    <a href="#projects" class="btn secondary-btn magnetic-btn">View My Work</a>
+                </div>
+                <div class="hero-stats animated delay-4">
+                    <div class="stat-item">
+                        <span class="stat-number">10+</span>
+                        <span class="stat-text">Projects</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5+</span>
+                        <span class="stat-text">Awards</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">3+</span>
+                        <span class="stat-text">Years of Experience</span>
+                    </div>
                 </div>
             </div>
-            <div class="hero-image floating">
-                <div class="shape"></div>
+            <div class="hero-model">
+                <!-- 3D model viewer for hero section -->
+                <div class="model-viewer-container card-3d">
+                    <model-viewer
+                        src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
+                        alt="A 3D model representing game development"
+                        auto-rotate
+                        camera-controls
+                        camera-orbit="0deg 75deg 105%"
+                        disable-zoom
+                        interaction-prompt="none"
+                        shadow-intensity="1"
+                        environment-image="https://modelviewer.dev/shared-assets/environments/spruit_sunrise_1k_HDR.hdr"
+                        exposure="1">
+                    </model-viewer>
+                    <div class="model-controls">
+                        <button class="model-btn" data-action="rotate"><i class="fas fa-pause"></i></button>
+                        <button class="model-btn" data-action="reset"><i class="fas fa-redo"></i></button>
+                    </div>
+                </div>
             </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <i class="fas fa-chevron-down"></i>
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- About Section with enhanced card components -->
     <section id="about" class="about">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">About Me</h2>
             <div class="about-content">
                 <div class="about-img" data-aos="fade-right" data-aos-delay="200">
-                    <div class="img-container">
-                        <div class="img-box hover-card">
-                            <img src="https://via.placeholder.com/400x500" alt="Kalvin Shah">
+                    <div class="img-container card-3d">
+                        <div class="img-box hover-card card-3d-content">
+                            <img src="https://avatars.githubusercontent.com/u/pusparaj99op" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x500?text=Kalvin+Shah';" alt="Kalvin Shah">
                         </div>
                     </div>
                 </div>
@@ -98,23 +169,92 @@
                         </div>
                     </div>
                     <div class="social-links">
-                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                        <a href="https://github.com/Pusparaj99op" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
                         <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
                         <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
                         <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <a href="#contact" class="btn primary-btn">Get In Touch</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- NEW: Experience Timeline Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">My Journey</h2>
+            <p class="subtitle" data-aos="fade-up">A timeline of my key experiences and achievements</p>
+            
+            <div class="timeline" data-aos="fade-up">
+                <div class="timeline-container left">
+                    <div class="timeline-date">2025 (Present)</div>
+                    <div class="timeline-content">
+                        <h3>RSOC-2025 Hackathon Winner</h3>
+                        <h4>Technology Innovator</h4>
+                        <p>Led a team to victory in the prestigious RSOC-2025 Hackathon, developing innovative solutions that addressed real-world challenges.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-container right">
+                    <div class="timeline-date">2024</div>
+                    <div class="timeline-content">
+                        <h3>Core Team Member - Picsel Committee</h3>
+                        <h4>KDK College of Engineering</h4>
+                        <p>Selected as a core committee member for Picsel, where I helped organize technical events and workshops for students.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-container left">
+                    <div class="timeline-date">2024</div>
+                    <div class="timeline-content">
+                        <h3>CEH v11 Certification</h3>
+                        <h4>Certified Ethical Hacker</h4>
+                        <p>Successfully qualified for the Certified Ethical Hacker v11 certification, demonstrating advanced skills in cybersecurity and ethical hacking methodologies.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-container right">
+                    <div class="timeline-date">2023</div>
+                    <div class="timeline-content">
+                        <h3>Game Development - Unreal Engine 5</h3>
+                        <h4>Self-directed Learning</h4>
+                        <p>Began developing games with Unreal Engine 5, focusing on advanced graphics and AI systems to create immersive gaming experiences.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-container left">
+                    <div class="timeline-date">2023</div>
+                    <div class="timeline-content">
+                        <h3>State Level Chess Championship</h3>
+                        <h4>Competitive Player</h4>
+                        <p>Competed in state-level chess tournaments, developing strategic thinking and problem-solving skills through competitive play.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-container right">
+                    <div class="timeline-date">2022</div>
+                    <div class="timeline-content">
+                        <h3>Started Computer Science Engineering</h3>
+                        <h4>KDK College of Engineering, Nagpur</h4>
+                        <p>Began my journey into the world of Computer Science, focusing on programming, algorithms, and software development.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
+    <!-- Skills Section with Interactive Chart -->
     <section id="skills" class="skills">
         <div class="blur-circle blur-circle-2" style="top: 30%; right: 5%; width: 200px; height: 200px;"></div>
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">My Skills</h2>
+            
+            <!-- NEW: Interactive Skills Chart -->
+            <div class="skills-chart" data-aos="fade-up" data-aos-delay="200"></div>
+            
             <div class="skills-content">
-                <div class="skill-category" data-aos="fade-up" data-aos-delay="200">
+                <div class="skill-category" data-aos="fade-up" data-aos-delay="300">
                     <h3>Technical Skills</h3>
                     <div class="skill-items">
                         <div class="skill-item">
@@ -123,7 +263,7 @@
                                 <p>85%</p>
                             </div>
                             <div class="skill-bar">
-                                <span class="skill-percent" data-width="85%"></span>
+                                <span class="skill-percent" style="width:85%"></span>
                             </div>
                         </div>
                         <div class="skill-item">
@@ -132,7 +272,7 @@
                                 <p>90%</p>
                             </div>
                             <div class="skill-bar">
-                                <span class="skill-percent" data-width="90%"></span>
+                                <span class="skill-percent" style="width:90%"></span>
                             </div>
                         </div>
                         <div class="skill-item">
@@ -141,7 +281,7 @@
                                 <p>80%</p>
                             </div>
                             <div class="skill-bar">
-                                <span class="skill-percent" data-width="80%"></span>
+                                <span class="skill-percent" style="width:80%"></span>
                             </div>
                         </div>
                         <div class="skill-item">
@@ -150,7 +290,7 @@
                                 <p>75%</p>
                             </div>
                             <div class="skill-bar">
-                                <span class="skill-percent" data-width="75%"></span>
+                                <span class="skill-percent" style="width:75%"></span>
                             </div>
                         </div>
                     </div>
@@ -164,7 +304,7 @@
                                 <p>95%</p>
                             </div>
                             <div class="skill-bar">
-                                <span class="skill-percent" data-width="95%"></span>
+                                <span class="skill-percent" style="width:95%"></span>
                             </div>
                         </div>
                         <div class="skill-item">
@@ -173,7 +313,7 @@
                                 <p>85%</p>
                             </div>
                             <div class="skill-bar">
-                                <span class="skill-percent" data-width="85%"></span>
+                                <span class="skill-percent" style="width:85%"></span>
                             </div>
                         </div>
                         <div class="skill-item">
@@ -182,7 +322,7 @@
                                 <p>90%</p>
                             </div>
                             <div class="skill-bar">
-                                <span class="skill-percent" data-width="90%"></span>
+                                <span class="skill-percent" style="width:90%"></span>
                             </div>
                         </div>
                         <div class="skill-item">
@@ -191,7 +331,7 @@
                                 <p>80%</p>
                             </div>
                             <div class="skill-bar">
-                                <span class="skill-percent" data-width="80%"></span>
+                                <span class="skill-percent" style="width:80%"></span>
                             </div>
                         </div>
                     </div>
@@ -200,7 +340,7 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- Projects Section with 3D cards -->
     <section id="projects" class="projects">
         <div class="blur-circle blur-circle-1" style="bottom: 10%; left: 15%;"></div>
         <div class="container">
@@ -212,60 +352,134 @@
                 <button class="filter-btn" data-filter="web">Web Development</button>
             </div>
             <div class="projects-container">
-                <!-- Project 1 -->
-                <div class="project-item animate-on-scroll" data-category="game" data-animation="fade-up">
-                    <div class="project-img">
-                        <img src="https://via.placeholder.com/600x400" alt="UE5 Game Project">
-                    </div>
-                    <div class="project-info">
-                        <h3>Fantasy Adventure Game</h3>
-                        <p>An immersive game built with Unreal Engine 5 featuring advanced graphics and AI.</p>
-                        <div class="tech-stack">
-                            <span>Unreal Engine 5</span>
-                            <span>Blueprints</span>
-                            <span>C++</span>
+                <!-- Project 1: AutoMovies -->
+                <div class="project-item project-3d" data-category="web" data-animation="fade-up">
+                    <div class="project-inner">
+                        <div class="project-img">
+                            <img src="https://user-images.githubusercontent.com/567298/52071924-fbcbdc80-255a-11e9-90e5-562cb10cd1f9.png" alt="AutoMovies Project">
                         </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link"><i class="fas fa-link"></i> Demo</a>
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Project 2 -->
-                <div class="project-item animate-on-scroll" data-category="cyber" data-animation="fade-up">
-                    <div class="project-img">
-                        <img src="https://via.placeholder.com/600x400" alt="Cybersecurity Project">
-                    </div>
-                    <div class="project-info">
-                        <h3>Network Security Analyzer</h3>
-                        <p>A tool that identifies vulnerabilities in network infrastructure using ethical hacking techniques.</p>
-                        <div class="tech-stack">
-                            <span>Python</span>
-                            <span>Kali Linux</span>
-                            <span>Wireshark</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link"><i class="fas fa-link"></i> Demo</a>
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+                        <div class="project-info">
+                            <h3>AutoMovies</h3>
+                            <p>A Telegram bot for automatically filtering and searching movies, built with Python.</p>
+                            <div class="tech-stack">
+                                <span>Python</span>
+                                <span>Telegram API</span>
+                                <span>MongoDB</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/Pusparaj99op/AutoMovies" target="_blank" class="project-link"><i class="fab fa-github"></i> Code</a>
+                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- Project 3 -->
-                <div class="project-item animate-on-scroll" data-category="web" data-animation="fade-up">
-                    <div class="project-img">
-                        <img src="https://via.placeholder.com/600x400" alt="Web Project">
-                    </div>
-                    <div class="project-info">
-                        <h3>Interactive Dashboard</h3>
-                        <p>A responsive web dashboard with data visualization and real-time analytics.</p>
-                        <div class="tech-stack">
-                            <span>HTML/CSS</span>
-                            <span>JavaScript</span>
-                            <span>React</span>
+                
+                <!-- Project 2: GHRCM_Hackathon -->
+                <div class="project-item project-3d" data-category="cyber" data-animation="fade-up">
+                    <div class="project-inner">
+                        <div class="project-img">
+                            <img src="https://img.freepik.com/free-vector/gradient-hacker-logo-template_23-2149214992.jpg" alt="GHRCM Hackathon Project">
                         </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link"><i class="fas fa-link"></i> Demo</a>
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+                        <div class="project-info">
+                            <h3>GHRCM Hackathon 2025</h3>
+                            <p>Award-winning hackathon project focusing on cybersecurity and ethical hacking challenges.</p>
+                            <div class="tech-stack">
+                                <span>Cybersecurity</span>
+                                <span>Python</span>
+                                <span>Penetration Testing</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/Pusparaj99op/GHRCM_Hackthon_2025-19-03" target="_blank" class="project-link"><i class="fab fa-github"></i> Code</a>
+                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Info</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3: InkSync -->
+                <div class="project-item project-3d" data-category="web" data-animation="fade-up">
+                    <div class="project-inner">
+                        <div class="project-img">
+                            <img src="https://cdn.dribbble.com/users/196525/screenshots/2955011/media/b6a7a60cac06c328800e2d2f4dfb235d.jpg" alt="InkSync Project">
+                        </div>
+                        <div class="project-info">
+                            <h3>InkSync</h3>
+                            <p>A collaborative platform for writers and editors using EJS templates and real-time synchronization.</p>
+                            <div class="tech-stack">
+                                <span>EJS</span>
+                                <span>Node.js</span>
+                                <span>MongoDB</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/Pusparaj99op/InkSync" target="_blank" class="project-link"><i class="fab fa-github"></i> Code</a>
+                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 4: Fantasy Adventure Game -->
+                <div class="project-item project-3d" data-category="game" data-animation="fade-up">
+                    <div class="project-inner">
+                        <div class="project-img webgl-project">
+                            <!-- WebGL content will be added here by JavaScript -->
+                        </div>
+                        <div class="project-info">
+                            <h3>Fantasy Adventure Game</h3>
+                            <p>An immersive game built with Unreal Engine 5 featuring advanced graphics and AI.</p>
+                            <div class="tech-stack">
+                                <span>Unreal Engine 5</span>
+                                <span>Blueprints</span>
+                                <span>C++</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fas fa-play-circle"></i> Demo</a>
+                                <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 5: Network Security Analyzer -->
+                <div class="project-item project-3d" data-category="cyber" data-animation="fade-up">
+                    <div class="project-inner">
+                        <div class="project-img">
+                            <img src="https://img.freepik.com/free-vector/gradient-network-connection-background_23-2148865392.jpg" alt="Network Security Analyzer">
+                        </div>
+                        <div class="project-info">
+                            <h3>Network Security Analyzer</h3>
+                            <p>A tool that identifies vulnerabilities in network infrastructure using ethical hacking techniques.</p>
+                            <div class="tech-stack">
+                                <span>Python</span>
+                                <span>Kali Linux</span>
+                                <span>Wireshark</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fas fa-link"></i> Demo</a>
+                                <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 6: ManyMovies Bot -->
+                <div class="project-item project-3d" data-category="web" data-animation="fade-up">
+                    <div class="project-inner">
+                        <div class="project-img">
+                            <img src="https://img.freepik.com/premium-vector/chatbot-icon-concept-chat-bot-chatterbot-robot-virtual-assistance-website_123447-1615.jpg" alt="ManyMovies Bot">
+                        </div>
+                        <div class="project-info">
+                            <h3>ManyMovies Bot</h3>
+                            <p>A helpful Telegram bot for finding and sharing movies with friends.</p>
+                            <div class="tech-stack">
+                                <span>Python</span>
+                                <span>Telegram API</span>
+                                <span>Database</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/Pusparaj99op/ManyMovies_bot" target="_blank" class="project-link"><i class="fab fa-github"></i> Code</a>
+                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -278,83 +492,167 @@
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">Achievements</h2>
             <div class="achievements-container">
-                <div class="achievement-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="achievement-icon">
+                <div class="achievement-card card-3d" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="achievement-icon card-3d-content">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3>CEH v11 Certification</h3>
-                    <p>Qualified in Certified Ethical Hacker v11, demonstrating advanced cybersecurity skills.</p>
+                    <h3 class="card-3d-content">CEH v11 Certification</h3>
+                    <p class="card-3d-content">Qualified in Certified Ethical Hacker v11, demonstrating advanced cybersecurity skills.</p>
                 </div>
-                <div class="achievement-card" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="achievement-icon">
+                <div class="achievement-card card-3d" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="achievement-icon card-3d-content">
                         <i class="fas fa-chess"></i>
                     </div>
-                    <h3>State Level Chess Player</h3>
-                    <p>Competed and succeeded at state-level chess tournaments.</p>
+                    <h3 class="card-3d-content">State Level Chess Player</h3>
+                    <p class="card-3d-content">Competed and succeeded at state-level chess tournaments.</p>
                 </div>
-                <div class="achievement-card" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="achievement-icon">
+                <div class="achievement-card card-3d" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="achievement-icon card-3d-content">
                         <i class="fas fa-hockey-puck"></i>
                     </div>
-                    <h3>District Level Hockey</h3>
-                    <p>Represented my district in hockey competitions.</p>
+                    <h3 class="card-3d-content">District Level Hockey</h3>
+                    <p class="card-3d-content">Represented my district in hockey competitions.</p>
                 </div>
-                <div class="achievement-card" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="achievement-icon">
+                <div class="achievement-card card-3d" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="achievement-icon card-3d-content">
                         <i class="fas fa-futbol"></i>
                     </div>
-                    <h3>District Level Football</h3>
-                    <p>Successfully participated in district-level football tournaments.</p>
+                    <h3 class="card-3d-content">District Level Football</h3>
+                    <p class="card-3d-content">Successfully participated in district-level football tournaments.</p>
                 </div>
-                <div class="achievement-card" data-aos="zoom-in" data-aos-delay="500">
-                    <div class="achievement-icon">
+                <div class="achievement-card card-3d" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="achievement-icon card-3d-content">
                         <i class="fas fa-trophy"></i>
                     </div>
-                    <h3>RSOC-2025 Hackathon Winner</h3>
-                    <p>Won the prestigious RSOC-2025 Hackathon with innovative solutions.</p>
+                    <h3 class="card-3d-content">RSOC-2025 Hackathon Winner</h3>
+                    <p class="card-3d-content">Won the prestigious RSOC-2025 Hackathon with innovative solutions.</p>
                 </div>
-                <div class="achievement-card" data-aos="zoom-in" data-aos-delay="600">
-                    <div class="achievement-icon">
+                <div class="achievement-card card-3d" data-aos="zoom-in" data-aos-delay="600">
+                    <div class="achievement-icon card-3d-content">
                         <i class="fas fa-users"></i>
                     </div>
-                    <h3>Picsel Committee Core Team</h3>
-                    <p>Active core team member of Picsel Committee at KDK College of Engineering.</p>
+                    <h3 class="card-3d-content">Picsel Committee Core Team</h3>
+                    <p class="card-3d-content">Active core team member of Picsel Committee at KDK College of Engineering.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- NEW: Blog Section -->
+    <section id="blog" class="blog-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Latest Articles</h2>
+            <p class="subtitle" data-aos="fade-up">Insights and thoughts on game development, cybersecurity, and more</p>
+            <div class="blog-grid"></div> <!-- Blog posts will be added by JavaScript -->
+            <div class="blog-cta" data-aos="fade-up">
+                <a href="blog/" class="btn secondary-btn">View All Articles <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">What People Say</h2>
+            <p class="subtitle" data-aos="fade-up">Feedback from mentors, colleagues, and collaborators</p>
+            
+            <div class="testimonials-container" data-aos="fade-up">
+                <div class="testimonial-slider">
+                    <div class="testimonial-card">
+                        <div class="testimonial-icon">
+                            <i class="fas fa-quote-right"></i>
+                        </div>
+                        <div class="testimonial-content">
+                            <p>"Kalvin's proficiency in Unreal Engine 5 is remarkable. His ability to conceptualize and execute complex game mechanics sets him apart from his peers. A truly talented developer with a bright future ahead."</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-author-img">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Alex Walker">
+                                </div>
+                                <div class="testimonial-author-info">
+                                    <h4>Alex Walker</h4>
+                                    <p>Game Design Professor</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-icon">
+                            <i class="fas fa-quote-right"></i>
+                        </div>
+                        <div class="testimonial-content">
+                            <p>"Working with Kalvin on the RSOC-2025 Hackathon was an enlightening experience. His ethical hacking expertise and strategic approach to problem-solving were crucial to our team's success. A rare combination of technical skill and teamwork."</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-author-img">
+                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Mitchell">
+                                </div>
+                                <div class="testimonial-author-info">
+                                    <h4>Sarah Mitchell</h4>
+                                    <p>Cybersecurity Professional</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-icon">
+                            <i class="fas fa-quote-right"></i>
+                        </div>
+                        <div class="testimonial-content">
+                            <p>"Kalvin's contributions to the Picsel Committee have been invaluable. His innovative ideas and leadership skills have significantly elevated our technical events and workshops. He's not just a tech enthusiast, but a true visionary."</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-author-img">
+                                    <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Dr. Rajesh Kumar">
+                                </div>
+                                <div class="testimonial-author-info">
+                                    <h4>Dr. Rajesh Kumar</h4>
+                                    <p>Faculty Advisor, KDK College</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-nav">
+                    <span class="testimonial-dot active"></span>
+                    <span class="testimonial-dot"></span>
+                    <span class="testimonial-dot"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section with enhanced form -->
     <section id="contact" class="contact">
         <div class="blur-circle blur-circle-1" style="top: 20%; right: 10%; width: 180px; height: 180px;"></div>
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">Get In Touch</h2>
             <div class="contact-content">
                 <div class="contact-info" data-aos="fade-right" data-aos-delay="200">
-                    <div class="contact-info-item">
-                        <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <div class="text">
+                    <div class="contact-info-item card-3d">
+                        <div class="icon card-3d-content"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="text card-3d-content">
                             <h3>Location</h3>
                             <p>Nagpur, Maharashtra, India</p>
                         </div>
                     </div>
-                    <div class="contact-info-item">
-                        <div class="icon"><i class="fas fa-envelope"></i></div>
-                        <div class="text">
+                    <div class="contact-info-item card-3d">
+                        <div class="icon card-3d-content"><i class="fas fa-envelope"></i></div>
+                        <div class="text card-3d-content">
                             <h3>Email</h3>
                             <p>kalvinshah@example.com</p>
                         </div>
                     </div>
-                    <div class="contact-info-item">
-                        <div class="icon"><i class="fas fa-phone"></i></div>
-                        <div class="text">
+                    <div class="contact-info-item card-3d">
+                        <div class="icon card-3d-content"><i class="fas fa-phone"></i></div>
+                        <div class="text card-3d-content">
                             <h3>Phone</h3>
                             <p>+91 98765 43210</p>
                         </div>
                     </div>
-                    <div class="contact-info-item">
-                        <div class="icon"><i class="fas fa-globe"></i></div>
-                        <div class="text">
+                    <div class="contact-info-item card-3d">
+                        <div class="icon card-3d-content"><i class="fas fa-globe"></i></div>
+                        <div class="text card-3d-content">
                             <h3>Website</h3>
                             <p>pusparaj99op.github.io</p>
                         </div>
@@ -375,7 +673,7 @@
                             <textarea name="message" placeholder="Your Message" required></textarea>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn primary-btn">Send Message</button>
+                            <button type="submit" class="btn primary-btn magnetic-btn">Send Message <i class="fas fa-paper-plane"></i></button>
                         </div>
                         <div id="form-status" class="form-status"></div>
                     </form>
@@ -421,9 +719,12 @@
                     <ul>
                         <li><a href="#home">Home</a></li>
                         <li><a href="#about">About</a></li>
+                        <li><a href="#experience">Experience</a></li>
                         <li><a href="#skills">Skills</a></li>
                         <li><a href="#projects">Projects</a></li>
                         <li><a href="#achievements">Achievements</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
                 <div class="copyright">
@@ -449,6 +750,7 @@
     </button>
 
     <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/script.js"></script>
 </body>
