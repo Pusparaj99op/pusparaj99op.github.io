@@ -1,25 +1,43 @@
 # Kalvin Shah - Personal Portfolio
 
-![Portfolio QR Code](https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://pusparaj99op.github.io/)
+<div align="center">
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://pusparaj99op.github.io/" alt="Portfolio QR Code" width="150" height="150" />
+  <br><br>
+  
+  [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Deployed-blue?style=for-the-badge&logo=github)](https://pusparaj99op.github.io/)
+  [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
+  [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+  [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+</div>
 
 ## 🔗 Quick Access
 - **Live Website**: [pusparaj99op.github.io](https://pusparaj99op.github.io/)
 - Scan the QR code above to view my portfolio on mobile devices
 
 ## 🚀 Overview
-This is my personal portfolio website showcasing my skills, projects, and achievements. The website is designed to provide visitors with information about my background, technical expertise, and professional accomplishments in an interactive and visually appealing format.
+This is my personal portfolio website showcasing my skills, projects, and achievements. Inspired by premium web designs like [igloo.inc](https://www.igloo.inc/), my portfolio features a modern dark theme with vibrant accents, sophisticated animations, and an immersive user experience.
 
-## ✨ Features
-- **Responsive Design**: Fully responsive and works on all devices and screen sizes
-- **Modern UI/UX**: Clean, attractive interface with smooth animations and transitions
-- **Interactive Elements**: Dynamic project filtering, animated skill bars, and smooth scrolling
-- **Section-Based Layout**:
-  - Home/Hero section
-  - About Me
-  - Skills showcase with progress bars
-  - Projects portfolio with category filtering
-  - Achievements and certifications
-  - Contact form and information
+## ✨ Key Features
+- **Premium Dark Mode Design**: Elegant dark theme with dynamic accent colors and subtle gradients
+- **Responsive & Adaptive**: Seamlessly adjusts to any device or screen size
+- **Immersive Animations**: Subtle motion effects and transitions enhance the browsing experience
+- **Interactive Elements**: Dynamic content reveals, hover effects, and smooth scrolling
+- **Professional Sections**:
+  - Hero section with animated text and background effects
+  - About Me with elegant typography and layout
+  - Skills visualization with animated progress indicators
+  - Project showcase with filtering and interactive previews
+  - Achievements with visual storytelling elements
+  - Contact form with real-time validation and feedback
+
+## 🎨 Design Inspiration
+The website design draws inspiration from premium web experiences like [igloo.inc](https://www.igloo.inc/), featuring:
+
+- **Sophisticated Color Palette**: Deep backgrounds with vibrant accent colors
+- **Typography Hierarchy**: Clean, modern fonts with careful attention to readability
+- **Negative Space**: Strategic use of whitespace to create visual focus
+- **Micro-interactions**: Subtle feedback on user actions
+- **Visual Consistency**: Unified design language throughout
 
 ## 🛠️ Technologies Used
 - HTML5
