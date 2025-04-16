@@ -7,8 +7,18 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Blur effect elements -->
+    <div class="blur-circle blur-circle-1"></div>
+    <div class="blur-circle blur-circle-2"></div>
+
     <!-- Header -->
     <header>
         <div class="container">
@@ -36,16 +46,16 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="container">
-            <div class="hero-content">
+            <div class="hero-content animate-on-load" data-animation="fade-up">
                 <h1 class="animated">Hello, I'm <span>Kalvin Shah</span></h1>
-                <h2 class="animated">Also known as Pranay Gajbhiye</h2>
-                <p class="animated">Computer Science Engineering Student | Game Developer | Certified Ethical Hacker</p>
-                <div class="hero-buttons">
+                <h2 class="animated delay-1">Also known as Pranay Gajbhiye</h2>
+                <p class="animated delay-2">Computer Science Engineering Student | <span class="typing-text" data-words='["Game Developer", "Ethical Hacker", "Tech Enthusiast"]'>Game Developer</span></p>
+                <div class="hero-buttons animated delay-3">
                     <a href="#contact" class="btn primary-btn">Contact Me</a>
                     <a href="#projects" class="btn secondary-btn">View My Work</a>
                 </div>
             </div>
-            <div class="hero-image">
+            <div class="hero-image floating">
                 <div class="shape"></div>
             </div>
         </div>
@@ -54,17 +64,16 @@
     <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
-            <h2 class="section-title">About Me</h2>
+            <h2 class="section-title" data-aos="fade-up">About Me</h2>
             <div class="about-content">
-                <div class="about-img">
+                <div class="about-img" data-aos="fade-right" data-aos-delay="200">
                     <div class="img-container">
-                        <div class="img-box">
-                            <!-- Replace with your actual image -->
+                        <div class="img-box hover-card">
                             <img src="https://via.placeholder.com/400x500" alt="Kalvin Shah">
                         </div>
                     </div>
                 </div>
-                <div class="about-text">
+                <div class="about-text" data-aos="fade-left" data-aos-delay="300">
                     <h3>CSE Student & Game Developer</h3>
                     <p>I'm Kalvin Shah, a Computer Science Engineering student at KDK College of Engineering, Nagpur. Born on September 6, 2005, I'm passionate about technology, cybersecurity, and game development.</p>
                     <p>As a Core Team Member of the Picsel Committee, I actively contribute to technological initiatives within my college. I've qualified for CEH v11 certification, demonstrating my expertise in ethical hacking and cybersecurity.</p>
@@ -101,10 +110,11 @@
 
     <!-- Skills Section -->
     <section id="skills" class="skills">
+        <div class="blur-circle blur-circle-2" style="top: 30%; right: 5%; width: 200px; height: 200px;"></div>
         <div class="container">
-            <h2 class="section-title">My Skills</h2>
+            <h2 class="section-title" data-aos="fade-up">My Skills</h2>
             <div class="skills-content">
-                <div class="skill-category">
+                <div class="skill-category" data-aos="fade-up" data-aos-delay="200">
                     <h3>Technical Skills</h3>
                     <div class="skill-items">
                         <div class="skill-item">
@@ -113,7 +123,7 @@
                                 <p>85%</p>
                             </div>
                             <div class="skill-bar">
-                                <span class="skill-percent" style="width:85%"></span>
+                                <span class="skill-percent" data-width="85%"></span>
                             </div>
                         </div>
                         <div class="skill-item">
@@ -122,7 +132,7 @@
                                 <p>90%</p>
                             </div>
                             <div class="skill-bar">
-                                <span class="skill-percent" style="width:90%"></span>
+                                <span class="skill-percent" data-width="90%"></span>
                             </div>
                         </div>
                         <div class="skill-item">
@@ -131,7 +141,7 @@
                                 <p>80%</p>
                             </div>
                             <div class="skill-bar">
-                                <span class="skill-percent" style="width:80%"></span>
+                                <span class="skill-percent" data-width="80%"></span>
                             </div>
                         </div>
                         <div class="skill-item">
@@ -140,12 +150,12 @@
                                 <p>75%</p>
                             </div>
                             <div class="skill-bar">
-                                <span class="skill-percent" style="width:75%"></span>
+                                <span class="skill-percent" data-width="75%"></span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="skill-category">
+                <div class="skill-category" data-aos="fade-up" data-aos-delay="400">
                     <h3>Soft Skills</h3>
                     <div class="skill-items">
                         <div class="skill-item">
@@ -154,7 +164,7 @@
                                 <p>95%</p>
                             </div>
                             <div class="skill-bar">
-                                <span class="skill-percent" style="width:95%"></span>
+                                <span class="skill-percent" data-width="95%"></span>
                             </div>
                         </div>
                         <div class="skill-item">
@@ -163,7 +173,7 @@
                                 <p>85%</p>
                             </div>
                             <div class="skill-bar">
-                                <span class="skill-percent" style="width:85%"></span>
+                                <span class="skill-percent" data-width="85%"></span>
                             </div>
                         </div>
                         <div class="skill-item">
@@ -172,7 +182,7 @@
                                 <p>90%</p>
                             </div>
                             <div class="skill-bar">
-                                <span class="skill-percent" style="width:90%"></span>
+                                <span class="skill-percent" data-width="90%"></span>
                             </div>
                         </div>
                         <div class="skill-item">
@@ -181,7 +191,7 @@
                                 <p>80%</p>
                             </div>
                             <div class="skill-bar">
-                                <span class="skill-percent" style="width:80%"></span>
+                                <span class="skill-percent" data-width="80%"></span>
                             </div>
                         </div>
                     </div>
@@ -192,9 +202,10 @@
 
     <!-- Projects Section -->
     <section id="projects" class="projects">
+        <div class="blur-circle blur-circle-1" style="bottom: 10%; left: 15%;"></div>
         <div class="container">
-            <h2 class="section-title">My Projects</h2>
-            <div class="projects-filter">
+            <h2 class="section-title" data-aos="fade-up">My Projects</h2>
+            <div class="projects-filter" data-aos="fade-up">
                 <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="game">Game Development</button>
                 <button class="filter-btn" data-filter="cyber">Cybersecurity</button>
@@ -202,7 +213,7 @@
             </div>
             <div class="projects-container">
                 <!-- Project 1 -->
-                <div class="project-item" data-category="game">
+                <div class="project-item animate-on-scroll" data-category="game" data-animation="fade-up">
                     <div class="project-img">
                         <img src="https://via.placeholder.com/600x400" alt="UE5 Game Project">
                     </div>
@@ -221,7 +232,7 @@
                     </div>
                 </div>
                 <!-- Project 2 -->
-                <div class="project-item" data-category="cyber">
+                <div class="project-item animate-on-scroll" data-category="cyber" data-animation="fade-up">
                     <div class="project-img">
                         <img src="https://via.placeholder.com/600x400" alt="Cybersecurity Project">
                     </div>
@@ -240,7 +251,7 @@
                     </div>
                 </div>
                 <!-- Project 3 -->
-                <div class="project-item" data-category="web">
+                <div class="project-item animate-on-scroll" data-category="web" data-animation="fade-up">
                     <div class="project-img">
                         <img src="https://via.placeholder.com/600x400" alt="Web Project">
                     </div>
@@ -265,44 +276,44 @@
     <!-- Achievements Section -->
     <section id="achievements" class="achievements">
         <div class="container">
-            <h2 class="section-title">Achievements</h2>
+            <h2 class="section-title" data-aos="fade-up">Achievements</h2>
             <div class="achievements-container">
-                <div class="achievement-card">
+                <div class="achievement-card" data-aos="zoom-in" data-aos-delay="100">
                     <div class="achievement-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <h3>CEH v11 Certification</h3>
                     <p>Qualified in Certified Ethical Hacker v11, demonstrating advanced cybersecurity skills.</p>
                 </div>
-                <div class="achievement-card">
+                <div class="achievement-card" data-aos="zoom-in" data-aos-delay="200">
                     <div class="achievement-icon">
                         <i class="fas fa-chess"></i>
                     </div>
                     <h3>State Level Chess Player</h3>
                     <p>Competed and succeeded at state-level chess tournaments.</p>
                 </div>
-                <div class="achievement-card">
+                <div class="achievement-card" data-aos="zoom-in" data-aos-delay="300">
                     <div class="achievement-icon">
                         <i class="fas fa-hockey-puck"></i>
                     </div>
                     <h3>District Level Hockey</h3>
                     <p>Represented my district in hockey competitions.</p>
                 </div>
-                <div class="achievement-card">
+                <div class="achievement-card" data-aos="zoom-in" data-aos-delay="400">
                     <div class="achievement-icon">
                         <i class="fas fa-futbol"></i>
                     </div>
                     <h3>District Level Football</h3>
                     <p>Successfully participated in district-level football tournaments.</p>
                 </div>
-                <div class="achievement-card">
+                <div class="achievement-card" data-aos="zoom-in" data-aos-delay="500">
                     <div class="achievement-icon">
                         <i class="fas fa-trophy"></i>
                     </div>
                     <h3>RSOC-2025 Hackathon Winner</h3>
                     <p>Won the prestigious RSOC-2025 Hackathon with innovative solutions.</p>
                 </div>
-                <div class="achievement-card">
+                <div class="achievement-card" data-aos="zoom-in" data-aos-delay="600">
                     <div class="achievement-icon">
                         <i class="fas fa-users"></i>
                     </div>
@@ -315,10 +326,11 @@
 
     <!-- Contact Section -->
     <section id="contact" class="contact">
+        <div class="blur-circle blur-circle-1" style="top: 20%; right: 10%; width: 180px; height: 180px;"></div>
         <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
+            <h2 class="section-title" data-aos="fade-up">Get In Touch</h2>
             <div class="contact-content">
-                <div class="contact-info">
+                <div class="contact-info" data-aos="fade-right" data-aos-delay="200">
                     <div class="contact-info-item">
                         <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
                         <div class="text">
@@ -348,7 +360,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="contact-form">
+                <div class="contact-form" data-aos="fade-left" data-aos-delay="300">
                     <form id="contactForm">
                         <div class="form-group">
                             <input type="text" name="name" placeholder="Your Name" required>
@@ -369,23 +381,23 @@
                     </form>
                 </div>
             </div>
-            <div class="contact-social">
+            <div class="contact-social" data-aos="fade-up" data-aos-delay="400">
                 <h3>Connect With Me</h3>
                 <p>Let's connect on social media platforms or professional networks. I'm always open to interesting conversations and collaboration opportunities.</p>
                 <div class="social-grid">
-                    <a href="https://github.com/Pusparaj99op" target="_blank" class="social-box">
+                    <a href="https://github.com/Pusparaj99op" target="_blank" class="social-box hover-card">
                         <i class="fab fa-github"></i>
                         <span>GitHub</span>
                     </a>
-                    <a href="#" target="_blank" class="social-box">
+                    <a href="#" target="_blank" class="social-box hover-card">
                         <i class="fab fa-linkedin-in"></i>
                         <span>LinkedIn</span>
                     </a>
-                    <a href="#" target="_blank" class="social-box">
+                    <a href="#" target="_blank" class="social-box hover-card">
                         <i class="fab fa-twitter"></i>
                         <span>Twitter</span>
                     </a>
-                    <a href="#" target="_blank" class="social-box">
+                    <a href="#" target="_blank" class="social-box hover-card">
                         <i class="fab fa-instagram"></i>
                         <span>Instagram</span>
                     </a>
@@ -431,7 +443,13 @@
     <!-- Go to top button -->
     <a href="#" class="go-top"><i class="fas fa-arrow-up"></i></a>
 
+    <!-- Theme toggle button -->
+    <button id="theme-toggle" class="theme-toggle">
+        <i class="fas fa-sun"></i>
+    </button>
+
     <!-- JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
