@@ -1,0 +1,478 @@
+/**
+ * Mobile Optimizations CSS
+ * Special styles for mobile devices to improve performance and usability
+ */
+
+/* System font override for better performance */
+.mobile-optimized-fonts {
+    --mobile-font-override: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.mobile-optimized-fonts body,
+.mobile-optimized-fonts h1,
+.mobile-optimized-fonts h2,
+.mobile-optimized-fonts h3,
+.mobile-optimized-fonts h4,
+.mobile-optimized-fonts h5,
+.mobile-optimized-fonts h6,
+.mobile-optimized-fonts p,
+.mobile-optimized-fonts button,
+.mobile-optimized-fonts input,
+.mobile-optimized-fonts textarea {
+    font-family: var(--mobile-font-override) !important;
+}
+
+/* Hide heavy animations during scroll for performance */
+.is-scrolling .blur-circle,
+.is-scrolling .floating,
+.is-scrolling .particles-js-canvas-el {
+    transition: none !important;
+    animation-play-state: paused !important;
+}
+
+/* Optimize transform animations for better GPU performance */
+.is-scrolling .animate-on-scroll {
+    will-change: auto !important;
+}
+
+/* Reduce motion for accessibility and performance */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .animated,
+    .animate-on-load,
+    .animate-on-scroll {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+/* Mobile navigation optimizations */
+.mobile-nav-hidden {
+    transform: translateY(-100%) !important;
+    transition: transform 0.3s ease !important;
+}
+
+/* Enhanced touch targets */
+.mobile-touch-target {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 12px;
+}
+
+/* Active state for touch elements */
+.touch-active {
+    transform: scale(0.96);
+    opacity: 0.8;
+    transition: transform 0.2s ease, opacity 0.2s ease !important;
+}
+
+/* Mobile highlight text replacement for heavy gradient text */
+.mobile-highlight-text {
+    color: var(--accent-primary);
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(108, 99, 255, 0.3);
+}
+
+/* Mobile-friendly buttons */
+.mobile-btn {
+    transform: none !important;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease !important;
+}
+
+.mobile-btn:active {
+    transform: scale(0.95) !important;
+}
+
+/* WebGL project placeholders */
+.webgl-placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.mobile-note {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.mobile-note i {
+    font-size: 0.8rem;
+}
+
+/* Mobile-optimized layout adjustments */
+@media screen and (max-width: 768px) {
+    /* Reduce padding for better content area */
+    section {
+        padding: 5rem 0;
+    }
+    
+    /* Optimize container padding */
+    .container {
+        padding: 0 1.5rem;
+    }
+    
+    /* Optimize headings for mobile screens */
+    .section-title {
+        margin-bottom: 2.5rem;
+    }
+    
+    .subtitle {
+        margin: -1.5rem auto 2.5rem;
+    }
+    
+    /* Optimize hero section height */
+    .hero {
+        height: 90vh;
+    }
+    
+    /* Make buttons easier to tap */
+    .btn {
+        padding: 0.7rem 1.5rem;
+        min-width: 140px;
+    }
+    
+    /* Optimize project cards */
+    .projects-container {
+        gap: 1.5rem;
+    }
+    
+    /* Adjust grid for better mobile view */
+    .blog-grid,
+    .testimonial-slider {
+        gap: 1.5rem;
+    }
+    
+    /* Optimize spacing for timeline elements */
+    .timeline::after {
+        left: 20px;
+    }
+
+    /* Reduce motion on complex elements */
+    .card-3d,
+    .project-item:hover,
+    .achievement-card:hover,
+    .blog-card:hover {
+        transform: translateY(-5px) !important;
+    }
+    
+    /* Disable intensive parallax effects */
+    .parallax-element {
+        transform: none !important;
+    }
+}
+
+/* Optimize for tablets */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    /* Reduce intensity of effects for mid-range devices */
+    .blur-circle {
+        opacity: 0.4;
+    }
+    
+    /* Adjust parallax intensity */
+    [data-parallax] {
+        transform: translate3d(0, 0, 0) !important;
+    }
+    
+    /* Optimize card effects */
+    .card-3d:hover {
+        transform: translateY(-10px) !important;
+    }
+}
+
+/* Battery/performance saving mode when low battery is detected */
+.battery-saving-mode {
+    /* Disable all animations */
+    --transition: none !important;
+}
+
+.battery-saving-mode * {
+    animation-play-state: paused !important;
+    transition: none !important;
+}
+
+.battery-saving-mode .blur-circle,
+.battery-saving-mode #particles-canvas,
+.battery-saving-mode .webgl-project canvas {
+    display: none !important;
+}
+
+/* Double-tap affordance indicator */
+.double-tap-indicator {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.double-tap-indicator.visible {
+    opacity: 1;
+    animation: fade-out 1.5s forwards;
+}
+
+@keyframes fade-out {
+    0% { opacity: 1; }
+    70% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/**
+ * Mobile Optimizations CSS
+ * Performance enhancements for mobile devices
+ */
+
+/* Base mobile optimizations */
+@media screen and (max-width: 767px) {
+    /* Reduce animation complexity on mobile */
+    .blur-circle {
+        opacity: 0.3;
+        filter: blur(50px);
+    }
+    
+    /* Simplify background effects */
+    #particles-canvas {
+        opacity: 0.5;
+    }
+    
+    /* Critical CSS loading indicators */
+    .lazy-content {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+    
+    .lazy-content.loaded {
+        opacity: 1;
+    }
+    
+    /* Hide custom cursor on mobile */
+    .custom-cursor {
+        display: none;
+    }
+    
+    /* Optimize hero section for mobile */
+    .hero-content h1 {
+        font-size: clamp(2rem, 10vw, 3rem);
+    }
+    
+    .hero-content h2 {
+        font-size: clamp(1rem, 5vw, 1.3rem);
+    }
+    
+    /* Adjust button sizes for mobile touch */
+    .btn {
+        min-width: 120px;
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Optimize card layouts */
+    .project-item, 
+    .achievement-card, 
+    .blog-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Reduce 3D effects on mobile */
+    .card-3d:hover {
+        transform: none;
+    }
+    
+    .card-3d:hover .card-3d-content {
+        transform: none;
+    }
+    
+    /* Optimize spacing */
+    section {
+        padding: 4rem 0;
+    }
+    
+    .container {
+        padding: 0 1.5rem;
+    }
+}
+
+/* Touch-specific optimizations */
+@media (hover: none) {
+    /* Optimize hover states for touch devices */
+    .btn:hover,
+    .project-item:hover,
+    .achievement-card:hover,
+    .go-top:hover,
+    #navbar li a:hover {
+        transform: none;
+    }
+    
+    #navbar li a::after {
+        opacity: 1;
+        width: 0;
+    }
+    
+    #navbar li a.active::after {
+        width: 100%;
+    }
+}
+
+/* Low data mode optimizations */
+.low-data-mode {
+    /* Disable heavy background effects */
+    #particles-canvas {
+        display: none;
+    }
+    
+    .blur-circle {
+        display: none;
+    }
+    
+    /* Simplify gradients */
+    .gradient-text {
+        background: var(--accent-primary);
+        -webkit-background-clip: text;
+        background-clip: text;
+        animation: none;
+    }
+    
+    /* Reduce shadow complexity */
+    .card-3d,
+    .achievement-card,
+    .project-item {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Disable animations */
+    * {
+        transition-duration: 0.1s;
+        animation-duration: 0.1s;
+    }
+}
+
+/* Performance optimizations for specific components */
+@media screen and (max-width: 767px) {
+    /* Optimize image loading */
+    img.lazy-load {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+    
+    img.lazy-load.loaded {
+        opacity: 1;
+    }
+    
+    /* Reduce layout complexity for better performance */
+    .projects-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .timeline::after {
+        width: 2px;
+    }
+    
+    /* Optimize scrolling performance */
+    .skills-chart {
+        height: 200px;
+    }
+    
+    /* Ensure buttons are large enough for touch interactions */
+    .filter-btn {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Reduce form field animations */
+    .form-group input:focus,
+    .form-group textarea:focus {
+        transform: none;
+    }
+}
+
+/* Battery saving optimizations */
+.battery-saver {
+    /* Disable animations */
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    /* Remove background effects */
+    .blur-circle,
+    #particles-canvas {
+        display: none;
+    }
+    
+    /* Simplify gradients */
+    [style*="background:"], 
+    [style*="background-color:"] {
+        background: var(--bg-primary) !important;
+    }
+    
+    /* Reduce shadow effects */
+    [style*="box-shadow:"] {
+        box-shadow: none !important;
+    }
+}
+
+/* Fine-tune responsive typography */
+@media screen and (max-width: 480px) {
+    html {
+        font-size: 14px;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        word-break: break-word;
+    }
+    
+    .section-title {
+        font-size: clamp(1.8rem, 8vw, 2.5rem);
+    }
+}
+
+/* Progressive enhancement for high-end devices */
+@media screen and (min-width: 992px) and (min-height: 700px) {
+    .high-performance-mode .card-3d {
+        transform-style: preserve-3d;
+    }
+    
+    .high-performance-mode .card-3d-content {
+        transform: translateZ(30px);
+    }
+    
+    .high-performance-mode .blur-circle {
+        filter: blur(100px);
+    }
+}
+
+/* Connection-aware optimizations */
+.slow-connection .lazy-content {
+    transition-delay: 0.5s;
+}
+
+.slow-connection img {
+    transition: opacity 1s ease;
+}

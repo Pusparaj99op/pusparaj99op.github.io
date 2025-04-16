@@ -1,0 +1,1573 @@
+/**
+ * Psychology Effects CSS
+ * Styles for psychological engagement features
+ */
+
+/* Progress bar that fills as user scrolls the page */
+.psychology-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+    z-index: 2000;
+    transition: width 0.2s ease;
+}
+
+.psychology-progress.milestone-glow {
+    filter: drop-shadow(0 0 8px var(--accent-primary));
+    height: 4px;
+}
+
+/* Point rewards that appear on user interactions */
+.psychology-reward {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--accent-primary);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    opacity: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.psychology-reward span {
+    font-weight: 700;
+    margin-right: 0.3rem;
+}
+
+.psychology-reward-large {
+    padding: 0.7rem 1.5rem;
+    font-size: 1.1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.psychology-reward-show {
+    opacity: 1;
+    animation: reward-appear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.psychology-reward-hide {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% - 100px));
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes reward-appear {
+    0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+    50% { transform: translate(-50%, -50%) scale(1.2); }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+/* Reward counter in the top corner */
+.reward-counter-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(108, 99, 255, 0.1);
+    border-radius: 50px;
+    padding: 0.4rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid var(--glass-border);
+    z-index: 1000;
+    transform: translateY(-50px);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.reward-counter-show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.reward-counter-icon {
+    color: var(--accent-primary);
+    font-size: 1rem;
+}
+
+.reward-counter {
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 1rem;
+    transition: transform 0.2s;
+}
+
+.reward-counter-update {
+    animation: counter-pulse 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes counter-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+/* Ripple effect for buttons and interactive elements */
+.psychology-ripple {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple-psychology 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes ripple-psychology {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Haptic-like feedback when clicking buttons */
+.psychology-haptic {
+    animation: haptic 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes haptic {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+/* Particles that appear on hover */
+.psychology-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: var(--accent-primary);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.5;
+    animation: particle-float 1s ease-out forwards;
+    z-index: 10;
+}
+
+@keyframes particle-float {
+    0% { transform: translateY(0) scale(1); opacity: 0.5; }
+    100% { transform: translateY(-15px) scale(0); opacity: 0; }
+}
+
+/* Surprise floating elements that move across screen */
+.psychology-floating-element {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    font-size: 2rem;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: transform 8s linear, opacity 1s ease;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* Notification bubble for surprise messages */
+.psychology-notification {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    gap: 0.8rem;
+    box-shadow: var(--glass-shadow);
+    z-index: 9999;
+    transform: translateX(120%);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    max-width: 300px;
+}
+
+.psychology-notification-show {
+    transform: translateX(0);
+}
+
+.psychology-notification-hide {
+    transform: translateX(120%);
+}
+
+.psychology-notification-icon {
+    color: var(--accent-primary);
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+}
+
+.psychology-notification-content p {
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Scarcity indicators for FOMO effect */
+.psychology-scarcity-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+    opacity: 0.9;
+    transition: all 0.3s;
+}
+
+.psychology-scarcity-container:hover {
+    opacity: 1;
+}
+
+.psychology-scarcity-pulse {
+    animation: scarcity-pulse 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes scarcity-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+.psychology-scarcity-indicator {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    position: relative;
+}
+
+.psychology-scarcity-indicator i {
+    color: var(--accent-tertiary);
+    font-size: 1.2rem;
+}
+
+.psychology-scarcity-indicator p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.psychology-scarcity-indicator p span {
+    color: var(--accent-tertiary);
+    font-weight: 600;
+}
+
+.countdown-timer {
+    color: var(--accent-tertiary);
+    font-weight: 700;
+    margin-left: auto;
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+}
+
+.scarcity-action {
+    margin-left: auto;
+    padding: 0.4rem 1rem;
+    background: var(--accent-tertiary);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.scarcity-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+/* Social proof notifications */
+.psychology-social-proof {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 9998;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    pointer-events: none;
+}
+
+.visitor-counter {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    box-shadow: var(--glass-shadow);
+}
+
+.visitor-counter i {
+    color: var(--accent-secondary);
+}
+
+.visitor-counter span {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.activity-notification {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    transform: translateY(50px);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: var(--glass-shadow);
+    max-width: 280px;
+}
+
+.activity-notification.notification-show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.activity-notification.notification-hide {
+    transform: translateY(50px);
+    opacity: 0;
+}
+
+.activity-icon {
+    color: var(--accent-secondary);
+    font-size: 1.5rem;
+}
+
+.activity-content p {
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: var(--text-primary);
+}
+
+.activity-content span {
+    font-size: 0.7rem;
+    color: var(--text-tertiary);
+}
+
+.activity-content strong {
+    color: var(--accent-secondary);
+}
+
+/* Mobile optimizations */
+@media screen and (max-width: 768px) {
+    .reward-counter-container {
+        top: 70px;
+    }
+    
+    .psychology-notification {
+        max-width: 85%;
+        left: 30px;
+        right: 30px;
+        bottom: 20px;
+    }
+    
+    .psychology-floating-element {
+        font-size: 1.5rem;
+    }
+    
+    .activity-notification {
+        max-width: 220px;
+    }
+    
+    .visitor-counter {
+        font-size: 0.7rem;
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+/**
+ * Psychology Effects CSS
+ * Based on established UX psychology principles to create a more engaging experience
+ */
+
+/* PRINCIPLE 1: Von Restorff Effect - highlighted elements that stand out */
+.highlight-item {
+    position: relative;
+    z-index: 2;
+}
+
+.highlight-item::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: var(--gradient-primary);
+    border-radius: calc(var(--border-radius) + 5px);
+    opacity: 0.15;
+    transform: scale(0.9);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                opacity 0.3s ease;
+}
+
+.highlight-item:hover::before {
+    transform: scale(1);
+    opacity: 0.25;
+}
+
+/* PRINCIPLE 2: Anticipation element - creates expectation */
+.anticipation-cue {
+    position: relative;
+    overflow: hidden;
+}
+
+.anticipation-cue::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--gradient-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.anticipation-cue:hover::after {
+    transform: scaleX(1);
+}
+
+/* PRINCIPLE 3: Variable Reward System - unpredictable responses */
+.reward-element {
+    position: relative;
+}
+
+.reward-toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: var(--glass-shadow);
+    z-index: 9999;
+    transform: translateY(150%);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6),
+                opacity 0.3s ease;
+    max-width: 300px;
+}
+
+.reward-toast.visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.reward-toast .reward-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.reward-toast .reward-points {
+    display: inline-block;
+    padding: 3px 8px;
+    background: var(--accent-primary);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    margin-left: 5px;
+}
+
+/* PRINCIPLE 4: Progress and Achievement */
+.progress-container {
+    width: 100%;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--gradient-primary);
+    width: 0;
+    transition: width 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+        rgba(255,255,255,0) 0%, 
+        rgba(255,255,255,0.1) 50%, 
+        rgba(255,255,255,0) 100%);
+    animation: progress-shine 2s infinite linear;
+}
+
+@keyframes progress-shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* PRINCIPLE 5: Restricted and Exclusive Content Effect */
+.exclusive-content {
+    position: relative;
+    filter: blur(5px);
+    pointer-events: none;
+    user-select: none;
+    overflow: hidden;
+    transition: filter 0.5s ease;
+}
+
+.exclusive-content::before {
+    content: 'Unlock this content';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    z-index: 2;
+    white-space: nowrap;
+    box-shadow: var(--glass-shadow);
+}
+
+.exclusive-content.unlocked {
+    filter: none;
+    pointer-events: auto;
+    user-select: auto;
+}
+
+.exclusive-content.unlocked::before {
+    display: none;
+}
+
+/* PRINCIPLE 6: Social Proof and Credibility */
+.social-proof {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    margin-left: 8px;
+    color: var(--accent-primary);
+    font-size: 0.8rem;
+}
+
+.social-proof i {
+    font-size: 0.7rem;
+}
+
+.verified-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    background: var(--accent-primary);
+    color: white;
+    border-radius: 50%;
+    font-size: 8px;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+/* PRINCIPLE 7: Scarcity and Urgency */
+.limited-time {
+    position: relative;
+    overflow: hidden;
+}
+
+.limited-time-badge {
+    position: absolute;
+    top: 15px;
+    right: -30px;
+    background: var(--accent-tertiary);
+    color: white;
+    padding: 5px 30px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transform: rotate(45deg);
+    z-index: 2;
+    box-shadow: 0 2px 10px rgba(255, 107, 107, 0.4);
+}
+
+.countdown {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--bg-tertiary);
+    padding: 5px 10px;
+    border-radius: var(--border-radius);
+    min-width: 50px;
+}
+
+.countdown-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent-tertiary);
+}
+
+.countdown-label {
+    font-size: 0.7rem;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+}
+
+/* PRINCIPLE 8: Strategic Color Psychology */
+.attention-grabbing-text {
+    color: var(--accent-tertiary);
+    font-weight: 600;
+    position: relative;
+}
+
+.attention-grabbing-text::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent-tertiary);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.attention-grabbing-text:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.trust-color {
+    color: #00c853; /* Green for trust and safety */
+}
+
+.excitement-color {
+    color: #ff9100; /* Orange for excitement and energy */
+}
+
+/* PRINCIPLE 9: Endowed Progress Effect */
+.endowed-progress {
+    position: relative;
+}
+
+.progress-steps {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.progress-step {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--bg-tertiary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+    position: relative;
+    z-index: 2;
+}
+
+.progress-step.active {
+    background: var(--accent-primary);
+    color: white;
+}
+
+.progress-step.complete {
+    background: var(--accent-primary);
+    color: white;
+}
+
+.progress-step.complete::after {
+    content: '✓';
+}
+
+.progress-connector {
+    flex: 1;
+    height: 3px;
+    background: var(--bg-tertiary);
+    position: relative;
+}
+
+.progress-connector-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: var(--accent-primary);
+    width: 0;
+    transition: width 0.5s ease;
+}
+
+/* PRINCIPLE 10: Gamification Elements */
+.achievement-badge {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    position: relative;
+    cursor: help;
+}
+
+.achievement-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--bg-tertiary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--text-tertiary);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.achievement-icon.earned {
+    background: var(--gradient-primary);
+    color: white;
+    animation: pop 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+}
+
+.achievement-label {
+    margin-top: 5px;
+    font-size: 0.8rem;
+    text-align: center;
+    color: var(--text-tertiary);
+}
+
+.achievement-icon.earned + .achievement-label {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.achievement-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    padding: 10px;
+    border-radius: var(--border-radius);
+    width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    box-shadow: var(--glass-shadow);
+    font-size: 0.8rem;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.achievement-badge:hover .achievement-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+@keyframes pop {
+    0% { transform: scale(0.8); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* PRINCIPLE: Notification/Reward Animations */
+@keyframes confetti {
+    0% { opacity: 1; transform: translateY(0) rotateZ(0); }
+    100% { opacity: 0; transform: translateY(100px) rotateZ(360deg); }
+}
+
+.confetti-piece {
+    position: absolute;
+    width: 8px;
+    height: 16px;
+    background: var(--accent-primary);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.confetti-piece:nth-child(2) {
+    background: var(--accent-secondary);
+}
+
+.confetti-piece:nth-child(3) {
+    background: var(--accent-tertiary);
+}
+
+.confetti-piece:nth-child(4) {
+    background: #42f5d1;
+}
+
+/* PRINCIPLE: Peak-End Rule Optimizations */
+.peak-moment {
+    animation: peak-highlight 1s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+}
+
+@keyframes peak-highlight {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(108, 99, 255, 0.3); }
+    100% { transform: scale(1); }
+}
+
+.end-sequence {
+    transition: all 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+}
+
+.end-sequence:hover {
+    transform: translateY(-5px) scale(1.03);
+}
+
+/* PRINCIPLE: Anchoring Effect */
+.reference-anchor {
+    text-decoration: line-through;
+    color: var(--text-tertiary);
+    margin-right: 10px;
+}
+
+.value-emphasis {
+    font-size: 1.1em;
+    font-weight: 700;
+    color: var(--accent-primary);
+}
+
+/* PRINCIPLE: Zeigarnik Effect - incomplete tasks create tension */
+.incomplete-indicator {
+    position: relative;
+}
+
+.incomplete-indicator::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent-tertiary);
+    box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* PRINCIPLE: Paradox of Choice - decluttered options */
+.choice-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.choice-option {
+    flex: 1;
+    max-width: 200px;
+    padding: 15px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    text-align: center;
+    transition: var(--transition);
+}
+
+.choice-option:hover,
+.choice-option.selected {
+    transform: translateY(-5px);
+    border-color: var(--accent-primary);
+    box-shadow: 0 10px 25px rgba(108, 99, 255, 0.2);
+}
+
+.choice-option.recommended {
+    position: relative;
+    border-color: var(--accent-primary);
+}
+
+.choice-option.recommended::before {
+    content: 'Recommended';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-primary);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* PRINCIPLE: Activity Feed (Social Proof) */
+.activity-feed {
+    margin: 20px 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    animation: fade-in 0.5s ease;
+}
+
+.activity-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.activity-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.activity-content {
+    flex: 1;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.activity-content strong {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.activity-time {
+    color: var(--text-tertiary);
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+/* Sustainable Engagement Styles */
+.session-reminder {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--glass-shadow);
+    z-index: 999;
+    max-width: 300px;
+    transform: translateY(150%);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6),
+                opacity 0.3s ease;
+}
+
+.session-reminder.visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.session-reminder-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.session-reminder-title {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.session-reminder-close {
+    background: none;
+    border: none;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.session-reminder-close:hover {
+    color: var(--text-primary);
+}
+
+/* Psychology Effects CSS - Engagement Optimization
+ * This file implements subtle psychological triggers to enhance user engagement
+ * Based on principles from behavioral psychology, cognitive biases, and UX research
+ */
+
+/* 1. Visual Hierarchy Enhancements
+ * - Guides user attention through the website
+ * - Uses size, color, and whitespace to establish importance
+ */
+.attention-focus {
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.attention-focus:hover, .attention-focus.active {
+    transform: scale(1.03);
+    z-index: 10;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.visual-hierarchy-1 { font-size: 2.5rem; font-weight: 700; } /* Primary focus */
+.visual-hierarchy-2 { font-size: 1.8rem; font-weight: 600; } /* Secondary focus */
+.visual-hierarchy-3 { font-size: 1.3rem; font-weight: 500; } /* Tertiary focus */
+
+/* 2. Social Proof Indicators
+ * - Leverages herd behavior and conformity bias
+ * - Creates perception of popularity and trustworthiness
+ */
+.social-proof-container {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.social-indicator {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50px;
+    margin-right: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.social-indicator i {
+    margin-right: 0.5rem;
+    color: var(--accent-primary);
+}
+
+.testimonial-highlight {
+    border-left: 3px solid var(--accent-primary);
+    padding-left: 1rem;
+    font-style: italic;
+    position: relative;
+}
+
+.testimonial-highlight::before {
+    content: '"';
+    font-size: 3rem;
+    position: absolute;
+    top: -1rem;
+    left: -0.5rem;
+    color: rgba(108, 99, 255, 0.2);
+    font-family: Georgia, serif;
+}
+
+/* 3. Scarcity & Urgency Triggers
+ * - Creates FOMO (Fear of Missing Out)
+ * - Encourages immediate action
+ */
+.limited-offer {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(45deg, #ff6b6b, #ff9a44);
+    color: white;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    position: relative;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+
+.limited-offer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: skewX(-30deg);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0%, 100% { left: -100%; }
+    50% { left: 100%; }
+}
+
+.countdown-timer {
+    display: flex;
+    gap: 0.8rem;
+    margin: 1rem 0;
+}
+
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.countdown-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    background: rgba(0, 0, 0, 0.2);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.countdown-number::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    top: 50%;
+    left: 0;
+}
+
+.countdown-label {
+    font-size: 0.7rem;
+    margin-top: 0.3rem;
+    color: var(--text-tertiary);
+}
+
+/* 4. Progress & Achievement Indicators
+ * - Activates completion bias (need to finish what was started)
+ * - Creates sense of accomplishment
+ */
+.progress-container {
+    width: 100%;
+    margin: 1.5rem 0;
+}
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--gradient-primary);
+    border-radius: 4px;
+    position: relative;
+}
+
+.progress-steps {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0;
+    position: relative;
+}
+
+.progress-steps::before {
+    content: '';
+    position: absolute;
+    height: 2px;
+    top: 15px;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 1;
+}
+
+.progress-step {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.step-indicator {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--bg-tertiary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.step-indicator.completed {
+    background: var(--accent-primary);
+    box-shadow: 0 0 10px rgba(108, 99, 255, 0.5);
+}
+
+.step-indicator.active {
+    border: 2px solid var(--accent-primary);
+    transform: scale(1.2);
+}
+
+.step-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* 5. Anchoring Effect
+ * - Sets reference points for user perception
+ * - Changes how users evaluate information
+ */
+.price-container {
+    margin: 1.5rem 0;
+}
+
+.price-original {
+    font-size: 1.2rem;
+    color: var(--text-tertiary);
+    text-decoration: line-through;
+    margin-right: 1rem;
+}
+
+.price-current {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.price-discount {
+    display: inline-block;
+    padding: 0.3rem 0.7rem;
+    background: var(--accent-tertiary);
+    color: white;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    margin-left: 1rem;
+    vertical-align: middle;
+}
+
+/* 6. Reciprocity Trigger
+ * - Activates the desire to give back when receiving something
+ * - Creates a sense of obligation
+ */
+.free-resource {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.free-resource::after {
+    content: 'FREE';
+    position: absolute;
+    top: 10px;
+    right: -30px;
+    background: var(--accent-tertiary);
+    color: white;
+    padding: 0.3rem 2.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transform: rotate(45deg);
+}
+
+/* 7. Authority Signals
+ * - Leverages credibility bias
+ * - Establishes expertise and trustworthiness
+ */
+.authority-indicator {
+    display: flex;
+    align-items: center;
+    margin: 1.5rem 0;
+    gap: 1rem;
+}
+
+.credential-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.credential-badge i {
+    color: var(--accent-primary);
+    margin-right: 0.5rem;
+}
+
+/* 8. Cognitive Ease Enhancements
+ * - Makes information easier to process
+ * - Increases believability and likability
+ */
+.info-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    transition: all 0.3s ease;
+}
+
+.info-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--accent-primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.info-card h4 {
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.info-card p {
+    color: var(--text-secondary);
+    margin-bottom: 0;
+}
+
+/* 9. Loss Aversion Trigger
+ * - Leverages fear of missing out
+ * - Emphasizes potential losses rather than gains
+ */
+.loss-aversion-box {
+    border: 2px dashed var(--accent-tertiary);
+    padding: 1.5rem;
+    position: relative;
+    border-radius: 8px;
+    margin: 2rem 0;
+}
+
+.loss-aversion-label {
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    background: var(--bg-primary);
+    padding: 0 10px;
+    color: var(--accent-tertiary);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* 10. Personalization Effects
+ * - Creates sense of individual attention
+ * - Leverages the cocktail party effect
+ */
+.personalized-message {
+    font-weight: 500;
+    color: var(--text-primary);
+    border-radius: 8px;
+    padding: 1rem 0;
+    position: relative;
+}
+
+.personalized-message em {
+    font-style: normal;
+    color: var(--accent-primary);
+    font-weight: 700;
+}
+
+/* 11. Aesthetic-Usability Effect
+ * - Beautiful designs are perceived as more usable
+ * - Creates positive emotional response
+ */
+.aesthetic-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.aesthetic-card {
+    flex: 1;
+    aspect-ratio: 1 / 1.2;
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: pointer;
+}
+
+.aesthetic-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(108,99,255,0.1) 0%, rgba(0,224,255,0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    border-radius: inherit;
+}
+
+.aesthetic-card:hover::before {
+    opacity: 1;
+}
+
+.aesthetic-card:hover {
+    transform: translateY(-10px);
+}
+
+/* 12. Curiosity Gap
+ * - Creates knowledge gap that stimulates desire to learn more
+ * - Encourages deeper engagement
+ */
+.curiosity-teaser {
+    margin: 2rem 0;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.curiosity-teaser h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.blur-content {
+    position: relative;
+    color: var(--text-secondary);
+}
+
+.blur-content::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(to bottom, rgba(5,5,5,0) 0%, var(--bg-primary) 100%);
+}
+
+.curiosity-action {
+    margin-top: 1rem;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .aesthetic-container {
+        flex-direction: column;
+    }
+    
+    .countdown-timer {
+        justify-content: center;
+    }
+}
+
+/* Light mode adaptations */
+.light-mode .blur-content::after {
+    background: linear-gradient(to bottom, rgba(248,249,250,0) 0%, var(--bg-primary) 100%);
+}
+
+.light-mode .free-resource {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.light-mode .info-card {
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
+}
+
+.light-mode .credential-badge {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.light-mode .social-indicator {
+    background: rgba(0, 0, 0, 0.05);
+}

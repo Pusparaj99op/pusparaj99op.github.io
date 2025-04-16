@@ -39,6 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroSection = document.querySelector('.hero');
     if (heroSection) {
         window.addEventListener('mousemove', (e) => {
+            // Only apply expensive parallax on desktop/high-end devices
+            if (window.innerWidth < 768 || !isHighEndDevice()) return;
+
             const mouseX = e.clientX;
             const mouseY = e.clientY;
 
@@ -59,6 +62,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 heroImage.style.transform = `translate(${moveX}px, ${moveY}px)`;
             }
         });
+    }
+
+    // Check if device is high-end enough for advanced animations
+    function isHighEndDevice() {
+        // Check for hardware concurrency (CPU cores)
+        if (navigator.hardwareConcurrency && navigator.hardwareConcurrency >= 4) {
+            return true;
+        }
+
+        // If we can't detect hardware specs, use rough heuristics
+        const isHighResDpi = window.devicePixelRatio >= 2;
+        const isRecentBrowser = 'IntersectionObserver' in window && 'requestIdleCallback' in window;
+
+        return isHighResDpi && isRecentBrowser;
     }
 
     // Theme toggler with enhanced animation
@@ -85,6 +102,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 icon.classList.replace('fa-moon', 'fa-sun');
                 localStorage.setItem('theme', 'dark');
             }
+
+            // Trigger reward for changing theme - psychology enhancement
+            if (window.psychology && typeof window.psychology.reward === 'function') {
+                window.psychology.reward('interaction', 5, 'Theme Changed!');
+            }
         });
     }
 
@@ -100,8 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 header.style.transform = 'translateY(-100%)';
                 setTimeout(() => {
                     header.style.transform = 'translateY(0)';
-                    header.style.backdropFilter = `blur(${blurIntensity}px)`;
-                    header.style.webkitBackdropFilter = `blur(${blurIntensity}px)`;
                 }, 150);
             } else {
                 header.style.backdropFilter = `blur(${blurIntensity}px)`;
@@ -186,13 +206,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
                     item.classList.remove('hidden');
-                    setTimeout(() => {
-                        item.style.opacity = '1';
-                        item.style.transform = 'scale(1) translateY(0)';
-                    }, delay);
-                } else {
+                    item.style.transform = 'scale(0.8) translateY(50px)';
                     item.style.opacity = '0';
-                    item.style.transform = 'scale(0.8) translateY(20px)';
+
+                    setTimeout(() => {
+                        item.style.transform = '';
+                        item.style.opacity = '1';
+
+                        // Psychology enhancement - reward for discovering content
+                        if (filterValue !== 'all' && window.psychology && typeof window.psychology.reward === 'function') {
+                            window.psychology.reward('exploration', 2);
+                        }
+                    }, 50 + delay);
+                } else {
+                    item.style.transform = 'scale(0.8) translateY(50px)';
+                    item.style.opacity = '0';
+
                     setTimeout(() => {
                         item.classList.add('hidden');
                     }, 300 + delay);
@@ -202,68 +231,74 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Improved Form Submission with enhanced validation and user feedback
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
 
-        const nameInput = contactForm.querySelector('input[name="name"]');
-        const emailInput = contactForm.querySelector('input[name="email"]');
-        const subjectInput = contactForm.querySelector('input[name="subject"]');
-        const messageInput = contactForm.querySelector('textarea[name="message"]');
+            const nameInput = contactForm.querySelector('input[name="name"]');
+            const emailInput = contactForm.querySelector('input[name="email"]');
+            const subjectInput = contactForm.querySelector('input[name="subject"]');
+            const messageInput = contactForm.querySelector('textarea[name="message"]');
 
-        const name = nameInput.value.trim();
-        const email = emailInput.value.trim();
-        const subject = subjectInput.value.trim();
-        const message = messageInput.value.trim();
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+            const subject = subjectInput.value.trim();
+            const message = messageInput.value.trim();
 
-        [nameInput, emailInput, subjectInput, messageInput].forEach(input => {
-            input.classList.remove('error');
-        });
+            [nameInput, emailInput, subjectInput, messageInput].forEach(input => {
+                input.classList.remove('error');
+            });
 
-        if (!name) {
-            showInputError(nameInput, 'Please enter your name');
-            return;
-        }
+            if (!name) {
+                showInputError(nameInput, 'Please enter your name');
+                return;
+            }
 
-        if (!email) {
-            showInputError(emailInput, 'Please enter your email');
-            return;
-        }
+            if (!email) {
+                showInputError(emailInput, 'Please enter your email');
+                return;
+            }
 
-        if (!isValidEmail(email)) {
-            showInputError(emailInput, 'Please enter a valid email address');
-            return;
-        }
+            if (!isValidEmail(email)) {
+                showInputError(emailInput, 'Please enter a valid email address');
+                return;
+            }
 
-        if (!subject) {
-            showInputError(subjectInput, 'Please enter a subject');
-            return;
-        }
+            if (!subject) {
+                showInputError(subjectInput, 'Please enter a subject');
+                return;
+            }
 
-        if (!message) {
-            showInputError(messageInput, 'Please enter your message');
-            return;
-        }
+            if (!message) {
+                showInputError(messageInput, 'Please enter your message');
+                return;
+            }
 
-        showFormStatus('loading', 'Sending your message...');
-
-        setTimeout(() => {
-            showFormStatus('success', 'Thank you! Your message has been sent successfully.');
-
-            const formElement = contactForm.querySelector('form');
-            formElement.classList.add('submitted');
-
-            contactForm.reset();
+            showFormStatus('loading', 'Sending your message...');
 
             setTimeout(() => {
-                formStatus.style.opacity = '0';
+                showFormStatus('success', 'Thank you! Your message has been sent successfully.');
+
+                const formElement = contactForm.querySelector('form');
+                formElement.classList.add('submitted');
+
+                contactForm.reset();
+
                 setTimeout(() => {
-                    formStatus.style.display = 'none';
-                    formStatus.style.opacity = '1';
-                    formElement.classList.remove('submitted');
-                }, 500);
-            }, 5000);
-        }, 1500);
-    });
+                    formStatus.style.opacity = '0';
+                    setTimeout(() => {
+                        formStatus.style.display = 'none';
+                        formStatus.style.opacity = '1';
+                    }, 500);
+                }, 5000);
+
+                // Psychology enhancement - reward for completing contact form
+                if (window.psychology && typeof window.psychology.reward === 'function') {
+                    window.psychology.reward('completion', 20, 'Message Sent!');
+                }
+            }, 1500);
+        });
+    }
 
     function showInputError(inputElement, message) {
         inputElement.classList.add('error');
@@ -324,6 +359,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize particle background for hero section
     function initParticleBackground() {
+        // Use the advanced particle system from animations.js if available
+        if (window.animations && typeof window.animations.particles === 'function') {
+            return window.animations.particles();
+        }
+
+        // Fallback to basic particles if animations module isn't loaded
         const heroSection = document.querySelector('.hero');
         if (!heroSection) return;
 
@@ -356,9 +397,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         x: Math.random() * canvas.width,
                         y: Math.random() * canvas.height,
                         radius: Math.random() * 2 + 1,
-                        speedX: Math.random() * 0.5 - 0.25,
-                        speedY: Math.random() * 0.5 - 0.25,
-                        opacity: Math.random() * 0.5 + 0.1
+                        speedX: (Math.random() - 0.5) * 0.5,
+                        speedY: (Math.random() - 0.5) * 0.5,
+                        color: `rgba(108, 99, 255, ${Math.random() * 0.5 + 0.2})`
                     });
                 }
             }
@@ -367,11 +408,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
                 particles.forEach(particle => {
-                    ctx.beginPath();
-                    ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(108, 99, 255, ${particle.opacity})`;
-                    ctx.fill();
-
                     particle.x += particle.speedX;
                     particle.y += particle.speedY;
 
@@ -382,6 +418,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (particle.y < 0 || particle.y > canvas.height) {
                         particle.speedY *= -1;
                     }
+
+                    ctx.beginPath();
+                    ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = particle.color;
+                    ctx.fill();
                 });
 
                 particles.forEach((particle, i) => {
@@ -392,10 +433,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         if (distance < 100) {
                             ctx.beginPath();
-                            ctx.strokeStyle = `rgba(108, 99, 255, ${0.2 * (1 - distance / 100)})`;
-                            ctx.lineWidth = 0.5;
                             ctx.moveTo(particle.x, particle.y);
                             ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(108, 99, 255, ${(1 - distance / 100) * 0.15})`;
                             ctx.stroke();
                         }
                     }
@@ -423,20 +463,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     const dy = y - particle.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance < 200) {
+                    if (distance < 100) {
                         const angle = Math.atan2(dy, dx);
-                        const force = 0.3 * (1 - distance / 200);
+                        const force = 0.1 * (1 - distance / 100);
 
-                        particle.speedX += Math.cos(angle) * force;
-                        particle.speedY += Math.sin(angle) * force;
-
-                        const maxSpeed = 4;
-                        const currentSpeed = Math.sqrt(particle.speedX * particle.speedX + particle.speedY * particle.speedY);
-
-                        if (currentSpeed > maxSpeed) {
-                            particle.speedX = (particle.speedX / currentSpeed) * maxSpeed;
-                            particle.speedY = (particle.speedY / currentSpeed) * maxSpeed;
-                        }
+                        particle.speedX -= Math.cos(angle) * force;
+                        particle.speedY -= Math.sin(angle) * force;
                     }
                 });
             });
@@ -455,11 +487,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(cursor);
 
         document.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-
-            cursor.style.left = `${posX}px`;
-            cursor.style.top = `${posY}px`;
+            // Use requestAnimationFrame for smoother movement
+            requestAnimationFrame(() => {
+                cursor.style.left = `${e.clientX}px`;
+                cursor.style.top = `${e.clientY}px`;
+            });
 
             setTimeout(() => {
                 cursor.classList.add('active');
@@ -485,6 +517,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // NEW: 3D Card effect
     const enable3DCards = () => {
+        // Delegate to the advanced animations module if available
+        if (window.animations && typeof window.animations.perspective === 'function') {
+            return window.animations.perspective();
+        }
+
+        // Fallback implementation if animations module isn't loaded
         const cards = document.querySelectorAll('.card-3d');
 
         cards.forEach(card => {
@@ -546,6 +584,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // NEW: Enhanced project showcase with WebGL effects
     const initWebGLProjects = () => {
+        // Skip if mobile device to save resources
+        if (window.innerWidth < 768 && !isHighEndDevice()) return;
+
         const webglProjects = document.querySelectorAll('.webgl-project');
 
         if (webglProjects.length === 0) return;
@@ -553,19 +594,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof THREE !== 'undefined') {
             webglProjects.forEach((container, idx) => {
                 const scene = new THREE.Scene();
-
                 const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-                camera.position.z = 5;
 
-                const renderer = new THREE.WebGLRenderer({
-                    antialias: true,
-                    alpha: true
-                });
-
+                const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
                 renderer.setSize(container.clientWidth, container.clientHeight);
                 renderer.setPixelRatio(window.devicePixelRatio);
                 container.appendChild(renderer.domElement);
 
+                // Create content based on index
                 let geometry, material, mesh;
 
                 switch (idx % 3) {
@@ -573,28 +609,32 @@ document.addEventListener('DOMContentLoaded', () => {
                         geometry = new THREE.SphereGeometry(2, 32, 32);
                         material = new THREE.MeshStandardMaterial({
                             color: 0x6C63FF,
-                            wireframe: true
+                            wireframe: true,
+                            emissive: 0x6C63FF,
+                            emissiveIntensity: 0.2
                         });
-                        mesh = new THREE.Mesh(geometry, material);
                         break;
                     case 1:
                         geometry = new THREE.TorusGeometry(2, 0.5, 16, 100);
                         material = new THREE.MeshStandardMaterial({
                             color: 0x00E0FF,
-                            wireframe: true
+                            wireframe: true,
+                            emissive: 0x00E0FF,
+                            emissiveIntensity: 0.2
                         });
-                        mesh = new THREE.Mesh(geometry, material);
                         break;
                     case 2:
                         geometry = new THREE.IcosahedronGeometry(2, 0);
                         material = new THREE.MeshStandardMaterial({
                             color: 0xFF6B6B,
-                            wireframe: true
+                            wireframe: true,
+                            emissive: 0xFF6B6B,
+                            emissiveIntensity: 0.2
                         });
-                        mesh = new THREE.Mesh(geometry, material);
                         break;
                 }
 
+                mesh = new THREE.Mesh(geometry, material);
                 scene.add(mesh);
 
                 const light = new THREE.DirectionalLight(0xffffff, 1);
@@ -603,6 +643,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const ambientLight = new THREE.AmbientLight(0x404040);
                 scene.add(ambientLight);
+
+                camera.position.z = 5;
 
                 function animate() {
                     requestAnimationFrame(animate);
@@ -621,7 +663,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     renderer.setSize(container.clientWidth, container.clientHeight);
                 });
 
-                container.addEventListener('mousemove', (e) => {
+                container.addEventListener('mousemove', e => {
                     const rect = container.getBoundingClientRect();
                     const mouseX = ((e.clientX - rect.left) / container.clientWidth) * 2 - 1;
                     const mouseY = -((e.clientY - rect.top) / container.clientHeight) * 2 + 1;
@@ -678,10 +720,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (skill.x < 0.5) {
                 name.style.left = '100%';
-                name.style.marginLeft = '10px';
+                name.style.marginLeft = '15px';
+                name.style.transform = 'translateY(-50%)';
             } else {
                 name.style.right = '100%';
-                name.style.marginRight = '10px';
+                name.style.marginRight = '15px';
+                name.style.transform = 'translateY(-50%)';
             }
 
             point.appendChild(name);
@@ -708,8 +752,10 @@ document.addEventListener('DOMContentLoaded', () => {
             canvas.height = skillsChart.clientHeight;
 
             skills.forEach(skill => {
-                skill.posX = skill.x * canvas.width;
-                skill.posY = skill.y * canvas.height;
+                const left = skill.x * 100;
+                const top = skill.y * 100;
+                skill.posX = left / 100 * canvas.width;
+                skill.posY = top / 100 * canvas.height;
             });
 
             ctx.strokeStyle = 'rgba(108, 99, 255, 0.2)';
@@ -836,10 +882,10 @@ document.addEventListener('DOMContentLoaded', () => {
             rotateBtn.addEventListener('click', () => {
                 if (modelViewer.hasAttribute('auto-rotate')) {
                     modelViewer.removeAttribute('auto-rotate');
-                    rotateBtn.innerHTML = '<i class="fas fa-sync"></i>';
+                    rotateBtn.querySelector('i').classList.replace('fa-pause', 'fa-play');
                 } else {
-                    modelViewer.setAttribute('auto-rotate', true);
-                    rotateBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    modelViewer.setAttribute('auto-rotate', '');
+                    rotateBtn.querySelector('i').classList.replace('fa-play', 'fa-pause');
                 }
             });
         }
@@ -847,26 +893,88 @@ document.addEventListener('DOMContentLoaded', () => {
         if (resetBtn) {
             resetBtn.addEventListener('click', () => {
                 modelViewer.cameraOrbit = '0deg 75deg 105%';
-                modelViewer.cameraTarget = '0 0 0';
+
+                // Trigger psychology reward
+                if (window.psychology && typeof window.psychology.reward === 'function') {
+                    window.psychology.reward('interaction', 2);
+                }
+            });
+        }
+    };
+
+    // NEW: Check battery level to adjust effects
+    const checkBatteryStatus = () => {
+        if ('getBattery' in navigator) {
+            navigator.getBattery().then(function(battery) {
+                // If battery is below 20%, enable battery saving mode
+                if (battery.level < 0.2 && !battery.charging) {
+                    document.body.classList.add('battery-saving-mode');
+                    console.log('Battery saving mode enabled');
+                }
+
+                // Listen for battery level changes
+                battery.addEventListener('levelchange', () => {
+                    if (battery.level < 0.2 && !battery.charging) {
+                        document.body.classList.add('battery-saving-mode');
+                    } else {
+                        document.body.classList.remove('battery-saving-mode');
+                    }
+                });
             });
         }
     };
 
     // NEW: Initialize all components
     const initApp = () => {
-        enable3DCards();
-        initMagneticButtons();
-        initWebGLProjects();
+        // Load the new modules
+        loadModuleScripts()
+            .then(() => {
+                console.log('All modules loaded successfully');
+
+                // Initialize psychological enhancements
+                if (window.psychology && typeof window.psychology.init === 'function') {
+                    window.psychology.init();
+                }
+
+                // Initialize mobile optimizations
+                if (window.mobileOptimizations && typeof window.mobileOptimizations.init === 'function') {
+                    window.mobileOptimizations.init();
+                }
+
+                // Initialize enhanced animations
+                if (window.animations && typeof window.animations.init === 'function') {
+                    window.animations.init();
+                } else {
+                    // Fallback to basic animations
+                    enable3DCards();
+                    initMagneticButtons();
+                    initParticleBackground();
+                    animateOnScroll();
+                }
+            })
+            .catch(error => {
+                console.error('Failed to load modules:', error);
+
+                // Fallback to basic functionality
+                enable3DCards();
+                initMagneticButtons();
+                initWebGLProjects();
+                initParticleBackground();
+                animateOnScroll();
+            });
+
+        // Initialize core components
         initSkillsChart();
         initBlog();
         initTestimonialSlider();
         initModelViewer();
-        initParticleBackground();
 
+        // Run typography animations
         if (document.querySelector('.typing-text')) {
             runTypingAnimation();
         }
 
+        // Initialize AOS animations if library is loaded
         if (typeof AOS !== 'undefined') {
             AOS.init({
                 duration: 800,
@@ -880,11 +988,69 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        animateOnScroll();
+        // Check battery status for performance optimizations
+        checkBatteryStatus();
     };
+
+    // Function to load all module scripts
+    function loadModuleScripts() {
+        return new Promise((resolve, reject) => {
+            const moduleScripts = [
+                { src: 'js/psychology.js', id: 'psychology-script' },
+                { src: 'js/mobile-optimizations.js', id: 'mobile-optimizations-script' },
+                { src: 'js/animations.js', id: 'animations-script' }
+            ];
+
+            let loaded = 0;
+
+            moduleScripts.forEach(script => {
+                if (!document.getElementById(script.id)) {
+                    const scriptElement = document.createElement('script');
+                    scriptElement.src = script.src;
+                    scriptElement.id = script.id;
+
+                    scriptElement.onload = () => {
+                        loaded++;
+                        if (loaded === moduleScripts.length) {
+                            resolve();
+                        }
+                    };
+
+                    scriptElement.onerror = (error) => {
+                        console.warn(`Failed to load ${script.src}:`, error);
+                        loaded++;
+                        if (loaded === moduleScripts.length) {
+                            resolve(); // Still resolve to continue with fallback functionality
+                        }
+                    };
+
+                    document.body.appendChild(scriptElement);
+                } else {
+                    loaded++;
+                    if (loaded === moduleScripts.length) {
+                        resolve();
+                    }
+                }
+            });
+
+            // Timeout to ensure we don't block if scripts fail
+            setTimeout(() => {
+                if (loaded < moduleScripts.length) {
+                    console.warn('Some scripts did not load within timeout period');
+                    resolve(); // Still resolve to continue with fallback functionality
+                }
+            }, 5000);
+        });
+    }
 
     // Enhanced animation on scroll with intersection observer for better performance
     const animateOnScroll = () => {
+        // Use the advanced animation system from animations.js if available
+        if (window.animations && typeof window.animations.reveal === 'function') {
+            return window.animations.reveal();
+        }
+
+        // Fallback to basic scroll animations
         const elements = document.querySelectorAll('.animate-on-scroll');
 
         const observer = new IntersectionObserver((entries) => {
@@ -934,11 +1100,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!isDeleting && charIndex === currentWord.length) {
                 isDeleting = true;
-                typingSpeed = 1500;
+                typingSpeed = 1500; // Pause at end of word
             } else if (isDeleting && charIndex === 0) {
                 isDeleting = false;
                 wordIndex = (wordIndex + 1) % words.length;
-                typingSpeed = 500;
+                typingSpeed = 500; // Pause before starting new word
             }
 
             setTimeout(type, typingSpeed);
@@ -948,6 +1114,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Update footer copyright year
-    document.querySelector('.copyright p').innerHTML = 
-        `&copy; ${new Date().getFullYear()} Kalvin Shah. All Rights Reserved.`;
+    const copyrightElement = document.querySelector('.copyright p');
+    if (copyrightElement) {
+        copyrightElement.innerHTML = `&copy; ${new Date().getFullYear()} Kalvin Shah. All Rights Reserved.`;
+    }
 });
