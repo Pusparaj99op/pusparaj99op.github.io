@@ -1,5 +1,11 @@
 # Kalvin Shah - Personal Portfolio
 
+![Portfolio QR Code](https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://pusparaj99op.github.io/)
+
+## 🔗 Quick Access
+- **Live Website**: [pusparaj99op.github.io](https://pusparaj99op.github.io/)
+- Scan the QR code above to view my portfolio on mobile devices
+
 ## 🚀 Overview
 This is my personal portfolio website showcasing my skills, projects, and achievements. The website is designed to provide visitors with information about my background, technical expertise, and professional accomplishments in an interactive and visually appealing format.
 
@@ -88,6 +94,7 @@ git push
 - **Email**: kalvinshah@example.com
 - **Phone**: +91 98765 43210
 - **GitHub**: [Pusparaj99op](https://github.com/Pusparaj99op)
+- **Portfolio**: [pusparaj99op.github.io](https://pusparaj99op.github.io/)
 
 ## 📜 License
 This project is licensed under the MIT License - see the LICENSE file for details.
