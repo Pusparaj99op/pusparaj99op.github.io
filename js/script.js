@@ -35,6 +35,62 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 800);
     });
 
+    // Initialize all components
+    function initApp() {
+        // Initialize all animations
+        if (window.animations && typeof window.animations.init === 'function') {
+            window.animations.init();
+        }
+        
+        // Initialize psychological enhancements
+        if (window.psychology && typeof window.psychology.init === 'function') {
+            window.psychology.init();
+        }
+        
+        // Initialize particle background
+        initParticleBackground();
+        
+        // Initialize 3D cards
+        enable3DCards();
+        
+        // Initialize magnetic buttons
+        initMagneticButtons();
+        
+        // Initialize WebGL projects if available
+        initWebGLProjects();
+        
+        // Initialize skills chart
+        initSkillsChart();
+        
+        // Initialize blog functionality
+        initBlog();
+        
+        // Initialize testimonial slider
+        initTestimonialSlider();
+        
+        // Initialize enhanced forms
+        initEnhancedForms();
+        
+        // Initialize countdown functionality
+        initCountdowns();
+        
+        // Initialize contact switcher
+        initContactSwitcher();
+        
+        // Initialize chat functionality
+        initChatInterface();
+        
+        // Initialize AOS library if available
+        if (typeof AOS !== 'undefined') {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true,
+                mirror: false
+            });
+        }
+    }
+
     // Add parallax effect to hero section
     const heroSection = document.querySelector('.hero');
     if (heroSection) {
@@ -230,60 +286,204 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Improved Form Submission with enhanced validation and user feedback
-    if (contactForm) {
+    // Initialize Enhanced Contact Form with validation and effects
+    function initEnhancedForms() {
+        // Get all the enhanced form elements
+        const contactForm = document.getElementById('contactForm');
+        if (!contactForm) return;
+
+        const formInputs = contactForm.querySelectorAll('input, textarea, select');
+        const messageArea = contactForm.querySelector('textarea[name="message"]');
+        const characterCount = document.getElementById('current-chars');
+        const maxChars = document.getElementById('max-chars');
+        const progressSteps = document.querySelectorAll('.progress-step');
+        const progressConnectors = document.querySelectorAll('.progress-connector-fill');
+
+        // Character counter for message textarea
+        if (messageArea && characterCount && maxChars) {
+            // Set the max characters
+            const maxLength = 500;
+            messageArea.maxLength = maxLength;
+            maxChars.textContent = maxLength;
+
+            // Update character count while typing
+            messageArea.addEventListener('input', () => {
+                const currentLength = messageArea.value.length;
+                characterCount.textContent = currentLength;
+
+                // Change color when approaching limit
+                if (currentLength > maxLength * 0.8) {
+                    characterCount.style.color = 'var(--accent-tertiary)';
+                } else {
+                    characterCount.style.color = '';
+                }
+            });
+        }
+
+        // Track form progress and update step indicators
+        formInputs.forEach(input => {
+            // Listen for focus and input events
+            input.addEventListener('focus', () => {
+                // Update the progress steps when an input is focused
+                updateProgressSteps(input.getAttribute('name'));
+            });
+
+            input.addEventListener('input', () => {
+                validateInput(input);
+            });
+        });
+
+        // Function to validate a single input field
+        function validateInput(input) {
+            // Get the parent wrapper
+            let wrapper;
+            if (input.closest('.input-wrapper')) {
+                wrapper = input.closest('.input-wrapper');
+            } else if (input.closest('.textarea-wrapper')) {
+                wrapper = input.closest('.textarea-wrapper');
+            } else if (input.closest('.select-wrapper')) {
+                wrapper = input.closest('.select-wrapper');
+            } else {
+                return;
+            }
+
+            // Clear previous validation classes
+            wrapper.classList.remove('valid', 'error');
+
+            // Check if the input has a value
+            if (input.value.trim() !== '') {
+                if (input.type === 'email') {
+                    // Validate email format
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (emailPattern.test(input.value)) {
+                        wrapper.classList.add('valid');
+                    } else {
+                        wrapper.classList.add('error');
+                    }
+                } else {
+                    // Mark as valid if it has a value
+                    wrapper.classList.add('valid');
+                }
+            }
+        }
+
+        // Update progress steps when focusing on a field
+        function updateProgressSteps(inputName) {
+            // Map input names to step indicators
+            const stepMap = {
+                'name': 0,
+                'email': 1,
+                'subject': 2,
+                'message': 3
+            };
+
+            const stepIndex = stepMap[inputName];
+            
+            if (stepIndex !== undefined) {
+                // Update active step
+                progressSteps.forEach((step, index) => {
+                    if (index <= stepIndex) {
+                        step.classList.add('active');
+                    } else {
+                        step.classList.remove('active', 'complete');
+                    }
+                    
+                    if (index < stepIndex) {
+                        step.classList.add('complete');
+                    }
+                });
+                
+                // Update progress connectors
+                progressConnectors.forEach((connector, index) => {
+                    if (index < stepIndex) {
+                        connector.style.width = '100%';
+                    } else {
+                        connector.style.width = '0';
+                    }
+                });
+                
+                // Trigger reward for progress - psychology enhancement
+                if (window.psychology && typeof window.psychology.reward === 'function') {
+                    window.psychology.reward('exploration', 1);
+                }
+            }
+        }
+
+        // Enhanced form submission
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
             const nameInput = contactForm.querySelector('input[name="name"]');
             const emailInput = contactForm.querySelector('input[name="email"]');
-            const subjectInput = contactForm.querySelector('input[name="subject"]');
+            const subjectSelect = contactForm.querySelector('select[name="subject"]');
             const messageInput = contactForm.querySelector('textarea[name="message"]');
 
             const name = nameInput.value.trim();
             const email = emailInput.value.trim();
-            const subject = subjectInput.value.trim();
+            const subject = subjectSelect.value;
             const message = messageInput.value.trim();
 
-            [nameInput, emailInput, subjectInput, messageInput].forEach(input => {
-                input.classList.remove('error');
+            // Reset all validation states
+            const inputWrappers = contactForm.querySelectorAll('.input-wrapper, .textarea-wrapper, .select-wrapper');
+            inputWrappers.forEach(wrapper => {
+                wrapper.classList.remove('error');
             });
+
+            // Validate inputs
+            let isValid = true;
 
             if (!name) {
                 showInputError(nameInput, 'Please enter your name');
-                return;
+                isValid = false;
             }
 
             if (!email) {
                 showInputError(emailInput, 'Please enter your email');
-                return;
-            }
-
-            if (!isValidEmail(email)) {
+                isValid = false;
+            } else if (!isValidEmail(email)) {
                 showInputError(emailInput, 'Please enter a valid email address');
-                return;
+                isValid = false;
             }
 
-            if (!subject) {
-                showInputError(subjectInput, 'Please enter a subject');
-                return;
+            if (!subject || subject === '') {
+                showInputError(subjectSelect, 'Please select a subject');
+                isValid = false;
             }
 
             if (!message) {
                 showInputError(messageInput, 'Please enter your message');
-                return;
+                isValid = false;
             }
+
+            if (!isValid) return;
 
             showFormStatus('loading', 'Sending your message...');
 
+            // Simulate form submission with delay for demonstration
             setTimeout(() => {
                 showFormStatus('success', 'Thank you! Your message has been sent successfully.');
 
-                const formElement = contactForm.querySelector('form');
-                formElement.classList.add('submitted');
+                // Mark all progress steps as complete
+                progressSteps.forEach(step => {
+                    step.classList.add('active', 'complete');
+                });
+                
+                progressConnectors.forEach(connector => {
+                    connector.style.width = '100%';
+                });
 
+                // Add animation to form
+                contactForm.classList.add('submitted');
+
+                // Reset the form fields
                 contactForm.reset();
 
+                // Reset validation classes
+                inputWrappers.forEach(wrapper => {
+                    wrapper.classList.remove('valid', 'error');
+                });
+
+                // Clear the status message after a delay
                 setTimeout(() => {
                     formStatus.style.opacity = '0';
                     setTimeout(() => {
@@ -294,26 +494,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Psychology enhancement - reward for completing contact form
                 if (window.psychology && typeof window.psychology.reward === 'function') {
-                    window.psychology.reward('completion', 20, 'Message Sent!');
+                    window.psychology.reward('completion', 25, 'Message Sent!');
                 }
             }, 1500);
         });
     }
 
     function showInputError(inputElement, message) {
-        inputElement.classList.add('error');
-        inputElement.focus();
-        showFormStatus('error', message);
+        let wrapper;
+        if (inputElement.closest('.input-wrapper')) {
+            wrapper = inputElement.closest('.input-wrapper');
+        } else if (inputElement.closest('.textarea-wrapper')) {
+            wrapper = inputElement.closest('.textarea-wrapper');
+        } else if (inputElement.closest('.select-wrapper')) {
+            wrapper = inputElement.closest('.select-wrapper');
+        }
 
-        inputElement.addEventListener('animationend', () => {
-            inputElement.classList.remove('error');
-        });
+        if (wrapper) {
+            wrapper.classList.add('error');
+            inputElement.focus();
+            showFormStatus('error', message);
+
+            // Add shake animation
+            wrapper.classList.add('shake');
+            setTimeout(() => {
+                wrapper.classList.remove('shake');
+            }, 500);
+        }
     }
 
     function showFormStatus(type, message) {
+        if (!formStatus) return;
+        
         formStatus.className = 'form-status ' + type;
-        formStatus.innerHTML = message;
-
+        
         if (type === 'loading') {
             formStatus.innerHTML = `<div class="spinner"></div> ${message}`;
         } else if (type === 'success') {
@@ -322,7 +536,7 @@ document.addEventListener('DOMContentLoaded', () => {
             formStatus.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
         }
 
-        formStatus.style.display = 'block';
+        formStatus.style.display = 'flex';
 
         formStatus.style.opacity = '0';
         formStatus.style.transform = 'translateY(10px)';
@@ -336,6 +550,240 @@ document.addEventListener('DOMContentLoaded', () => {
     function isValidEmail(email) {
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email.toLowerCase());
+    }
+
+    // Initialize Contact Interface Switcher
+    function initContactSwitcher() {
+        const switcherBtns = document.querySelectorAll('.switcher-btn');
+        if (!switcherBtns.length) return;
+
+        const formMode = document.getElementById('contact-form-mode');
+        const chatMode = document.getElementById('contact-chat-mode');
+
+        switcherBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                switcherBtns.forEach(b => b.classList.remove('active'));
+                
+                // Add active class to current button
+                btn.classList.add('active');
+                
+                // Get the mode to activate
+                const mode = btn.getAttribute('data-contact-mode');
+                
+                // Toggle interface visibility
+                if (mode === 'form' && formMode && chatMode) {
+                    formMode.classList.add('active-mode');
+                    chatMode.classList.remove('active-mode');
+                    
+                    // Psychology enhancement - reward for exploring interface
+                    if (window.psychology && typeof window.psychology.reward === 'function') {
+                        window.psychology.reward('interaction', 2);
+                    }
+                } else if (mode === 'chat' && formMode && chatMode) {
+                    chatMode.classList.add('active-mode');
+                    formMode.classList.remove('active-mode');
+                    
+                    // Psychology enhancement - reward for discovering chat
+                    if (window.psychology && typeof window.psychology.reward === 'function') {
+                        window.psychology.reward('exploration', 5, 'Chat Discovered!');
+                    }
+                }
+            });
+        });
+    }
+
+    // Initialize Chat Interface
+    function initChatInterface() {
+        const chatContainer = document.querySelector('.chat-container');
+        if (!chatContainer) return;
+
+        const messagesContainer = chatContainer.querySelector('.chat-messages');
+        const messageChoices = chatContainer.querySelectorAll('.message-choice');
+        const textarea = chatContainer.querySelector('textarea');
+        const sendButton = chatContainer.querySelector('.chat-send-btn');
+
+        // Function to add a message to the chat
+        function addMessage(text, isSent = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${isSent ? 'sent' : 'received'}`;
+            
+            const now = new Date();
+            const timeString = now.getHours().toString().padStart(2, '0') + ':' + 
+                              now.getMinutes().toString().padStart(2, '0');
+            
+            messageDiv.innerHTML = `
+                <div class="message-bubble">
+                    <p>${text}</p>
+                </div>
+                <div class="message-time">${timeString}</div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            
+            // Scroll to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // Psychology enhancement - reward for interaction
+            if (window.psychology && typeof window.psychology.reward === 'function') {
+                window.psychology.reward('interaction', 3);
+            }
+        }
+
+        // Function to add assistant response based on user message
+        function addAssistantResponse(userMessage) {
+            // Map of possible responses based on user input keywords
+            const responses = {
+                'project': 'That sounds interesting! I specialize in game development and cybersecurity projects. Could you please provide more details about what you have in mind?',
+                'game': 'Great! I love working on games using Unreal Engine 5. What type of game are you thinking about?',
+                'cyber': 'I have experience in ethical hacking and cybersecurity. Do you need help with penetration testing or security assessment?',
+                'security': 'Security is crucial in today\'s digital world. I can help with vulnerability assessments and secure coding practices.',
+                'connect': 'I\'d be happy to connect! You can find me on LinkedIn, Twitter, or send me an email directly.',
+                'hello': 'Hello there! How can I assist you today?',
+                'hi': 'Hi! How can I help you?'
+            };
+            
+            // Find a matching response or use default
+            const lowerUserMessage = userMessage.toLowerCase();
+            let responseText = 'Thanks for your message! I'll get back to you as soon as possible. For a quicker response, please use the contact form.';
+            
+            for (const [keyword, response] of Object.entries(responses)) {
+                if (lowerUserMessage.includes(keyword)) {
+                    responseText = response;
+                    break;
+                }
+            }
+            
+            // Add a slight delay before assistant responds
+            setTimeout(() => {
+                addMessage(responseText, false);
+                
+                // For most responses, add follow-up prompt choices
+                if (!lowerUserMessage.includes('hello') && !lowerUserMessage.includes('hi')) {
+                    setTimeout(() => {
+                        const choicesDiv = document.createElement('div');
+                        choicesDiv.className = 'chat-message choices';
+                        choicesDiv.innerHTML = `
+                            <div class="message-choice" data-response="Can you tell me more about yourself?">Can you tell me more about yourself?</div>
+                            <div class="message-choice" data-response="What's the best way to contact you?">What's the best way to contact you?</div>
+                        `;
+                        messagesContainer.appendChild(choicesDiv);
+                        
+                        // Add event listeners to new choices
+                        choicesDiv.querySelectorAll('.message-choice').forEach(choice => {
+                            choice.addEventListener('click', function() {
+                                const responseText = this.getAttribute('data-response');
+                                handleUserMessage(responseText);
+                            });
+                        });
+                        
+                        // Scroll to bottom
+                        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                    }, 1000);
+                }
+            }, 1000);
+        }
+
+        // Function to handle user messages
+        function handleUserMessage(text) {
+            // Add user message to chat
+            addMessage(text, true);
+            
+            // Generate and add assistant response
+            addAssistantResponse(text);
+        }
+
+        // Event listeners for chat interactions
+        messageChoices.forEach(choice => {
+            choice.addEventListener('click', function() {
+                const responseText = this.getAttribute('data-response');
+                handleUserMessage(responseText);
+                
+                // Remove the initial choices after selection
+                const choicesContainer = this.parentElement;
+                choicesContainer.style.opacity = '0';
+                setTimeout(() => {
+                    choicesContainer.remove();
+                }, 300);
+            });
+        });
+
+        // Handle sending messages via the input field
+        function sendMessage() {
+            const text = textarea.value.trim();
+            if (text) {
+                handleUserMessage(text);
+                textarea.value = '';
+            }
+        }
+
+        // Send button click event
+        if (sendButton) {
+            sendButton.addEventListener('click', sendMessage);
+        }
+
+        // Enter key press in textarea
+        if (textarea) {
+            textarea.addEventListener('keypress', e => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+        }
+    }
+
+    // Initialize countdowns for scarcity elements
+    function initCountdowns() {
+        const countdownElements = document.querySelectorAll('.countdown');
+        
+        countdownElements.forEach(countdown => {
+            // Get the target end date (e.g., 14 days from now for demonstration)
+            const targetDate = new Date();
+            targetDate.setDate(targetDate.getDate() + 14);
+            
+            // Update the countdown every second
+            updateCountdown();
+            const countdownInterval = setInterval(updateCountdown, 1000);
+            
+            function updateCountdown() {
+                // Get current date and calculate difference
+                const now = new Date();
+                const diff = targetDate - now;
+                
+                // If countdown is finished
+                if (diff <= 0) {
+                    clearInterval(countdownInterval);
+                    countdown.innerHTML = `<div class="countdown-finished">Just Released!</div>`;
+                    return;
+                }
+                
+                // Calculate remaining time
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                // Update countdown values in DOM
+                const daysElement = document.getElementById('days-value');
+                const hoursElement = document.getElementById('hours-value');
+                const minsElement = document.getElementById('mins-value');
+                const secsElement = document.getElementById('secs-value');
+                
+                if (daysElement) daysElement.textContent = days.toString().padStart(2, '0');
+                if (hoursElement) hoursElement.textContent = hours.toString().padStart(2, '0');
+                if (minsElement) minsElement.textContent = mins.toString().padStart(2, '0');
+                if (secsElement) secsElement.textContent = secs.toString().padStart(2, '0');
+                
+                // Add pulse animation when seconds change
+                if (secsElement) {
+                    secsElement.classList.add('pulse');
+                    setTimeout(() => {
+                        secsElement.classList.remove('pulse');
+                    }, 500);
+                }
+            }
+        });
     }
 
     // Create ripple effect on click
@@ -475,8 +923,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // NEW: Custom cursor effect for modern interactive feel
-    const createCustomCursor = () => {
+    // Create a custom cursor with interactive effects
+    if (!('ontouchstart' in window)) {
         const cursor = document.createElement('div');
         cursor.classList.add('custom-cursor');
 
@@ -509,14 +957,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 cursor.classList.remove('hover');
             });
         });
-    };
-
-    if (!('ontouchstart' in window)) {
-        createCustomCursor();
     }
 
-    // NEW: 3D Card effect
-    const enable3DCards = () => {
+    // 3D Card effect for elements with card-3d class
+    function enable3DCards() {
         // Delegate to the advanced animations module if available
         if (window.animations && typeof window.animations.perspective === 'function') {
             return window.animations.perspective();
@@ -527,6 +971,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         cards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
+                // Skip on mobile or low-end devices
+                if (window.innerWidth < 768 || !isHighEndDevice()) return;
+                
                 const cardRect = card.getBoundingClientRect();
 
                 const mouseX = e.clientX - cardRect.left;
@@ -535,14 +982,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const percentX = mouseX / cardRect.width;
                 const percentY = mouseY / cardRect.height;
 
-                const rotateY = (percentX - 0.5) * 30;
-                const rotateX = (0.5 - percentY) * 30;
+                const rotateY = (percentX - 0.5) * 20;
+                const rotateX = (0.5 - percentY) * 20;
 
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
 
                 const content = card.querySelectorAll('.card-3d-content');
                 content.forEach(el => {
-                    el.style.transform = `translateZ(50px)`;
+                    el.style.transform = `translateZ(30px)`;
                 });
             });
 
@@ -555,13 +1002,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
         });
-    };
+    }
 
-    // NEW: Magnetic button effect
-    const initMagneticButtons = () => {
+    // Magnetic button effect for elements with magnetic-btn class
+    function initMagneticButtons() {
         const btns = document.querySelectorAll('.magnetic-btn');
 
         btns.forEach(btn => {
+            // Skip on mobile or low-end devices
+            if (window.innerWidth < 768 || !isHighEndDevice()) return;
+            
             btn.addEventListener('mousemove', (e) => {
                 const btnRect = btn.getBoundingClientRect();
                 const btnCenterX = btnRect.left + btnRect.width / 2;
@@ -579,11 +1029,16 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.addEventListener('mouseleave', () => {
                 btn.style.transform = 'translate(0, 0)';
             });
+            
+            // Add ripple effect on click
+            btn.addEventListener('click', (e) => {
+                createRipple(btn);
+            });
         });
-    };
+    }
 
-    // NEW: Enhanced project showcase with WebGL effects
-    const initWebGLProjects = () => {
+    // Enhanced project showcase with WebGL effects
+    function initWebGLProjects() {
         // Skip if mobile device to save resources
         if (window.innerWidth < 768 && !isHighEndDevice()) return;
 
@@ -673,10 +1128,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
         }
-    };
+    }
 
-    // NEW: Interactive Skills Chart
-    const initSkillsChart = () => {
+    // Interactive Skills Chart
+    function initSkillsChart() {
         const skillsChart = document.querySelector('.skills-chart');
 
         if (!skillsChart) return;
@@ -770,10 +1225,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
-    };
+    }
 
-    // NEW: Blog functionality
-    const initBlog = () => {
+    // Blog functionality
+    function initBlog() {
         const blogContainer = document.querySelector('.blog-grid');
 
         if (!blogContainer) return;
@@ -824,10 +1279,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             blogContainer.appendChild(blogCard);
         });
-    };
+    }
 
-    // NEW: Testimonial slider
-    const initTestimonialSlider = () => {
+    // Testimonial slider
+    function initTestimonialSlider() {
         const slider = document.querySelector('.testimonial-slider');
 
         if (!slider) return;
@@ -845,6 +1300,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 dots.forEach(d => d.classList.remove('active'));
                 dot.classList.add('active');
+                
+                // Psychology enhancement - reward for interaction
+                if (window.psychology && typeof window.psychology.reward === 'function') {
+                    window.psychology.reward('interaction', 2);
+                }
             });
         });
 
@@ -857,7 +1317,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 5000);
 
         function updateSlider() {
-            const slideWidth = testimonials[0].offsetWidth + 32;
+            const slideWidth = testimonials[0].offsetWidth + 32; // Add margin
             slider.scrollTo({
                 left: currentSlide * slideWidth,
                 behavior: 'smooth'
@@ -867,14 +1327,12 @@ document.addEventListener('DOMContentLoaded', () => {
         slider.addEventListener('mouseover', () => {
             clearInterval(autoSlide);
         });
-    };
+    }
 
-    // NEW: Initialize 3D model viewer if present
-    const initModelViewer = () => {
-        const modelViewer = document.querySelector('model-viewer');
+    // Initialize 3D model viewer if present
+    const modelViewer = document.querySelector('model-viewer');
 
-        if (!modelViewer) return;
-
+    if (modelViewer) {
         const rotateBtn = document.querySelector('.model-btn[data-action="rotate"]');
         const resetBtn = document.querySelector('.model-btn[data-action="reset"]');
 
@@ -893,229 +1351,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (resetBtn) {
             resetBtn.addEventListener('click', () => {
                 modelViewer.cameraOrbit = '0deg 75deg 105%';
-
-                // Trigger psychology reward
-                if (window.psychology && typeof window.psychology.reward === 'function') {
-                    window.psychology.reward('interaction', 2);
-                }
+                modelViewer.cameraTarget = '0m 0m 0m';
+                modelViewer.fieldOfView = '30deg';
+                
+                // Add subtle animation to show reset
+                modelViewer.setAttribute('animation', 'true');
+                setTimeout(() => {
+                    modelViewer.removeAttribute('animation');
+                }, 500);
             });
         }
-    };
-
-    // NEW: Check battery level to adjust effects
-    const checkBatteryStatus = () => {
-        if ('getBattery' in navigator) {
-            navigator.getBattery().then(function(battery) {
-                // If battery is below 20%, enable battery saving mode
-                if (battery.level < 0.2 && !battery.charging) {
-                    document.body.classList.add('battery-saving-mode');
-                    console.log('Battery saving mode enabled');
-                }
-
-                // Listen for battery level changes
-                battery.addEventListener('levelchange', () => {
-                    if (battery.level < 0.2 && !battery.charging) {
-                        document.body.classList.add('battery-saving-mode');
-                    } else {
-                        document.body.classList.remove('battery-saving-mode');
-                    }
-                });
-            });
-        }
-    };
-
-    // NEW: Initialize all components
-    const initApp = () => {
-        // Load the new modules
-        loadModuleScripts()
-            .then(() => {
-                console.log('All modules loaded successfully');
-
-                // Initialize psychological enhancements
-                if (window.psychology && typeof window.psychology.init === 'function') {
-                    window.psychology.init();
-                }
-
-                // Initialize mobile optimizations
-                if (window.mobileOptimizations && typeof window.mobileOptimizations.init === 'function') {
-                    window.mobileOptimizations.init();
-                }
-
-                // Initialize enhanced animations
-                if (window.animations && typeof window.animations.init === 'function') {
-                    window.animations.init();
-                } else {
-                    // Fallback to basic animations
-                    enable3DCards();
-                    initMagneticButtons();
-                    initParticleBackground();
-                    animateOnScroll();
-                }
-            })
-            .catch(error => {
-                console.error('Failed to load modules:', error);
-
-                // Fallback to basic functionality
-                enable3DCards();
-                initMagneticButtons();
-                initWebGLProjects();
-                initParticleBackground();
-                animateOnScroll();
-            });
-
-        // Initialize core components
-        initSkillsChart();
-        initBlog();
-        initTestimonialSlider();
-        initModelViewer();
-
-        // Run typography animations
-        if (document.querySelector('.typing-text')) {
-            runTypingAnimation();
-        }
-
-        // Initialize AOS animations if library is loaded
-        if (typeof AOS !== 'undefined') {
-            AOS.init({
-                duration: 800,
-                easing: 'cubic-bezier(0.25, 0.1, 0.25, 1.0)',
-                once: false,
-                mirror: true,
-                anchorPlacement: 'center-bottom',
-                disable: function() {
-                    return window.innerWidth < 768 && 'phone';
-                }
-            });
-        }
-
-        // Check battery status for performance optimizations
-        checkBatteryStatus();
-    };
-
-    // Function to load all module scripts
-    function loadModuleScripts() {
-        return new Promise((resolve, reject) => {
-            const moduleScripts = [
-                { src: 'js/psychology.js', id: 'psychology-script' },
-                { src: 'js/mobile-optimizations.js', id: 'mobile-optimizations-script' },
-                { src: 'js/animations.js', id: 'animations-script' }
-            ];
-
-            let loaded = 0;
-
-            moduleScripts.forEach(script => {
-                if (!document.getElementById(script.id)) {
-                    const scriptElement = document.createElement('script');
-                    scriptElement.src = script.src;
-                    scriptElement.id = script.id;
-
-                    scriptElement.onload = () => {
-                        loaded++;
-                        if (loaded === moduleScripts.length) {
-                            resolve();
-                        }
-                    };
-
-                    scriptElement.onerror = (error) => {
-                        console.warn(`Failed to load ${script.src}:`, error);
-                        loaded++;
-                        if (loaded === moduleScripts.length) {
-                            resolve(); // Still resolve to continue with fallback functionality
-                        }
-                    };
-
-                    document.body.appendChild(scriptElement);
-                } else {
-                    loaded++;
-                    if (loaded === moduleScripts.length) {
-                        resolve();
-                    }
-                }
-            });
-
-            // Timeout to ensure we don't block if scripts fail
-            setTimeout(() => {
-                if (loaded < moduleScripts.length) {
-                    console.warn('Some scripts did not load within timeout period');
-                    resolve(); // Still resolve to continue with fallback functionality
-                }
-            }, 5000);
-        });
-    }
-
-    // Enhanced animation on scroll with intersection observer for better performance
-    const animateOnScroll = () => {
-        // Use the advanced animation system from animations.js if available
-        if (window.animations && typeof window.animations.reveal === 'function') {
-            return window.animations.reveal();
-        }
-
-        // Fallback to basic scroll animations
-        const elements = document.querySelectorAll('.animate-on-scroll');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const animation = entry.target.dataset.animation || 'fade-up';
-                    entry.target.classList.add('animated', animation);
-
-                    if (!entry.target.dataset.repeat) {
-                        observer.unobserve(entry.target);
-                    }
-                } else if (entry.target.dataset.repeat) {
-                    entry.target.classList.remove('animated', entry.target.dataset.animation);
-                }
-            });
-        }, {
-            threshold: 0.15,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        elements.forEach(element => {
-            observer.observe(element);
-        });
-    };
-
-    // Implement typing animation for the hero section with better timing
-    function runTypingAnimation() {
-        const typingElement = document.querySelector('.typing-text');
-        const words = JSON.parse(typingElement.getAttribute('data-words'));
-        let wordIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        let typingSpeed = 100;
-
-        function type() {
-            const currentWord = words[wordIndex];
-
-            if (isDeleting) {
-                typingElement.textContent = currentWord.substring(0, charIndex - 1);
-                charIndex--;
-                typingSpeed = 30;
-            } else {
-                typingElement.textContent = currentWord.substring(0, charIndex + 1);
-                charIndex++;
-                typingSpeed = 100;
-            }
-
-            if (!isDeleting && charIndex === currentWord.length) {
-                isDeleting = true;
-                typingSpeed = 1500; // Pause at end of word
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                wordIndex = (wordIndex + 1) % words.length;
-                typingSpeed = 500; // Pause before starting new word
-            }
-
-            setTimeout(type, typingSpeed);
-        }
-
-        type();
-    }
-
-    // Update footer copyright year
-    const copyrightElement = document.querySelector('.copyright p');
-    if (copyrightElement) {
-        copyrightElement.innerHTML = `&copy; ${new Date().getFullYear()} Kalvin Shah. All Rights Reserved.`;
     }
 });
