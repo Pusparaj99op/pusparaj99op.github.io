@@ -13,7 +13,9 @@
         parallax: initParallaxEffects,
         reveal: initScrollReveal,
         morph: initMorphingEffects,
-        perspective: initPerspectiveEffects
+        perspective: initPerspectiveEffects,
+        floatingText: initFloatingTextEffect,  // Added new floating text animation
+        liquidButton: initLiquidButtonEffect   // Added new liquid button effect
     };
     
     // Configuration
@@ -26,6 +28,11 @@
         reveal: {
             threshold: 0.15,
             delay: 100
+        },
+        floatingText: {
+            charactersClassName: 'floating-character',
+            baseDelay: 100,
+            randomness: 0.5
         }
     };
     
@@ -46,9 +53,14 @@
         initMorphingEffects();
         initPerspectiveEffects();
         initProjectItemEffects();
+        initFloatingTextEffect(); // Added new floating text effect init
+        initLiquidButtonEffect(); // Added new liquid button effect init
         
         // Add general page animations
         addPageAnimations();
+        
+        // Add keyframe animations to CSS for morphing effect
+        addMorphKeyframes();
         
         console.log('✨ Advanced animations initialized');
     }
@@ -436,6 +448,94 @@
     }
     
     /**
+     * Add morph keyframes to document
+     * This fixes the morphing animation error by adding the missing keyframes
+     */
+    function addMorphKeyframes() {
+        if (!document.getElementById('morph-keyframes')) {
+            const style = document.createElement('style');
+            style.id = 'morph-keyframes';
+            style.textContent = `
+                @keyframes morph {
+                    0% {
+                        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+                    }
+                    50% {
+                        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+                    }
+                    100% {
+                        border-radius: 40% 60% 30% 70% / 40% 50% 60% 70%;
+                    }
+                }
+                
+                @keyframes float-rotate {
+                    0% {
+                        transform: translateY(0) rotate(0deg);
+                    }
+                    50% {
+                        transform: translateY(-15px) rotate(2deg);
+                    }
+                    100% {
+                        transform: translateY(0) rotate(0deg);
+                    }
+                }
+                
+                @keyframes pulse-glow {
+                    0% {
+                        box-shadow: 0 0 5px rgba(108, 99, 255, 0.5);
+                    }
+                    50% {
+                        box-shadow: 0 0 20px rgba(108, 99, 255, 0.3);
+                    }
+                    100% {
+                        box-shadow: 0 0 5px rgba(108, 99, 255, 0.5);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    }
+    
+    /**
+     * Initialize floating text effect for headings
+     */
+    function initFloatingTextEffect() {
+        // Select elements with floating-text class
+        const floatingTextElements = document.querySelectorAll('.floating-text');
+        
+        floatingTextElements.forEach(element => {
+            // Get text content
+            const text = element.textContent;
+            
+            // Clear element
+            element.textContent = '';
+            element.style.position = 'relative';
+            element.style.display = 'inline-block';
+            
+            // Create spans for each character
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                const span = document.createElement('span');
+                
+                span.textContent = char;
+                span.className = config.floatingText.charactersClassName;
+                
+                // Calculate random delay
+                const randomDelay = i * config.floatingText.baseDelay * 
+                                   (1 + Math.random() * config.floatingText.randomness);
+                
+                // Apply styles
+                span.style.display = 'inline-block';
+                span.style.animation = `float-rotate 3s ease-in-out ${randomDelay}ms infinite`;
+                span.style.position = 'relative';
+                
+                // Add span to element
+                element.appendChild(span);
+            }
+        });
+    }
+    
+    /**
      * Initialize perspective and 3D effects
      */
     function initPerspectiveEffects() {
@@ -503,6 +603,50 @@
     }
     
     /**
+     * Initialize liquid button effect
+     */
+    function initLiquidButtonEffect() {
+        const liquidButtons = document.querySelectorAll('.liquid-btn');
+        
+        liquidButtons.forEach(button => {
+            // Create liquid bubble elements
+            for (let i = 0; i < 5; i++) {
+                const bubble = document.createElement('span');
+                bubble.className = 'liquid-bubble';
+                
+                // Set random properties
+                const size = Math.random() * 40 + 10; // 10-50px
+                const left = Math.random() * 100; // 0-100%
+                const animDuration = Math.random() * 2 + 2; // 2-4s
+                const delay = Math.random() * 2; // 0-2s
+                
+                // Apply styles
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${left}%`;
+                bubble.style.animationDuration = `${animDuration}s`;
+                bubble.style.animationDelay = `${delay}s`;
+                
+                // Add bubble to button
+                button.appendChild(bubble);
+            }
+            
+            // Add event listeners
+            button.addEventListener('mouseenter', () => {
+                button.querySelectorAll('.liquid-bubble').forEach(bubble => {
+                    bubble.style.animationPlayState = 'running';
+                });
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.querySelectorAll('.liquid-bubble').forEach(bubble => {
+                    bubble.style.animationPlayState = 'paused';
+                });
+            });
+        });
+    }
+    
+    /**
      * Update glow effect for 3D cards
      * @param {Element} element - The element to apply the glow effect to
      * @param {number} x - Normalized x position (0-1)
@@ -534,149 +678,6 @@
                 transparent 80%
             )
         `;
-    }
-    
-    /**
-     * Initialize special effects for project items
-     */
-    function initProjectItemEffects() {
-        const projectItems = document.querySelectorAll('.project-item');
-        
-        projectItems.forEach(item => {
-            // Add tilt effect on hover
-            item.addEventListener('mousemove', e => {
-                const rect = item.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = (y - centerY) / 20;
-                const rotateY = (centerX - x) / 20;
-                
-                item.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
-            });
-            
-            item.addEventListener('mouseleave', () => {
-                item.style.transform = '';
-            });
-            
-            // Add flowing background effect
-            const projectImg = item.querySelector('.project-img');
-            if (projectImg) {
-                projectImg.addEventListener('mousemove', e => {
-                    const rect = projectImg.getBoundingClientRect();
-                    const x = (e.clientX - rect.left) / rect.width;
-                    const y = (e.clientY - rect.top) / rect.height;
-                    
-                    const img = projectImg.querySelector('img');
-                    if (img) {
-                        img.style.transform = `scale(1.1) translate(${(x - 0.5) * -10}px, ${(y - 0.5) * -10}px)`;
-                    }
-                });
-                
-                projectImg.addEventListener('mouseleave', () => {
-                    const img = projectImg.querySelector('img');
-                    if (img) {
-                        img.style.transform = 'scale(1)';
-                    }
-                });
-            }
-        });
-        
-        // WebGL Effect for special projects
-        const webglProjects = document.querySelectorAll('.webgl-project');
-        
-        // Only initialize if Three.js is available
-        if (webglProjects.length > 0 && typeof THREE !== 'undefined') {
-            webglProjects.forEach((container, idx) => {
-                const scene = new THREE.Scene();
-                const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-                
-                const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-                renderer.setSize(container.clientWidth, container.clientHeight);
-                renderer.setPixelRatio(window.devicePixelRatio);
-                container.appendChild(renderer.domElement);
-                
-                // Create geometries based on index for variety
-                let geometry, material, mesh;
-                
-                switch (idx % 3) {
-                    case 0: // Sphere
-                        geometry = new THREE.SphereGeometry(2, 32, 32);
-                        material = new THREE.MeshStandardMaterial({
-                            color: 0x6C63FF,
-                            wireframe: true,
-                            emissive: 0x6C63FF,
-                            emissiveIntensity: 0.2
-                        });
-                        break;
-                    case 1: // Torus
-                        geometry = new THREE.TorusGeometry(2, 0.5, 16, 100);
-                        material = new THREE.MeshStandardMaterial({
-                            color: 0x00E0FF,
-                            wireframe: true,
-                            emissive: 0x00E0FF,
-                            emissiveIntensity: 0.2
-                        });
-                        break;
-                    case 2: // Icosahedron
-                        geometry = new THREE.IcosahedronGeometry(2, 0);
-                        material = new THREE.MeshStandardMaterial({
-                            color: 0xFF6B6B,
-                            wireframe: true,
-                            emissive: 0xFF6B6B,
-                            emissiveIntensity: 0.2
-                        });
-                        break;
-                }
-                
-                mesh = new THREE.Mesh(geometry, material);
-                scene.add(mesh);
-                
-                // Add lighting
-                const light = new THREE.DirectionalLight(0xffffff, 1);
-                light.position.set(0, 0, 5);
-                scene.add(light);
-                
-                const ambientLight = new THREE.AmbientLight(0x404040);
-                scene.add(ambientLight);
-                
-                // Position camera
-                camera.position.z = 5;
-                
-                // Add animation
-                function animate() {
-                    requestAnimationFrame(animate);
-                    
-                    mesh.rotation.x += 0.005;
-                    mesh.rotation.y += 0.01;
-                    
-                    renderer.render(scene, camera);
-                }
-                
-                animate();
-                
-                // Handle resize
-                window.addEventListener('resize', () => {
-                    camera.aspect = container.clientWidth / container.clientHeight;
-                    camera.updateProjectionMatrix();
-                    renderer.setSize(container.clientWidth, container.clientHeight);
-                });
-                
-                // Interactive control
-                container.addEventListener('mousemove', e => {
-                    const rect = container.getBoundingClientRect();
-                    const mouseX = ((e.clientX - rect.left) / container.clientWidth) * 2 - 1;
-                    const mouseY = -((e.clientY - rect.top) / container.clientHeight) * 2 + 1;
-                    
-                    // Rotate based on mouse position
-                    mesh.rotation.x = mouseY * 0.5;
-                    mesh.rotation.y = mouseX * 0.5;
-                });
-            });
-        }
     }
     
     /**

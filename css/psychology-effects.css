@@ -119,14 +119,14 @@
 /* Ripple effect for buttons and interactive elements */
 .psychology-ripple {
     position: absolute;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.4);
     border-radius: 50%;
     transform: scale(0);
-    animation: ripple-psychology 0.6s linear;
+    animation: psychology-ripple 0.6s linear;
     pointer-events: none;
 }
 
-@keyframes ripple-psychology {
+@keyframes psychology-ripple {
     to {
         transform: scale(4);
         opacity: 0;
@@ -135,13 +135,42 @@
 
 /* Haptic-like feedback when clicking buttons */
 .psychology-haptic {
-    animation: haptic 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: psychology-haptic 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97);
 }
 
-@keyframes haptic {
-    0% { transform: scale(1); }
-    50% { transform: scale(0.95); }
-    100% { transform: scale(1); }
+@keyframes psychology-haptic {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    20% {
+        transform: translateX(-2px);
+    }
+    40% {
+        transform: translateX(2px);
+    }
+    60% {
+        transform: translateX(-2px);
+    }
+    80% {
+        transform: translateX(2px);
+    }
+}
+
+/* Milestone glow animation */
+.milestone-glow {
+    animation: milestone-glow 1s ease-in-out;
+}
+
+@keyframes milestone-glow {
+    0% {
+        box-shadow: 0 0 5px rgba(108, 99, 255, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(108, 99, 255, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(108, 99, 255, 0.5);
+    }
 }
 
 /* Particles that appear on hover */
@@ -1570,4 +1599,187 @@
 
 .light-mode .social-indicator {
     background: rgba(0, 0, 0, 0.05);
+}
+
+/**
+ * Psychology Effects CSS
+ * Enhanced visual and interactive effects based on psychological principles
+ */
+
+/* Liquid button animation effect */
+.liquid-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    z-index: 1;
+}
+
+.liquid-bubble {
+    position: absolute;
+    bottom: -100%;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    animation: liquid-rise 4s ease-in-out infinite;
+    animation-play-state: paused;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes liquid-rise {
+    0% {
+        bottom: -20%;
+        opacity: 0;
+    }
+    5% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 0.6;
+    }
+    95% {
+        opacity: 0.2;
+    }
+    100% {
+        transform: translateY(-1000%) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Floating text animation */
+.floating-text {
+    display: inline-block;
+    position: relative;
+}
+
+.floating-character {
+    display: inline-block;
+    position: relative;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-duration: 3s;
+    transition: transform 0.2s ease;
+}
+
+.floating-character:hover {
+    transform: translateY(-10px) scale(1.2);
+    color: var(--accent-primary);
+}
+
+/* Sheen effect animation */
+.sheen-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.sheen-effect::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(30deg);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.sheen-effect:hover::after {
+    animation: sheen 1s forwards;
+}
+
+@keyframes sheen {
+    0% {
+        opacity: 1;
+        transform: rotate(30deg) translateX(-300%);
+    }
+    100% {
+        opacity: 0;
+        transform: rotate(30deg) translateX(300%);
+    }
+}
+
+/* Text scramble effect */
+.scramble-text {
+    display: inline-block;
+}
+
+/* Cursor ripple effect */
+.cursor-ripple {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(108, 99, 255, 0.5);
+    transform: translate(-50%, -50%);
+    animation: cursor-ripple 0.5s linear forwards;
+}
+
+@keyframes cursor-ripple {
+    0% {
+        width: 0px;
+        height: 0px;
+        opacity: 0.8;
+    }
+    100% {
+        width: 100px;
+        height: 100px;
+        opacity: 0;
+    }
+}
+
+/* Reward popup animation */
+.reward-popup {
+    position: fixed;
+    background: rgba(108, 99, 255, 0.9);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    pointer-events: none;
+    animation: reward-popup 1.5s ease-in-out forwards;
+}
+
+@keyframes reward-popup {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+    }
+    20% {
+        opacity: 1;
+        transform: translateY(0) scale(1.1);
+    }
+    80% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.8);
+    }
+}
+
+/* Continuous flow animation */
+.flow-animation {
+    background: linear-gradient(-45deg, 
+        rgba(108, 99, 255, 0.15),
+        rgba(0, 224, 255, 0.15),
+        rgba(255, 107, 107, 0.15),
+        rgba(108, 99, 255, 0.15)
+    );
+    background-size: 400% 400%;
+    animation: flow-shift 15s ease infinite;
+}
+
+@keyframes flow-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }

@@ -81,12 +81,12 @@
         <canvas id="particles-canvas"></canvas> <!-- Particle animation canvas -->
         <div class="container">
             <div class="hero-content animate-on-load" data-animation="fade-up">
-                <h1 class="animated">Hello, I'm <span class="gradient-text">Kalvin Shah</span></h1>
+                <h1 class="animated">Hello, I'm <span class="gradient-text floating-text">Kalvin Shah</span></h1>
                 <h2 class="animated delay-1">Also known as Pranay Gajbhiye</h2>
                 <p class="animated delay-2">Computer Science Engineering Student | <span class="typing-text" data-words='["Game Developer", "Ethical Hacker", "Tech Enthusiast", "Problem Solver"]'>Game Developer</span></p>
                 <div class="hero-buttons animated delay-3">
-                    <a href="#contact" class="btn primary-btn magnetic-btn">Contact Me</a>
-                    <a href="#projects" class="btn secondary-btn magnetic-btn">View My Work</a>
+                    <a href="#contact" class="btn primary-btn liquid-btn">Contact Me</a>
+                    <a href="#projects" class="btn secondary-btn liquid-btn">View My Work</a>
                 </div>
                 <div class="hero-stats animated delay-4">
                     <div class="stat-item">
@@ -625,25 +625,15 @@
     <!-- Contact Section with enhanced form -->
     <section id="contact" class="contact">
         <div class="blur-circle blur-circle-1" style="top: 20%; right: 10%; width: 180px; height: 180px;"></div>
-        <div class="blur-circle blur-circle-3" style="bottom: 15%; left: 5%; width: 220px; height: 220px; opacity: 0.4;"></div>
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">Get In Touch</h2>
-            <p class="subtitle" data-aos="fade-up" data-aos-delay="100">Let's collaborate on something amazing together</p>
-            
-            <!-- Contact Interface Switcher -->
-            <div class="contact-switcher" data-aos="fade-up" data-aos-delay="200">
-                <button class="switcher-btn active" data-contact-mode="form"><i class="fas fa-envelope-open-text"></i> Contact Form</button>
-                <button class="switcher-btn" data-contact-mode="chat"><i class="fas fa-comments"></i> Chat</button>
-            </div>
-            
             <div class="contact-content">
                 <div class="contact-info" data-aos="fade-right" data-aos-delay="200">
-                    <div class="contact-info-item card-3d highlight-item">
-                        <div class="icon card-3d-content anticipation-cue"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="contact-info-item card-3d">
+                        <div class="icon card-3d-content"><i class="fas fa-map-marker-alt"></i></div>
                         <div class="text card-3d-content">
                             <h3>Location</h3>
                             <p>Nagpur, Maharashtra, India</p>
-                            <a href="https://goo.gl/maps/YDNqoFrqE5vSZ9sdA" class="location-link" target="_blank">View on Map <i class="fas fa-external-link-alt"></i></a>
                         </div>
                     </div>
                     <div class="contact-info-item card-3d">
@@ -651,7 +641,6 @@
                         <div class="text card-3d-content">
                             <h3>Email</h3>
                             <p>kalvinshah@example.com</p>
-                            <p class="response-time"><i class="fas fa-clock"></i> Typically responds within 24 hours</p>
                         </div>
                     </div>
                     <div class="contact-info-item card-3d">
@@ -659,7 +648,6 @@
                         <div class="text card-3d-content">
                             <h3>Phone</h3>
                             <p>+91 98765 43210</p>
-                            <p class="availability">Available weekdays 10 AM - 6 PM IST</p>
                         </div>
                     </div>
                     <div class="contact-info-item card-3d">
@@ -669,206 +657,28 @@
                             <p>pusparaj99op.github.io</p>
                         </div>
                     </div>
-                    
-                    <!-- New: Availability Calendar -->
-                    <div class="availability-calendar">
-                        <h3><i class="fas fa-calendar-alt"></i> My Availability</h3>
-                        <div class="calendar-preview">
-                            <div class="calendar-header">
-                                <span>April 2025</span>
-                            </div>
-                            <div class="calendar-days">
-                                <div class="day-names">
-                                    <span>Mo</span>
-                                    <span>Tu</span>
-                                    <span>We</span>
-                                    <span>Th</span>
-                                    <span>Fr</span>
-                                    <span>Sa</span>
-                                    <span>Su</span>
-                                </div>
-                                <div class="days-grid">
-                                    <span></span>
-                                    <span>1</span>
-                                    <span>2</span>
-                                    <span class="busy">3</span>
-                                    <span>4</span>
-                                    <span>5</span>
-                                    <span>6</span>
-                                    <span>7</span>
-                                    <span class="busy">8</span>
-                                    <span>9</span>
-                                    <span>10</span>
-                                    <span>11</span>
-                                    <span>12</span>
-                                    <span>13</span>
-                                    <span class="today">14</span>
-                                    <span>15</span>
-                                    <span>16</span>
-                                    <span class="busy">17</span>
-                                    <span>18</span>
-                                    <span>19</span>
-                                    <span>20</span>
-                                    <span>21</span>
-                                    <span>22</span>
-                                    <span class="busy">23</span>
-                                    <span>24</span>
-                                    <span>25</span>
-                                    <span>26</span>
-                                    <span>27</span>
-                                    <span>28</span>
-                                    <span>29</span>
-                                    <span>30</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="calendar-note">Green dates indicate availability</div>
-                    </div>
                 </div>
-                
-                <!-- Standard Contact Form Mode -->
-                <div class="contact-form active-mode" data-aos="fade-left" data-aos-delay="300" id="contact-form-mode">
-                    <form id="contactForm" class="animated-form">
+                <div class="contact-form" data-aos="fade-left" data-aos-delay="300">
+                    <form id="contactForm">
                         <div class="form-group">
-                            <div class="input-wrapper">
-                                <input type="text" name="name" id="name" placeholder=" " required>
-                                <label for="name">Your Name</label>
-                                <div class="input-status"><i class="fas fa-check"></i></div>
-                                <div class="input-focus-bg"></div>
-                            </div>
+                            <input type="text" name="name" placeholder="Your Name" required>
                         </div>
                         <div class="form-group">
-                            <div class="input-wrapper">
-                                <input type="email" name="email" id="email" placeholder=" " required>
-                                <label for="email">Your Email</label>
-                                <div class="input-status"><i class="fas fa-check"></i></div>
-                                <div class="input-focus-bg"></div>
-                            </div>
+                            <input type="email" name="email" placeholder="Your Email" required>
                         </div>
                         <div class="form-group">
-                            <div class="select-wrapper">
-                                <select name="subject" id="subject" required>
-                                    <option value="" disabled selected>Select a subject</option>
-                                    <option value="project">Project Inquiry</option>
-                                    <option value="job">Job Opportunity</option>
-                                    <option value="collaboration">Collaboration</option>
-                                    <option value="question">General Question</option>
-                                </select>
-                                <div class="select-arrow"><i class="fas fa-chevron-down"></i></div>
-                                <div class="input-focus-bg"></div>
-                            </div>
+                            <input type="text" name="subject" placeholder="Subject" required>
                         </div>
                         <div class="form-group">
-                            <div class="textarea-wrapper">
-                                <textarea name="message" id="message" placeholder=" " required></textarea>
-                                <label for="message">Your Message</label>
-                                <div class="textarea-focus-bg"></div>
-                                <div class="character-count"><span id="current-chars">0</span>/<span id="max-chars">500</span></div>
-                            </div>
+                            <textarea name="message" placeholder="Your Message" required></textarea>
                         </div>
-                        
                         <div class="form-group">
-                            <div class="form-options">
-                                <label class="checkbox-container">
-                                    <input type="checkbox" name="newsletter" id="newsletter">
-                                    <span class="checkmark"></span>
-                                    <span class="checkbox-label">Subscribe to monthly updates</span>
-                                </label>
-                                
-                                <div class="priority-select">
-                                    <span>Priority:</span>
-                                    <div class="priority-options">
-                                        <label>
-                                            <input type="radio" name="priority" value="low">
-                                            <span class="priority-level low">Low</span>
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="priority" value="medium" checked>
-                                            <span class="priority-level medium">Medium</span>
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="priority" value="high">
-                                            <span class="priority-level high">High</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+                            <button type="submit" class="btn primary-btn magnetic-btn">Send Message <i class="fas fa-paper-plane"></i></button>
                         </div>
-                        
-                        <div class="form-group form-actions">
-                            <button type="submit" class="btn primary-btn magnetic-btn">
-                                <span class="btn-inner">
-                                    <span class="btn-content">
-                                        <span>Send Message</span>
-                                        <i class="fas fa-paper-plane"></i>
-                                    </span>
-                                </span>
-                            </button>
-                            
-                            <button type="reset" class="btn secondary-btn">Reset Form</button>
-                        </div>
-                        
                         <div id="form-status" class="form-status"></div>
-                        
-                        <!-- Animated progress indicator -->
-                        <div class="progress-tracker">
-                            <div class="progress-steps">
-                                <div class="progress-step active complete" data-step="name">
-                                    <i class="fas fa-user"></i>
-                                </div>
-                                <div class="progress-connector">
-                                    <div class="progress-connector-fill"></div>
-                                </div>
-                                <div class="progress-step" data-step="email">
-                                    <i class="fas fa-envelope"></i>
-                                </div>
-                                <div class="progress-connector">
-                                    <div class="progress-connector-fill"></div>
-                                </div>
-                                <div class="progress-step" data-step="subject">
-                                    <i class="fas fa-tag"></i>
-                                </div>
-                                <div class="progress-connector">
-                                    <div class="progress-connector-fill"></div>
-                                </div>
-                                <div class="progress-step" data-step="message">
-                                    <i class="fas fa-comment"></i>
-                                </div>
-                            </div>
-                        </div>
                     </form>
                 </div>
-                
-                <!-- New: Chat Interface Mode -->
-                <div class="contact-chat" id="contact-chat-mode">
-                    <div class="chat-container">
-                        <div class="chat-messages">
-                            <div class="chat-message received">
-                                <div class="message-bubble">
-                                    <p>👋 Hi there! I'm Kalvin's virtual assistant. How can I help you today?</p>
-                                </div>
-                                <div class="message-time">Just now</div>
-                            </div>
-                            <div class="chat-message choices">
-                                <div class="message-choice" data-response="I'd like to discuss a project">I'd like to discuss a project</div>
-                                <div class="message-choice" data-response="I'm interested in your game development work">I'm interested in your game development work</div>
-                                <div class="message-choice" data-response="I have a question about cybersecurity">I have a question about cybersecurity</div>
-                                <div class="message-choice" data-response="I'd like to connect professionally">I'd like to connect professionally</div>
-                            </div>
-                        </div>
-                        <div class="chat-input">
-                            <textarea placeholder="Type your message..."></textarea>
-                            <button class="chat-send-btn">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </div>
-                        <div class="chat-note">
-                            <i class="fas fa-info-circle"></i> This is a simplified chat interface for demonstration. For real communication, please use the contact form or email directly.
-                        </div>
-                    </div>
-                </div>
             </div>
-            
             <div class="contact-social" data-aos="fade-up" data-aos-delay="400">
                 <h3>Connect With Me</h3>
                 <p>Let's connect on social media platforms or professional networks. I'm always open to interesting conversations and collaboration opportunities.</p>
@@ -876,49 +686,19 @@
                     <a href="https://github.com/Pusparaj99op" target="_blank" class="social-box hover-card">
                         <i class="fab fa-github"></i>
                         <span>GitHub</span>
-                        <div class="social-hover-effect"></div>
                     </a>
                     <a href="#" target="_blank" class="social-box hover-card">
                         <i class="fab fa-linkedin-in"></i>
                         <span>LinkedIn</span>
-                        <div class="social-hover-effect"></div>
                     </a>
                     <a href="#" target="_blank" class="social-box hover-card">
                         <i class="fab fa-twitter"></i>
                         <span>Twitter</span>
-                        <div class="social-hover-effect"></div>
                     </a>
                     <a href="#" target="_blank" class="social-box hover-card">
                         <i class="fab fa-instagram"></i>
                         <span>Instagram</span>
-                        <div class="social-hover-effect"></div>
                     </a>
-                </div>
-                
-                <!-- Collaboration CTA -->
-                <div class="collaboration-cta limited-time">
-                    <div class="limited-time-badge">Limited Time</div>
-                    <h3>Open for Collaborations</h3>
-                    <p>I'm currently accepting new projects and collaboration opportunities in <strong class="attention-grabbing-text">game development</strong> and <strong class="attention-grabbing-text">cybersecurity</strong>.</p>
-                    <div class="countdown">
-                        <div class="countdown-item">
-                            <div class="countdown-value" id="days-value">14</div>
-                            <div class="countdown-label">days</div>
-                        </div>
-                        <div class="countdown-item">
-                            <div class="countdown-value" id="hours-value">23</div>
-                            <div class="countdown-label">hours</div>
-                        </div>
-                        <div class="countdown-item">
-                            <div class="countdown-value" id="mins-value">59</div>
-                            <div class="countdown-label">mins</div>
-                        </div>
-                        <div class="countdown-item">
-                            <div class="countdown-value" id="secs-value">59</div>
-                            <div class="countdown-label">secs</div>
-                        </div>
-                    </div>
-                    <a href="#contact" class="btn primary-btn" onclick="document.getElementById('subject').value='collaboration'">Let's Work Together</a>
                 </div>
             </div>
         </div>
