@@ -972,6 +972,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     initParticleBackground();
                     animateOnScroll();
                 }
+
+                // Initialize visual effects
+                if (window.visualEffects && typeof window.visualEffects.activateAll === 'function') {
+                    window.visualEffects.activateAll();
+                }
             })
             .catch(error => {
                 console.error('Failed to load modules:', error);
@@ -1180,6 +1185,38 @@ document.addEventListener('DOMContentLoaded', () => {
             observer.observe(heading);
         });
     }
+
+    /**
+     * Initialize visual effects on specific elements
+     */
+    function initVisualEffects() {
+        // Initialize fire effect on elements with fire-container class
+        const fireContainers = document.querySelectorAll('.fire-container');
+        fireContainers.forEach(container => {
+            if (window.visualEffects && typeof window.visualEffects.fire === 'function') {
+                window.visualEffects.fire(container);
+            }
+        });
+        
+        // Initialize dust effect 
+        const dustContainers = document.querySelectorAll('.dust-container');
+        dustContainers.forEach(container => {
+            if (window.visualEffects && typeof window.visualEffects.dust === 'function') {
+                window.visualEffects.dust(container);
+            }
+        });
+        
+        // Initialize enhanced particles
+        const particlesContainers = document.querySelectorAll('.particles-enhanced');
+        particlesContainers.forEach(container => {
+            if (window.visualEffects && typeof window.visualEffects.enhancedParticles === 'function') {
+                window.visualEffects.enhancedParticles(container);
+            }
+        });
+    }
+    
+    // Initialize visual effects after the page loads
+    window.addEventListener('load', initVisualEffects);
 
     // Update footer copyright year
     const copyrightElement = document.querySelector('.copyright p');
