@@ -22,6 +22,8 @@
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/psychology-effects.css">
+    <link rel="stylesheet" href="css/mobile-optimizations.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -76,8 +78,8 @@
         </div>
     </header>
 
-    <!-- Enhanced Hero Section with 3D elements -->
-    <section id="home" class="hero">
+    <!-- Enhanced Hero Section with 3D elements and new animations -->
+    <section id="home" class="hero dynamic-background">
         <canvas id="particles-canvas"></canvas> <!-- Particle animation canvas -->
         <div class="container">
             <div class="hero-content animate-on-load" data-animation="fade-up">
@@ -85,8 +87,9 @@
                 <h2 class="animated delay-1">Also known as Pranay Gajbhiye</h2>
                 <p class="animated delay-2">Computer Science Engineering Student | <span class="typing-text" data-words='["Game Developer", "Ethical Hacker", "Tech Enthusiast", "Problem Solver"]'>Game Developer</span></p>
                 <div class="hero-buttons animated delay-3">
-                    <a href="#contact" class="btn primary-btn liquid-btn">Contact Me</a>
-                    <a href="#projects" class="btn secondary-btn liquid-btn">View My Work</a>
+                    <!-- Add liquid button effect to hero buttons -->
+                    <a href="#projects" class="btn primary-btn liquid-btn">View Projects</a>
+                    <a href="#contact" class="btn secondary-btn liquid-btn">Contact Me</a>
                 </div>
                 <div class="hero-stats animated delay-4">
                     <div class="stat-item">
@@ -132,20 +135,21 @@
         </div>
     </section>
 
-    <!-- About Section with enhanced card components -->
+    <!-- About Section with enhanced card components and magnetic elements -->
     <section id="about" class="about">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">About Me</h2>
             <div class="about-content">
                 <div class="about-img" data-aos="fade-right" data-aos-delay="200">
-                    <div class="img-container card-3d">
-                        <div class="img-box hover-card card-3d-content">
-                            <img src="https://avatars.githubusercontent.com/u/pusparaj99op" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x500?text=Kalvin+Shah';" alt="Kalvin Shah">
-                        </div>
+                    <!-- Add hover reveal effect -->
+                    <div class="hover-reveal">
+                        <img src="assets/images/profile.jpg" alt="Kalvin Shah" class="hover-reveal-image">
+                        <div class="magnetic-element" data-magnetic-strength="0.3">View more about me</div>
                     </div>
                 </div>
                 <div class="about-text" data-aos="fade-left" data-aos-delay="300">
-                    <h3>CSE Student & Game Developer</h3>
+                    <!-- Add scramble text effect -->
+                    <p>I'm a <span class="scramble-text" data-trigger="hover">passionate</span> Computer Science Engineering student specializing in game development and cybersecurity.</p>
                     <p>I'm Kalvin Shah, a Computer Science Engineering student at KDK College of Engineering, Nagpur. Born on September 6, 2005, I'm passionate about technology, cybersecurity, and game development.</p>
                     <p>As a Core Team Member of the Picsel Committee, I actively contribute to technological initiatives within my college. I've qualified for CEH v11 certification, demonstrating my expertise in ethical hacking and cybersecurity.</p>
                     <p>Beyond technology, I'm an accomplished athlete - a state-level Chess player and district-level Hockey and Football player. I enjoy reading non-fiction books to expand my knowledge.</p>
@@ -180,7 +184,7 @@
         </div>
     </section>
     
-    <!-- NEW: Experience Timeline Section -->
+    <!-- Experience Timeline Section -->
     <section id="experience" class="experience">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">My Journey</h2>
@@ -244,13 +248,12 @@
         </div>
     </section>
 
-    <!-- Skills Section with Interactive Chart -->
+    <!-- Skills Section with Interactive Chart and glitch effect -->
     <section id="skills" class="skills">
         <div class="blur-circle blur-circle-2" style="top: 30%; right: 5%; width: 200px; height: 200px;"></div>
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">My Skills</h2>
+            <h2 class="section-title" data-aos="fade-up">My <span class="glitch" data-text="Skills">Skills</span></h2>
             
-            <!-- NEW: Interactive Skills Chart -->
             <div class="skills-chart" data-aos="fade-up" data-aos-delay="200"></div>
             
             <div class="skills-content">
@@ -340,11 +343,15 @@
         </div>
     </section>
 
-    <!-- Projects Section with 3D cards -->
+    <!-- Projects Section with enhanced 3D cards -->
     <section id="projects" class="projects">
         <div class="blur-circle blur-circle-1" style="bottom: 10%; left: 15%;"></div>
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">My Projects</h2>
+            <!-- Add split text animation to subtitle -->
+            <p class="subtitle text-reveal" data-aos="fade-up">
+                <span>Explore my portfolio of games, cybersecurity tools, and web projects</span>
+            </p>
             <div class="projects-filter" data-aos="fade-up">
                 <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="game">Game Development</button>
@@ -538,7 +545,7 @@
         </div>
     </section>
 
-    <!-- NEW: Blog Section -->
+    <!-- Blog Section -->
     <section id="blog" class="blog-section">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">Latest Articles</h2>
@@ -550,7 +557,7 @@
         </div>
     </section>
 
-    <!-- NEW: Testimonials Section -->
+    <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">What People Say</h2>
@@ -752,6 +759,9 @@
     <!-- JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/animations.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/psychology.js"></script>
+    <script src="js/mobile-optimizations.js"></script>
 </body>
 </html>

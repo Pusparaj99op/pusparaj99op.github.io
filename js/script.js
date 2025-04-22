@@ -944,6 +944,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Initialize enhanced animations
                 if (window.animations && typeof window.animations.init === 'function') {
                     window.animations.init();
+                    
+                    // Initialize new animation effects
+                    if (window.animations.textScramble) {
+                        window.animations.textScramble();
+                    }
+                    
+                    if (window.animations.dynamicBackground) {
+                        window.animations.dynamicBackground();
+                    }
+                    
+                    if (window.animations.magneticElements) {
+                        window.animations.magneticElements();
+                    }
+                    
+                    if (window.animations.hoverReveal) {
+                        window.animations.hoverReveal();
+                    }
+                    
+                    if (window.animations.pageTransitions) {
+                        window.animations.pageTransitions();
+                    }
                 } else {
                     // Fallback to basic animations
                     enable3DCards();
@@ -990,6 +1011,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Check battery status for performance optimizations
         checkBatteryStatus();
+
+        // NEW: Initialize text split effect for headings
+        initTextSplitEffect();
     };
 
     // Function to load all module scripts
@@ -1079,6 +1103,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Implement typing animation for the hero section with better timing
     function runTypingAnimation() {
         const typingElement = document.querySelector('.typing-text');
+        if (!typingElement) return;
+        
         const words = JSON.parse(typingElement.getAttribute('data-words'));
         let wordIndex = 0;
         let charIndex = 0;
@@ -1091,11 +1117,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isDeleting) {
                 typingElement.textContent = currentWord.substring(0, charIndex - 1);
                 charIndex--;
-                typingSpeed = 30;
+                typingSpeed = 50; // Faster when deleting for better rhythm
             } else {
                 typingElement.textContent = currentWord.substring(0, charIndex + 1);
+                // Randomize typing speed slightly for realistic effect
+                typingSpeed = 100 + Math.random() * 50;
                 charIndex++;
-                typingSpeed = 100;
             }
 
             if (!isDeleting && charIndex === currentWord.length) {
@@ -1111,6 +1138,47 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         type();
+    }
+
+    /**
+     * NEW: Initialize text split effect for section titles
+     */
+    function initTextSplitEffect() {
+        const headings = document.querySelectorAll('.section-title');
+        
+        headings.forEach(heading => {
+            const text = heading.textContent;
+            heading.innerHTML = '';
+            
+            const container = document.createElement('span');
+            container.classList.add('split-text-container');
+            heading.appendChild(container);
+            
+            [...text].forEach(char => {
+                const span = document.createElement('span');
+                span.classList.add('split-text');
+                span.textContent = char === ' ' ? '\u00A0' : char;
+                container.appendChild(span);
+            });
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const splitTexts = entry.target.querySelectorAll('.split-text');
+                        
+                        splitTexts.forEach((split, index) => {
+                            setTimeout(() => {
+                                split.classList.add('animated');
+                            }, 30 * index);
+                        });
+                        
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            observer.observe(heading);
+        });
     }
 
     // Update footer copyright year
