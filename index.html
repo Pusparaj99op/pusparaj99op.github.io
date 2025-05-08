@@ -3,783 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalvin Shah | Game Developer & Ethical Hacker</title>
-    
-    <!-- Meta tags for SEO -->
-    <meta name="description" content="Portfolio of Kalvin Shah - Computer Science Engineering student, Game Developer, and Ethical Hacking enthusiast.">
-    <meta name="keywords" content="Kalvin Shah, Game Development, Ethical Hacking, Unreal Engine 5, Portfolio, Developer">
-    <meta name="author" content="Kalvin Shah">
-    
-    <!-- Open Graph Meta Tags for social sharing -->
-    <meta property="og:title" content="Kalvin Shah - Game Developer & Ethical Hacker">
-    <meta property="og:description" content="Explore the portfolio of Kalvin Shah - CSE student, Game Developer & Ethical Hacking enthusiast">
-    <meta property="og:image" content="https://pusparaj99op.github.io/assets/images/og-image.jpg">
-    <meta property="og:url" content="https://pusparaj99op.github.io/">
-    <meta property="og:type" content="website">
+    <title>Kalvin Shah - Portfolio</title>
+    <meta name="description" content="Personal portfolio website of Kalvin Shah - Developer, Designer & Creator">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
     
-    <!-- Stylesheets -->
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Files -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/effects.css">
     <link rel="stylesheet" href="css/psychology-effects.css">
     <link rel="stylesheet" href="css/mobile-optimizations.css">
-    <link rel="stylesheet" href="css/effects.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    <!-- Preload key resources -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
-    <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style">
+    <!-- Preload critical resources -->
     <link rel="preload" href="js/script.js" as="script">
-    
-    <!-- Import model-viewer component -->
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
 </head>
 <body>
-    <!-- Custom cursor for desktop users -->
-    <div class="custom-cursor">
-        <div class="cursor-dot"></div>
-    </div>
-
     <!-- Preloader -->
     <div class="preloader">
         <div class="loader"></div>
     </div>
-
-    <!-- Blur effect elements -->
-    <div class="blur-circle blur-circle-1"></div>
-    <div class="blur-circle blur-circle-2"></div>
-
+    
     <!-- Header -->
     <header>
         <div class="container">
             <div class="logo">
-                <h1>KS<span>.</span></h1>
+                <h1>Kalvin<span>Shah</span></h1>
             </div>
-            <nav>
-                <ul id="navbar">
-                    <li><a href="#home" class="active">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#experience">Experience</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#achievements">Achievements</a></li>
-                    <li><a href="#blog">Blog</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </nav>
+            
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <ul id="navbar">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </div>
     </header>
-
-    <!-- Enhanced Hero Section with 3D elements and new animations -->
-    <section id="home" class="hero dynamic-background">
-        <canvas id="particles-canvas"></canvas> <!-- Particle animation canvas -->
-        <div class="dust-container" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 1;"></div>
-        <div class="container">
-            <div class="hero-content animate-on-load" data-animation="fade-up">
-                <h1 class="animated frost-text">Hello, I'm <span class="gradient-text floating-text glow-text">Kalvin Shah</span></h1>
-                <h2 class="animated delay-1">Also known as Pranay Gajbhiye</h2>
-                <p class="animated delay-2">Computer Science Engineering Student | <span class="typing-text scramble-text" data-words='["Game Developer", "Ethical Hacker", "Tech Enthusiast", "Problem Solver"]'>Game Developer</span></p>
-                <div class="hero-buttons animated delay-3">
-                    <!-- Add liquid button effect to hero buttons -->
-                    <a href="#projects" class="btn primary-btn liquid-btn pulse-glow">View Projects</a>
-                    <a href="#contact" class="btn secondary-btn liquid-btn">Contact Me</a>
-                </div>
-                <div class="hero-stats animated delay-4">
-                    <div class="stat-item">
-                        <span class="stat-number">10+</span>
-                        <span class="stat-text">Projects</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">5+</span>
-                        <span class="stat-text">Awards</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">3+</span>
-                        <span class="stat-text">Years of Experience</span>
-                    </div>
-                </div>
-            </div>
-            <div class="hero-model">
-                <!-- 3D model viewer for hero section -->
-                <div class="model-viewer-container card-3d">
-                    <model-viewer
-                        src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
-                        alt="A 3D model representing game development"
-                        auto-rotate
-                        camera-controls
-                        camera-orbit="0deg 75deg 105%"
-                        disable-zoom
-                        interaction-prompt="none"
-                        shadow-intensity="1"
-                        environment-image="https://modelviewer.dev/shared-assets/environments/spruit_sunrise_1k_HDR.hdr"
-                        exposure="1">
-                    </model-viewer>
-                    <div class="model-controls">
-                        <button class="model-btn" data-action="rotate"><i class="fas fa-pause"></i></button>
-                        <button class="model-btn" data-action="reset"><i class="fas fa-redo"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <canvas id="particles-canvas"></canvas>
+        <div class="blur-circle blur-circle-1"></div>
+        <div class="blur-circle blur-circle-2"></div>
         
-        <div class="scroll-indicator">
-            <span>Scroll Down</span>
-            <i class="fas fa-chevron-down"></i>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="animate-on-scroll">Hi, I'm <span>Kalvin Shah</span></h1>
+                <h2 class="animate-on-scroll delay-1">
+                    <span class="typing-container">
+                        <span class="typing-text"></span>
+                    </span>
+                </h2>
+                <p class="animate-on-scroll delay-2">I build exceptional digital experiences that combine aesthetic design with efficient functionality.</p>
+                <div class="hero-buttons animate-on-scroll delay-3">
+                    <a href="#projects" class="btn primary-btn">View Projects</a>
+                    <a href="#contact" class="btn secondary-btn">Get In Touch</a>
+                </div>
+            </div>
         </div>
     </section>
-
-    <!-- About Section with glass effect -->
+    
+    <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">About Me</h2>
+            <h2 class="section-title">About Me</h2>
+            <p class="subtitle">Get to know me better</p>
+            
             <div class="about-content">
-                <div class="about-img glass-effect-dark glass-card" data-aos="fade-right" data-aos-delay="200">
-                    <!-- Add hover reveal effect -->
-                    <div class="hover-reveal">
-                        <img src="assets/images/profile.jpg" alt="Kalvin Shah" class="hover-reveal-image">
-                        <div class="magnetic-element" data-magnetic-strength="0.3">View more about me</div>
-                    </div>
-                </div>
-                <div class="about-text" data-aos="fade-left" data-aos-delay="300">
-                    <!-- Add scramble text effect -->
-                    <p>I'm a <span class="scramble-text" data-trigger="hover">passionate</span> Computer Science Engineering student specializing in game development and cybersecurity.</p>
-                    <p>I'm Kalvin Shah, a Computer Science Engineering student at KDK College of Engineering, Nagpur. Born on September 6, 2005, I'm passionate about technology, cybersecurity, and game development.</p>
-                    <p>As a Core Team Member of the Picsel Committee, I actively contribute to technological initiatives within my college. I've qualified for CEH v11 certification, demonstrating my expertise in ethical hacking and cybersecurity.</p>
-                    <p>Beyond technology, I'm an accomplished athlete - a state-level Chess player and district-level Hockey and Football player. I enjoy reading non-fiction books to expand my knowledge.</p>
-                    <p>Currently, I'm developing games using Unreal Engine 5 and actively seeking hackathons to participate in. I'm proud to have won the RSOC-2025 Hackathon.</p>
-                    <div class="personal-info">
-                        <div class="info-item">
-                            <span>Name:</span>
-                            <p>Kalvin Shah (Pranay Gajbhiye)</p>
-                        </div>
-                        <div class="info-item">
-                            <span>Birthday:</span>
-                            <p>September 6, 2005</p>
-                        </div>
-                        <div class="info-item">
-                            <span>Education:</span>
-                            <p>CSE Student at KDK College of Engineering, Nagpur</p>
-                        </div>
-                        <div class="info-item">
-                            <span>Interests:</span>
-                            <p>Game Development, Cybersecurity, Chess, Hockey, Football</p>
-                        </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://github.com/Pusparaj99op" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                    </div>
-                    <a href="#contact" class="btn primary-btn">Get In Touch</a>
-                </div>
+                <!-- About content here -->
             </div>
         </div>
     </section>
     
-    <!-- Experience Timeline Section -->
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">My Skills</h2>
+            <p class="subtitle">Technologies I work with</p>
+            
+            <div class="skills-content">
+                <!-- Skills content here -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">My Projects</h2>
+            <p class="subtitle">Some of my recent work</p>
+            
+            <div class="projects-filter">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="web">Web Dev</button>
+                <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+                <button class="filter-btn" data-filter="ui">UI/UX</button>
+            </div>
+            
+            <div class="projects-container">
+                <!-- Project items here -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- Experience Section -->
     <section id="experience" class="experience">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">My Journey</h2>
-            <p class="subtitle" data-aos="fade-up">A timeline of my key experiences and achievements</p>
+            <h2 class="section-title">Experience</h2>
+            <p class="subtitle">My professional journey</p>
             
-            <div class="timeline" data-aos="fade-up">
-                <div class="timeline-container left">
-                    <div class="timeline-date">2025 (Present)</div>
-                    <div class="timeline-content">
-                        <h3>RSOC-2025 Hackathon Winner</h3>
-                        <h4>Technology Innovator</h4>
-                        <p>Led a team to victory in the prestigious RSOC-2025 Hackathon, developing innovative solutions that addressed real-world challenges.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-container right">
-                    <div class="timeline-date">2024</div>
-                    <div class="timeline-content">
-                        <h3>Core Team Member - Picsel Committee</h3>
-                        <h4>KDK College of Engineering</h4>
-                        <p>Selected as a core committee member for Picsel, where I helped organize technical events and workshops for students.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-container left">
-                    <div class="timeline-date">2024</div>
-                    <div class="timeline-content">
-                        <h3>CEH v11 Certification</h3>
-                        <h4>Certified Ethical Hacker</h4>
-                        <p>Successfully qualified for the Certified Ethical Hacker v11 certification, demonstrating advanced skills in cybersecurity and ethical hacking methodologies.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-container right">
-                    <div class="timeline-date">2023</div>
-                    <div class="timeline-content">
-                        <h3>Game Development - Unreal Engine 5</h3>
-                        <h4>Self-directed Learning</h4>
-                        <p>Began developing games with Unreal Engine 5, focusing on advanced graphics and AI systems to create immersive gaming experiences.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-container left">
-                    <div class="timeline-date">2023</div>
-                    <div class="timeline-content">
-                        <h3>State Level Chess Championship</h3>
-                        <h4>Competitive Player</h4>
-                        <p>Competed in state-level chess tournaments, developing strategic thinking and problem-solving skills through competitive play.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-container right">
-                    <div class="timeline-date">2022</div>
-                    <div class="timeline-content">
-                        <h3>Started Computer Science Engineering</h3>
-                        <h4>KDK College of Engineering, Nagpur</h4>
-                        <p>Began my journey into the world of Computer Science, focusing on programming, algorithms, and software development.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section with Ice Effect -->
-    <section id="skills" class="skills">
-        <div class="blur-circle blur-circle-2" style="top: 30%; right: 5%; width: 200px; height: 200px;"></div>
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">My <span class="glitch" data-text="Skills">Skills</span></h2>
-            
-            <div class="skills-container">
-                <div class="skills-card ice-effect" data-aos="fade-up" data-aos-delay="100">
-                    <h3>Programming Languages</h3>
-                    <ul>
-                        <li>C++</li>
-                        <li>Python</li>
-                        <li>JavaScript</li>
-                        <li>Java</li>
-                    </ul>
-                </div>
-                
-                <div class="skill-category" data-aos="fade-up" data-aos-delay="300">
-                    <h3>Technical Skills</h3>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <p>Unreal Engine 5</p>
-                                <p>85%</p>
-                            </div>
-                            <div class="skill-bar">
-                                <span class="skill-percent" style="width:85%"></span>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <p>Ethical Hacking</p>
-                                <p>90%</p>
-                            </div>
-                            <div class="skill-bar">
-                                <span class="skill-percent" style="width:90%"></span>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <p>Programming</p>
-                                <p>80%</p>
-                            </div>
-                            <div class="skill-bar">
-                                <span class="skill-percent" style="width:80%"></span>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <p>Web Development</p>
-                                <p>75%</p>
-                            </div>
-                            <div class="skill-bar">
-                                <span class="skill-percent" style="width:75%"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-category" data-aos="fade-up" data-aos-delay="400">
-                    <h3>Soft Skills</h3>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <p>Problem Solving</p>
-                                <p>95%</p>
-                            </div>
-                            <div class="skill-bar">
-                                <span class="skill-percent" style="width:95%"></span>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <p>Teamwork</p>
-                                <p>85%</p>
-                            </div>
-                            <div class="skill-bar">
-                                <span class="skill-percent" style="width:85%"></span>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <p>Strategic Thinking</p>
-                                <p>90%</p>
-                            </div>
-                            <div class="skill-bar">
-                                <span class="skill-percent" style="width:90%"></span>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <p>Communication</p>
-                                <p>80%</p>
-                            </div>
-                            <div class="skill-bar">
-                                <span class="skill-percent" style="width:80%"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section with Fire Effect -->
-    <section id="projects" class="projects">
-        <div class="blur-circle blur-circle-1" style="bottom: 10%; left: 15%;"></div>
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">My Projects</h2>
-            <!-- Add fire effect for title -->
-            <div class="fire-container" style="height: 100px; margin-bottom: 30px;">
-                <h3 class="fire-text">Hot Projects</h3>
-            </div>
-            
-            <!-- Add split text animation to subtitle -->
-            <p class="subtitle text-reveal" data-aos="fade-up">
-                <span>Explore my portfolio of games, cybersecurity tools, and web projects</span>
-            </p>
-            
-            <div class="projects-grid">
-                <!-- Project items with glass effect -->
-                <div class="project-item glass-effect glass-card" data-aos="fade-up">
-                    <div class="project-inner">
-                        <div class="project-img">
-                            <img src="https://user-images.githubusercontent.com/567298/52071924-fbcbdc80-255a-11e9-90e5-562cb10cd1f9.png" alt="AutoMovies Project">
-                        </div>
-                        <div class="project-info">
-                            <h3>AutoMovies</h3>
-                            <p>A Telegram bot for automatically filtering and searching movies, built with Python.</p>
-                            <div class="tech-stack">
-                                <span>Python</span>
-                                <span>Telegram API</span>
-                                <span>MongoDB</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/Pusparaj99op/AutoMovies" target="_blank" class="project-link"><i class="fab fa-github"></i> Code</a>
-                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 2: GHRCM_Hackathon -->
-                <div class="project-item glass-effect glass-card" data-aos="fade-up">
-                    <div class="project-inner">
-                        <div class="project-img">
-                            <img src="https://img.freepik.com/free-vector/gradient-hacker-logo-template_23-2149214992.jpg" alt="GHRCM Hackathon Project">
-                        </div>
-                        <div class="project-info">
-                            <h3>GHRCM Hackathon 2025</h3>
-                            <p>Award-winning hackathon project focusing on cybersecurity and ethical hacking challenges.</p>
-                            <div class="tech-stack">
-                                <span>Cybersecurity</span>
-                                <span>Python</span>
-                                <span>Penetration Testing</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/Pusparaj99op/GHRCM_Hackthon_2025-19-03" target="_blank" class="project-link"><i class="fab fa-github"></i> Code</a>
-                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Info</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 3: InkSync -->
-                <div class="project-item glass-effect glass-card" data-aos="fade-up">
-                    <div class="project-inner">
-                        <div class="project-img">
-                            <img src="https://cdn.dribbble.com/users/196525/screenshots/2955011/media/b6a7a60cac06c328800e2d2f4dfb235d.jpg" alt="InkSync Project">
-                        </div>
-                        <div class="project-info">
-                            <h3>InkSync</h3>
-                            <p>A collaborative platform for writers and editors using EJS templates and real-time synchronization.</p>
-                            <div class="tech-stack">
-                                <span>EJS</span>
-                                <span>Node.js</span>
-                                <span>MongoDB</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/Pusparaj99op/InkSync" target="_blank" class="project-link"><i class="fab fa-github"></i> Code</a>
-                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 4: Fantasy Adventure Game -->
-                <div class="project-item glass-effect glass-card" data-aos="fade-up">
-                    <div class="project-inner">
-                        <div class="project-img webgl-project">
-                            <!-- WebGL content will be added here by JavaScript -->
-                        </div>
-                        <div class="project-info">
-                            <h3>Fantasy Adventure Game</h3>
-                            <p>An immersive game built with Unreal Engine 5 featuring advanced graphics and AI.</p>
-                            <div class="tech-stack">
-                                <span>Unreal Engine 5</span>
-                                <span>Blueprints</span>
-                                <span>C++</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="#" class="project-link"><i class="fas fa-play-circle"></i> Demo</a>
-                                <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 5: Network Security Analyzer -->
-                <div class="project-item glass-effect glass-card" data-aos="fade-up">
-                    <div class="project-inner">
-                        <div class="project-img">
-                            <img src="https://img.freepik.com/free-vector/gradient-network-connection-background_23-2148865392.jpg" alt="Network Security Analyzer">
-                        </div>
-                        <div class="project-info">
-                            <h3>Network Security Analyzer</h3>
-                            <p>A tool that identifies vulnerabilities in network infrastructure using ethical hacking techniques.</p>
-                            <div class="tech-stack">
-                                <span>Python</span>
-                                <span>Kali Linux</span>
-                                <span>Wireshark</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="#" class="project-link"><i class="fas fa-link"></i> Demo</a>
-                                <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 6: ManyMovies Bot -->
-                <div class="project-item glass-effect glass-card" data-aos="fade-up">
-                    <div class="project-inner">
-                        <div class="project-img">
-                            <img src="https://img.freepik.com/premium-vector/chatbot-icon-concept-chat-bot-chatterbot-robot-virtual-assistance-website_123447-1615.jpg" alt="ManyMovies Bot">
-                        </div>
-                        <div class="project-info">
-                            <h3>ManyMovies Bot</h3>
-                            <p>A helpful Telegram bot for finding and sharing movies with friends.</p>
-                            <div class="tech-stack">
-                                <span>Python</span>
-                                <span>Telegram API</span>
-                                <span>Database</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/Pusparaj99op/ManyMovies_bot" target="_blank" class="project-link"><i class="fab fa-github"></i> Code</a>
-                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Achievements Section with Enhanced Particles -->
-    <section id="achievements" class="achievements particles-enhanced">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Achievements</h2>
-            <div class="achievements-grid">
-                <div class="achievement-card shadow-layers" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="achievement-icon card-3d-content">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3 class="card-3d-content">CEH v11 Certification</h3>
-                    <p class="card-3d-content">Qualified in Certified Ethical Hacker v11, demonstrating advanced cybersecurity skills.</p>
-                </div>
-                <div class="achievement-card shadow-layers" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="achievement-icon card-3d-content">
-                        <i class="fas fa-chess"></i>
-                    </div>
-                    <h3 class="card-3d-content">State Level Chess Player</h3>
-                    <p class="card-3d-content">Competed and succeeded at state-level chess tournaments.</p>
-                </div>
-                <div class="achievement-card shadow-layers" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="achievement-icon card-3d-content">
-                        <i class="fas fa-hockey-puck"></i>
-                    </div>
-                    <h3 class="card-3d-content">District Level Hockey</h3>
-                    <p class="card-3d-content">Represented my district in hockey competitions.</p>
-                </div>
-                <div class="achievement-card shadow-layers" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="achievement-icon card-3d-content">
-                        <i class="fas fa-futbol"></i>
-                    </div>
-                    <h3 class="card-3d-content">District Level Football</h3>
-                    <p class="card-3d-content">Successfully participated in district-level football tournaments.</p>
-                </div>
-                <div class="achievement-card shadow-layers" data-aos="zoom-in" data-aos-delay="500">
-                    <div class="achievement-icon card-3d-content">
-                        <i class="fas fa-trophy"></i>
-                    </div>
-                    <h3 class="card-3d-content">RSOC-2025 Hackathon Winner</h3>
-                    <p class="card-3d-content">Won the prestigious RSOC-2025 Hackathon with innovative solutions.</p>
-                </div>
-                <div class="achievement-card shadow-layers" data-aos="zoom-in" data-aos-delay="600">
-                    <div class="achievement-icon card-3d-content">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3 class="card-3d-content">Picsel Committee Core Team</h3>
-                    <p class="card-3d-content">Active core team member of Picsel Committee at KDK College of Engineering.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Blog Section -->
-    <section id="blog" class="blog-section">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Latest Articles</h2>
-            <p class="subtitle" data-aos="fade-up">Insights and thoughts on game development, cybersecurity, and more</p>
-            <div class="blog-grid"></div> <!-- Blog posts will be added by JavaScript -->
-            <div class="blog-cta" data-aos="fade-up">
-                <a href="blog/" class="btn secondary-btn">View All Articles <i class="fas fa-arrow-right"></i></a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">What People Say</h2>
-            <p class="subtitle" data-aos="fade-up">Feedback from mentors, colleagues, and collaborators</p>
-            
-            <div class="testimonials-container" data-aos="fade-up">
-                <div class="testimonial-slider">
-                    <div class="testimonial-card">
-                        <div class="testimonial-icon">
-                            <i class="fas fa-quote-right"></i>
-                        </div>
-                        <div class="testimonial-content">
-                            <p>"Kalvin's proficiency in Unreal Engine 5 is remarkable. His ability to conceptualize and execute complex game mechanics sets him apart from his peers. A truly talented developer with a bright future ahead."</p>
-                            <div class="testimonial-author">
-                                <div class="testimonial-author-img">
-                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Alex Walker">
-                                </div>
-                                <div class="testimonial-author-info">
-                                    <h4>Alex Walker</h4>
-                                    <p>Game Design Professor</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="testimonial-card">
-                        <div class="testimonial-icon">
-                            <i class="fas fa-quote-right"></i>
-                        </div>
-                        <div class="testimonial-content">
-                            <p>"Working with Kalvin on the RSOC-2025 Hackathon was an enlightening experience. His ethical hacking expertise and strategic approach to problem-solving were crucial to our team's success. A rare combination of technical skill and teamwork."</p>
-                            <div class="testimonial-author">
-                                <div class="testimonial-author-img">
-                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Mitchell">
-                                </div>
-                                <div class="testimonial-author-info">
-                                    <h4>Sarah Mitchell</h4>
-                                    <p>Cybersecurity Professional</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="testimonial-card">
-                        <div class="testimonial-icon">
-                            <i class="fas fa-quote-right"></i>
-                        </div>
-                        <div class="testimonial-content">
-                            <p>"Kalvin's contributions to the Picsel Committee have been invaluable. His innovative ideas and leadership skills have significantly elevated our technical events and workshops. He's not just a tech enthusiast, but a true visionary."</p>
-                            <div class="testimonial-author">
-                                <div class="testimonial-author-img">
-                                    <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Dr. Rajesh Kumar">
-                                </div>
-                                <div class="testimonial-author-info">
-                                    <h4>Dr. Rajesh Kumar</h4>
-                                    <p>Faculty Advisor, KDK College</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-nav">
-                    <span class="testimonial-dot active"></span>
-                    <span class="testimonial-dot"></span>
-                    <span class="testimonial-dot"></span>
-                </div>
+            <div class="timeline">
+                <!-- Timeline items here -->
             </div>
         </div>
     </section>
     
-    <!-- Contact Section with Glass Effect -->
+    <!-- Contact Section -->
     <section id="contact" class="contact">
-        <div class="blur-circle blur-circle-1" style="top: 20%; right: 10%; width: 180px; height: 180px;"></div>
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Get In Touch</h2>
+            <h2 class="section-title">Contact Me</h2>
+            <p class="subtitle">Let's get in touch</p>
+            
             <div class="contact-content">
-                <div class="contact-info" data-aos="fade-right" data-aos-delay="200">
-                    <div class="contact-info-item card-3d">
-                        <div class="icon card-3d-content"><i class="fas fa-map-marker-alt"></i></div>
-                        <div class="text card-3d-content">
-                            <h3>Location</h3>
-                            <p>Nagpur, Maharashtra, India</p>
-                        </div>
-                    </div>
-                    <div class="contact-info-item card-3d">
-                        <div class="icon card-3d-content"><i class="fas fa-envelope"></i></div>
-                        <div class="text card-3d-content">
-                            <h3>Email</h3>
-                            <p>kalvinshah@example.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-info-item card-3d">
-                        <div class="icon card-3d-content"><i class="fas fa-phone"></i></div>
-                        <div class="text card-3d-content">
-                            <h3>Phone</h3>
-                            <p>+91 98765 43210</p>
-                        </div>
-                    </div>
-                    <div class="contact-info-item card-3d">
-                        <div class="icon card-3d-content"><i class="fas fa-globe"></i></div>
-                        <div class="text card-3d-content">
-                            <h3>Website</h3>
-                            <p>pusparaj99op.github.io</p>
-                        </div>
-                    </div>
+                <div class="contact-info">
+                    <!-- Contact info here -->
                 </div>
-                <div class="contact-form glass-effect-dark" data-aos="fade-left" data-aos-delay="300">
-                    <form id="contactForm">
+                
+                <div class="contact-form-container">
+                    <form id="contact-form">
                         <div class="form-group">
-                            <input type="text" name="name" placeholder="Your Name" required>
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" name="email" placeholder="Your Email" required>
+                            <input type="email" id="email" name="email" placeholder="Your Email" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="subject" placeholder="Subject" required>
+                            <input type="text" id="subject" name="subject" placeholder="Subject">
                         </div>
                         <div class="form-group">
-                            <textarea name="message" placeholder="Your Message" required></textarea>
+                            <textarea id="message" name="message" placeholder="Your Message" required></textarea>
                         </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn primary-btn liquid-btn glow-border">Send Message <i class="fas fa-paper-plane"></i></button>
-                        </div>
-                        <div id="form-status" class="form-status"></div>
+                        <button type="submit" class="btn primary-btn">Send Message</button>
+                        
+                        <div class="form-status"></div>
                     </form>
                 </div>
             </div>
-            <div class="contact-social" data-aos="fade-up" data-aos-delay="400">
-                <h3>Connect With Me</h3>
-                <p>Let's connect on social media platforms or professional networks. I'm always open to interesting conversations and collaboration opportunities.</p>
-                <div class="social-grid">
-                    <a href="https://github.com/Pusparaj99op" target="_blank" class="social-box hover-card">
-                        <i class="fab fa-github"></i>
-                        <span>GitHub</span>
-                    </a>
-                    <a href="#" target="_blank" class="social-box hover-card">
-                        <i class="fab fa-linkedin-in"></i>
-                        <span>LinkedIn</span>
-                    </a>
-                    <a href="#" target="_blank" class="social-box hover-card">
-                        <i class="fab fa-twitter"></i>
-                        <span>Twitter</span>
-                    </a>
-                    <a href="#" target="_blank" class="social-box hover-card">
-                        <i class="fab fa-instagram"></i>
-                        <span>Instagram</span>
-                    </a>
-                </div>
-            </div>
         </div>
     </section>
-
-    <!-- Footer with blur effect -->
-    <footer class="footer blur-bg">
+    
+    <!-- Footer -->
+    <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-info">
-                    <div class="logo footer-logo">
-                        <h2>KS<span>.</span></h2>
-                    </div>
-                    <p>Thank you for visiting my portfolio. Feel free to reach out for collaborations or just to say hello!</p>
+                <div class="footer-logo">
+                    <h2>Kalvin<span>Shah</span></h2>
+                    <p>Creating digital experiences that matter.</p>
                 </div>
+                
                 <div class="footer-links">
                     <h3>Quick Links</h3>
                     <ul>
                         <li><a href="#home">Home</a></li>
                         <li><a href="#about">About</a></li>
-                        <li><a href="#experience">Experience</a></li>
-                        <li><a href="#skills">Skills</a></li>
                         <li><a href="#projects">Projects</a></li>
-                        <li><a href="#achievements">Achievements</a></li>
-                        <li><a href="#blog">Blog</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
-                <div class="copyright">
-                    <p>&copy; 2023 Kalvin Shah. All Rights Reserved.</p>
-                    <p class="powered-by">Powered by <a href="https://github.com/Pusparaj99op/pusparaj99op.github.io" target="_blank">GitHub Pages</a></p>
+                
+                <div class="footer-social">
+                    <h3>Connect With Me</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
                 </div>
-                <div class="social-links">
-                    <a href="https://github.com/Pusparaj99op" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Kalvin Shah. All rights reserved.</p>
             </div>
         </div>
     </footer>
-
-    <!-- Go to top button -->
-    <a href="#" class="go-top"><i class="fas fa-arrow-up"></i></a>
-
+    
     <!-- Theme toggle button -->
-    <button id="theme-toggle" class="theme-toggle">
+    <button class="theme-toggle">
         <i class="fas fa-sun"></i>
     </button>
-
-    <!-- JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Go to top button -->
+    <a href="#" class="go-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    
+    <!-- JavaScript Files -->
+    <script src="js/script.js"></script>
     <script src="js/animations.js"></script>
     <script src="js/effects.js"></script>
-    <script src="js/script.js"></script>
     <script src="js/psychology.js"></script>
     <script src="js/mobile-optimizations.js"></script>
     
     <script>
-        // Initialize all effects when page is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            if (window.visualEffects) {
-                window.visualEffects.activateAll();
+        // Hide preloader once page is loaded
+        window.addEventListener('load', () => {
+            document.querySelector('.preloader').classList.add('preloader-finish');
+            
+            // Initialize typing effect
+            const typingText = document.querySelector('.typing-text');
+            if (typingText) {
+                const texts = ["Web Developer", "UX Designer", "Problem Solver"];
+                let textIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+                
+                function typeText() {
+                    const currentText = texts[textIndex];
+                    
+                    if (isDeleting) {
+                        typingText.textContent = currentText.substring(0, charIndex - 1);
+                        charIndex--;
+                    } else {
+                        typingText.textContent = currentText.substring(0, charIndex + 1);
+                        charIndex++;
+                    }
+                    
+                    if (!isDeleting && charIndex === currentText.length) {
+                        isDeleting = true;
+                        setTimeout(typeText, 1500);
+                    } else if (isDeleting && charIndex === 0) {
+                        isDeleting = false;
+                        textIndex = (textIndex + 1) % texts.length;
+                        setTimeout(typeText, 500);
+                    } else {
+                        setTimeout(typeText, isDeleting ? 50 : 100);
+                    }
+                }
+                
+                setTimeout(typeText, 1000);
             }
         });
     </script>

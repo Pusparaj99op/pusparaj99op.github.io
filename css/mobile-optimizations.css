@@ -177,6 +177,112 @@
     .parallax-element {
         transform: none !important;
     }
+
+    /* Fix mobile navigation animation */
+    #navbar {
+        transform: translateX(100%);
+        transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+    
+    #navbar.active {
+        transform: translateX(0);
+    }
+    
+    /* Improve hamburger button */
+    .hamburger {
+        width: 30px;
+        height: 22px;
+        position: relative;
+        cursor: pointer;
+        z-index: 1002;
+    }
+    
+    .hamburger span {
+        display: block;
+        position: absolute;
+        height: 2px;
+        width: 100%;
+        background: var(--text-primary);
+        border-radius: 2px;
+        transition: all 0.25s ease-in-out;
+    }
+    
+    .hamburger span:nth-child(1) {
+        top: 0;
+    }
+    
+    .hamburger span:nth-child(2) {
+        top: 10px;
+    }
+    
+    .hamburger span:nth-child(3) {
+        top: 20px;
+    }
+    
+    .hamburger.active span:nth-child(1) {
+        transform: translateY(10px) rotate(45deg);
+    }
+    
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .hamburger.active span:nth-child(3) {
+        transform: translateY(-10px) rotate(-45deg);
+    }
+
+    /* Reduce animation complexity */
+    .animate-on-scroll {
+        transition-duration: 0.5s !important;
+    }
+    
+    /* Optimize header for mobile */
+    header.sticky {
+        padding: 0.8rem 0;
+    }
+    
+    /* Improve spacing on mobile */
+    .container {
+        padding: 0 1.25rem;
+    }
+    
+    section {
+        padding: 5rem 0;
+    }
+    
+    /* Make form elements more touch-friendly */
+    input, 
+    textarea, 
+    button {
+        font-size: 16px !important; /* Prevent zoom on focus */
+    }
+    
+    /* Optimize project grid */
+    .projects-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    /* Make project filters scrollable */
+    .projects-filter {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 1rem;
+        scrollbar-width: none; /* Hide scrollbar Firefox */
+        -ms-overflow-style: none; /* Hide scrollbar IE and Edge */
+        scroll-snap-type: x mandatory;
+        gap: 0.75rem;
+    }
+    
+    .projects-filter::-webkit-scrollbar {
+        display: none; /* Hide scrollbar Chrome/Safari */
+    }
+    
+    .filter-btn {
+        scroll-snap-align: start;
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
 }
 
 /* Optimize for tablets */
@@ -475,4 +581,36 @@
 
 .slow-connection img {
     transition: opacity 1s ease;
+}
+
+/* Optimize images and media */
+img, video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Fix form elements on iOS */
+@supports (-webkit-touch-callout: none) {
+    input, textarea {
+        font-size: 16px !important;
+    }
+}
+
+/* Fix viewport issues on mobile devices */
+@viewport {
+    width: device-width;
+    zoom: 1.0;
+}
+
+@-ms-viewport {
+    width: device-width;
+}
+
+/* Improve tap targets for better accessibility */
+button, a {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }

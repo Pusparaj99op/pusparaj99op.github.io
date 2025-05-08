@@ -109,17 +109,17 @@ cd pusparaj99op.github.io
 ## 📤 Deployment
 This website is deployed using GitHub Pages. To deploy your own version:
 
-1. Create a GitHub repository named `username.github.io` (replace 'username' with your GitHub username)
+1. Create a GitHub repository named `pusparaj99op.github.io` (replace 'pusparaj99op' with your GitHub pusparaj99op)
 2. Add your website files to the repository
 3. Use the following git commands to push your changes:
 
 ```bash
-git remote add origin https://github.com/username/username.github.io.git
+git remote add origin https://github.com/pusparaj99op/pusparaj99op.github.io.git
 git branch -M main
 git push -u origin main
 ```
 
-Once pushed, the site will be automatically available at `https://username.github.io/`.
+Once pushed, the site will be automatically available at `https://pusparaj99op.github.io/`.
 
 ## 🔄 Making Updates
 To update your website after making changes:
@@ -148,8 +148,8 @@ The website includes:
 - Optimized loading speed for better search rankings
 
 ## 📱 Contact
-- **Email**: kalvinshah@example.com
-- **Phone**: +91 98765 43210
+- **Email**: kalvinshah@hotmail.com
+- **Phone**: Not now
 - **GitHub**: [Pusparaj99op](https://github.com/Pusparaj99op)
 - **Portfolio**: [pusparaj99op.github.io](https://pusparaj99op.github.io/)
 

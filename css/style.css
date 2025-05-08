@@ -321,6 +321,10 @@ header.sticky {
     box-shadow: var(--glass-shadow);
 }
 
+header.nav-hidden {
+    transform: translateY(-100%);
+}
+
 .light-mode header.sticky {
     background-color: var(--glass-bg);
     box-shadow: var(--glass-shadow);
@@ -825,6 +829,8 @@ header .container {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.8s ease, transform 0.8s ease;
+    backface-visibility: hidden;
+    will-change: opacity, transform;
 }
 
 .animated {
@@ -1128,6 +1134,7 @@ header .container {
     transform-style: preserve-3d;
     transform: perspective(1000px);
     transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    transform: translateZ(0);
 }
 
 .card-3d-content {
@@ -1283,6 +1290,7 @@ header .container {
     height: 100%;
     display: flex;
     flex-direction: column;
+    transform: translateZ(0);
 }
 
 .blog-card:hover {
@@ -1396,6 +1404,7 @@ header .container {
     position: relative;
     transition: all 0.3s ease;
     transform-origin: center bottom;
+    transform: translateZ(0);
 }
 
 .testimonial-card:hover {
@@ -1538,6 +1547,7 @@ model-viewer {
 .project-item.project-3d {
     transform-style: preserve-3d;
     perspective: 1000px;
+    transform: translateZ(0);
 }
 
 .project-item.project-3d .project-inner {
@@ -1701,10 +1711,12 @@ model-viewer {
         transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
         box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
         z-index: 1001;
+        transform: translateX(100%);
     }
     
     #navbar.active {
         right: 0;
+        transform: translateX(0);
     }
     
     #navbar li {
@@ -1756,6 +1768,23 @@ model-viewer {
     
     .hamburger.active span:nth-child(3) {
         transform: rotate(-45deg) translate(5px, -5px);
+    }
+    
+    .blur-circle {
+        opacity: 0.3;
+        filter: blur(60px);
+    }
+    
+    .btn, 
+    .project-item,
+    .filter-btn,
+    .social-icon {
+        cursor: pointer;
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 
@@ -1870,6 +1899,7 @@ model-viewer {
     z-index: 9999;
     transform: translateY(100%);
     transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+    pointer-events: none;
 }
 
 /* Text scramble effect */
@@ -2070,5 +2100,58 @@ model-viewer {
     .animate-on-scroll {
         transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
                     opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+}
+
+/* Animation Management */
+.animation-paused * {
+    animation-play-state: paused !important;
+    transition: none !important;
+}
+
+/* Optimize parallax effects for better performance */
+[data-parallax] {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform;
+}
+
+/* Make sure animations don't conflict */
+.card-3d, 
+.project-item, 
+.achievement-card,
+.blog-card {
+    transform: translateZ(0);
+}
+
+/* Fix animation conflicts with an animation priority system */
+.priority-animation {
+    z-index: 2;
+    position: relative;
+}
+
+/* Ensure page transitions don't conflict with other animations */
+.is-scrolling .animate-on-scroll,
+.is-scrolling .floating,
+.is-scrolling .particles-canvas,
+.is-scrolling [data-parallax] {
+    transition: none !important;
+    animation-play-state: paused !important;
+}
+
+/* Fix hover states on mobile */
+@media (hover: none) {
+    .btn:hover,
+    .project-item:hover,
+    .achievement-card:hover,
+    #navbar li a:hover {
+        transform: none;
+    }
+    
+    .btn:active,
+    .project-item:active,
+    .achievement-card:active {
+        transform: scale(0.98);
+        transition: transform 0.2s;
     }
 }
