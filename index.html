@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kalvin Shah - Portfolio</title>
     <meta name="description" content="Personal portfolio website of Kalvin Shah - Developer, Designer & Creator">
-    <meta name="keywords" content="Kalvin Shah, Pusparaj99op, web developer, portfolio, JavaScript, Python, React, Node.js, chess game, developer portfolio">
+    <meta name="keywords" content="Kalvin Shah, Pusparaj99op, web developer, portfolio, JavaScript, Python, React, Node.js, developer portfolio">
     <meta name="author" content="Kalvin Shah">
     <meta name="robots" content="index, follow">
     <meta name="language" content="English">
@@ -13,7 +13,7 @@
     
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Kalvin Shah - Portfolio | Developer & Designer">
-    <meta property="og:description" content="Explore the innovative portfolio of Kalvin Shah - showcasing cutting-edge web development projects, interactive 3D chess game, and modern design solutions.">
+    <meta property="og:description" content="Explore the innovative portfolio of Kalvin Shah - showcasing cutting-edge web development projects, modern design solutions, and interactive experiences.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pusparaj99op.github.io/">
     <meta property="og:image" content="https://pusparaj99op.github.io/assets/images/og-image.png">
@@ -25,7 +25,7 @@
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Kalvin Shah - Portfolio | Developer & Designer">
-    <meta name="twitter:description" content="Explore the innovative portfolio of Kalvin Shah - showcasing cutting-edge web development projects, interactive 3D chess game, and modern design solutions.">
+    <meta name="twitter:description" content="Explore the innovative portfolio of Kalvin Shah - showcasing cutting-edge web development projects, modern design solutions, and interactive experiences.">
     <meta name="twitter:image" content="https://pusparaj99op.github.io/assets/images/twitter-card.png">
     <meta name="twitter:creator" content="@Pusparaj99op">
     <meta name="twitter:site" content="@Pusparaj99op">
@@ -54,6 +54,8 @@
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    <!-- CSS Files -->    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/3d-effects.css">
     <link rel="stylesheet" href="css/effects.css">
     <link rel="stylesheet" href="css/psychology-effects.css">
     <link rel="stylesheet" href="css/mobile-optimizations.css">
@@ -62,10 +64,9 @@
     <link rel="stylesheet" href="css/premium-100k-enhancements.css">
     <link rel="stylesheet" href="css/responsive-premium.css">
     <link rel="stylesheet" href="css/ultra-premium-enhancements.css">
-    <link rel="stylesheet" href="css/chess-enhancements.css">
     <link rel="stylesheet" href="css/skill-progress.css">
-    
-    <!-- Three.js for 3D Chess Game -->
+    <link rel="stylesheet" href="css/modern-animations.css">
+      <!-- Three.js for 3D Background Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     
@@ -106,19 +107,26 @@
     <div class="preloader">
         <div class="loader"></div>
     </div>
-    
-    <!-- Header -->
+      <!-- Header -->
     <header>
         <div class="container">
             <div class="logo">
                 <h1>Kalvin<span>Shah</span></h1>
             </div>
             
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>              <ul id="navbar">
+            <div class="header-controls">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-sun"></i>
+                </button>
+                
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            
+            <ul id="navbar">
                 <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
@@ -127,46 +135,44 @@
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="blog/blog.html">Blog</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li><a href="#chess-game">Chess Game</a></li>
             </ul>
         </div>
     </header>
-    
-    <!-- Hero Section -->
-    <section id="home" class="hero">
+      <!-- Hero Section -->    <!-- Hero Section -->
+    <section id="home" class="hero scroll-reveal">
+        <canvas id="three-bg"></canvas>
         <canvas id="particles-canvas"></canvas>
-        <div class="blur-circle blur-circle-1"></div>
-        <div class="blur-circle blur-circle-2"></div>
+        <div class="blur-circle blur-circle-1 floating-element"></div>
+        <div class="blur-circle blur-circle-2 floating-element"></div>
         
         <div class="container">
             <div class="hero-content">
-                <h1 class="animate-on-scroll">Hi, I'm <span>Kalvin Shah</span></h1>
+                <h1 class="animate-on-scroll magnetic-element">Hi, I'm <span class="gradient-text">Kalvin Shah</span></h1>
                 <h2 class="animate-on-scroll delay-1">
                     <span class="typing-container">
                         <span class="typing-text"></span>
                     </span>
                 </h2>
-                <p class="animate-on-scroll delay-2">I build exceptional digital experiences that combine aesthetic design with efficient functionality.</p>
+                <p class="animate-on-scroll delay-2 stagger-child">I build exceptional digital experiences that combine aesthetic design with efficient functionality.</p>
                 <div class="hero-buttons animate-on-scroll delay-3">
-                    <a href="#projects" class="btn primary-btn">View Projects</a>
-                    <a href="#contact" class="btn secondary-btn">Get In Touch</a>
+                    <a href="#projects" class="btn primary-btn magnetic-element">View Projects</a>
+                    <a href="#contact" class="btn secondary-btn magnetic-element">Get In Touch</a>
                 </div>
             </div>
         </div>
-    </section>
-      <!-- About Section -->
-    <section id="about" class="about">
+    </section>      <!-- About Section -->
+    <section id="about" class="about scroll-reveal">
         <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <p class="subtitle">Get to know me better</p>
+            <h2 class="section-title animate-on-scroll">About Me</h2>
+            <p class="subtitle animate-on-scroll">Get to know me better</p>
             
             <div class="about-content">
-                <div class="about-text">
-                    <h3>👋 Hi there, I'm Kalvin Shah (Pusparaj)</h3>
-                    <p>I'm a passionate developer focused on building innovative solutions. Welcome to my GitHub profile where I share my projects and contributions.</p>
+                <div class="about-text scroll-reveal">
+                    <h3 class="stagger-child">👋 Hi there, I'm Kalvin Shah (Pusparaj)</h3>
+                    <p class="stagger-child">I'm a passionate developer focused on building innovative solutions. Welcome to my GitHub profile where I share my projects and contributions.</p>
                     
                     <div class="about-stats">
-                        <div class="stat-item">
+                        <div class="stat-item stagger-child">
                             <h4>🌱 Currently Learning</h4>
                             <ul>
                                 <li>Web Development</li>
@@ -628,87 +634,9 @@
                         <div class="form-status"></div>
                     </form>
                 </div>
-            </div>        </div>
-    </section>
+            </div>        </div>    </section>
     
-    <!-- 3D Chess Game Section -->
-    <section id="chess-game" class="chess-game">
-        <div class="container">
-            <h2 class="section-title">3D Chess Game</h2>
-            <p class="subtitle">Challenge yourself with an interactive 3D chess experience</p>
-            
-            <div class="chess-container">
-                <div class="chess-board-wrapper glass-effect">
-                    <div class="chess-controls">
-                        <button id="newGameBtn" class="btn primary-btn">
-                            <i class="fas fa-chess"></i> New Game
-                        </button>
-                        <button id="resetBtn" class="btn secondary-btn">
-                            <i class="fas fa-redo"></i> Reset
-                        </button>
-                        <button id="toggleViewBtn" class="btn secondary-btn">
-                            <i class="fas fa-sync-alt"></i> Toggle View
-                        </button>
-                        <div class="game-status">
-                            <span id="currentPlayer">White's Turn</span>
-                        </div>
-                    </div>
-                    
-                    <div id="chess3d" class="chess-3d-container">
-                        <!-- 3D Chess board will be rendered here -->
-                    </div>
-                    
-                    <div class="chess-info">
-                        <div class="captured-pieces">
-                            <div class="captured-white">
-                                <h4>Captured White Pieces</h4>
-                                <div id="capturedWhite" class="captured-list"></div>
-                            </div>
-                            <div class="captured-black">
-                                <h4>Captured Black Pieces</h4>
-                                <div id="capturedBlack" class="captured-list"></div>
-                            </div>
-                        </div>
-                        <div class="move-history">
-                            <h4>Move History</h4>
-                            <div id="moveHistory" class="move-list"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="chess-features glass-effect">
-                    <h3>Game Features</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-cube"></i> Full 3D chess board with WebGL rendering</li>
-                        <li><i class="fas fa-chess-knight"></i> All standard chess rules implemented</li>
-                        <li><i class="fas fa-brain"></i> AI opponent with multiple difficulty levels</li>
-                        <li><i class="fas fa-history"></i> Complete move history tracking</li>
-                        <li><i class="fas fa-mobile-alt"></i> Touch controls for mobile devices</li>
-                        <li><i class="fas fa-save"></i> Save and load game states</li>
-                        <li><i class="fas fa-trophy"></i> Achievement system</li>
-                        <li><i class="fas fa-chart-line"></i> Performance analytics</li>
-                    </ul>                    <div class="difficulty-selector">
-                        <h4>AI Difficulty</h4>
-                        <select id="difficultySelect" class="difficulty-dropdown" title="Select AI difficulty level" aria-label="Choose AI difficulty level">
-                            <option value="beginner">Beginner</option>
-                            <option value="intermediate" selected>Intermediate</option>
-                            <option value="advanced">Advanced</option>
-                            <option value="expert">Expert</option>
-                        </select>
-                    </div>
-                    
-                    <div class="color-selector">
-                        <h4>Play As</h4>
-                        <select id="colorSelect" class="difficulty-dropdown" title="Choose your piece color" aria-label="Choose your piece color">
-                            <option value="white" selected>White (You move first)</option>
-                            <option value="black">Black (AI moves first)</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-      <!-- Footer -->
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -720,12 +648,11 @@
                 
                 <div class="footer-links">
                     <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
+                    <ul>                        <li><a href="#home">Home</a></li>
                         <li><a href="#about">About</a></li>
                         <li><a href="#skills">Skills</a></li>
                         <li><a href="#projects">Projects</a></li>
-                        <li><a href="#chess-game">Chess Game</a></li>
+                        <li><a href="#achievements">Achievements</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
@@ -769,24 +696,37 @@
                 <p>Built with ❤️ using modern web technologies</p>
             </div>
         </div>
-    </footer>
-    
-    <!-- Theme toggle button -->
-    <button class="theme-toggle" title="Toggle dark/light theme" aria-label="Toggle theme">
-        <i class="fas fa-sun"></i>
-    </button>
-    
+    </footer>    
     <!-- Go to top button -->
     <a href="#" class="go-top" title="Go to top" aria-label="Go to top of page">
         <i class="fas fa-arrow-up"></i>
-    </a>    <!-- JavaScript Files -->
-    <script src="js/script.js"></script>
+    </a>    <!-- JavaScript Files -->    <script src="js/script.js"></script>
+    <script src="js/3d-background.js"></script>
+    <script src="js/modern-effects.js"></script>
     <script src="js/animations.js"></script>
     <script src="js/effects.js"></script>
     <script src="js/psychology.js"></script>
     <script src="js/mobile-optimizations.js"></script>
-    <script src="js/chess3d.js"></script>
-    <script src="js/chess-enhancements.js"></script>
+    
+    <script>
+        // Initialize all modern effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize 3D Background
+            if (typeof ThreeDBackground !== 'undefined') {
+                new ThreeDBackground();
+            }
+            
+            // Initialize Modern Effects
+            if (typeof ModernEffects !== 'undefined') {
+                new ModernEffects();
+            }
+            
+            // Initialize Scroll Animations
+            if (typeof ScrollAnimations !== 'undefined') {
+                new ScrollAnimations();
+            }
+        });
+    </script>
     
     <script>
         // Hide preloader once page is loaded

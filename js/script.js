@@ -14,6 +14,54 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
 
+    // Theme Toggle Functionality
+    if (themeToggle) {
+        // Get saved theme or default to dark
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        // Set initial theme
+        setTheme(savedTheme);
+        
+        // Theme toggle event listener
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.classList.contains('light-mode') ? 'light' : 'dark';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+        
+        // Listen for system theme changes
+        prefersDarkScheme.addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                setTheme(e.matches ? 'dark' : 'light');
+            }
+        });
+    }
+    
+    function setTheme(theme) {
+        if (theme === 'light') {
+            body.classList.add('light-mode');
+            body.classList.remove('dark-mode');
+            if (themeToggle) {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                themeToggle.setAttribute('aria-label', 'Switch to dark mode');
+            }
+        } else {
+            body.classList.add('dark-mode');
+            body.classList.remove('light-mode');
+            if (themeToggle) {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                themeToggle.setAttribute('aria-label', 'Switch to light mode');
+            }
+        }
+        
+        // Trigger theme change event for other components
+        window.dispatchEvent(new CustomEvent('themeChanged', { 
+            detail: { theme } 
+        }));
+    }
+
     // Animation Management System - Improve performance by controlling animations
     const animationObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -108,15 +156,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 link.classList.add('active');
             }
         });
-    }, { passive: true });
-
-    // Initialize theme toggle
+    }, { passive: true });    // Initialize theme toggle
     if (themeToggle) {
         const savedTheme = localStorage.getItem('theme');
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-        if (savedTheme === 'light' || (!savedTheme && !prefersDark)) {
-            body.classList.add('light-mode');
+        // Set initial theme
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+            themeToggle.querySelector('i').classList.replace('fa-sun', 'fa-moon');
+        } else if (savedTheme === 'dark') {
+            document.body.classList.remove('light-mode');
+            themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+        } else if (prefersDark) {
+            document.body.classList.remove('light-mode');
+            themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+        } else {
+            document.body.classList.add('light-mode');
             themeToggle.querySelector('i').classList.replace('fa-sun', 'fa-moon');
         }
 
@@ -124,10 +180,10 @@ document.addEventListener('DOMContentLoaded', () => {
             themeToggle.classList.add('animate-toggle');
             setTimeout(() => themeToggle.classList.remove('animate-toggle'), 500);
 
-            body.classList.toggle('light-mode');
+            document.body.classList.toggle('light-mode');
 
             const icon = themeToggle.querySelector('i');
-            if (body.classList.contains('light-mode')) {
+            if (document.body.classList.contains('light-mode')) {
                 icon.classList.replace('fa-sun', 'fa-moon');
                 localStorage.setItem('theme', 'light');
             } else {
