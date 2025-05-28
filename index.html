@@ -25,6 +25,35 @@
     
     <!-- Preload critical resources -->
     <link rel="preload" href="js/script.js" as="script">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Pusparaj",
+      "url": "https://pusparaj99op.github.io",
+      "sameAs": [
+        "https://twitter.com/yourtwitter",
+        "https://github.com/pusparaj99op",
+        "https://linkedin.com/in/yourlinkedin"
+      ],
+      "jobTitle": "Software Developer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Your Company"
+      }
+    }
+    </script>
 </head>
 <body>
     <!-- Preloader -->
@@ -118,6 +147,18 @@
             
             <div class="projects-container">
                 <!-- Project items here -->
+                <div class="project-item" data-category="web">
+                    <img src="placeholder.svg" data-src="assets/images/project1.jpg" alt="Project 1" class="lazy-image" loading="lazy">
+                    <div class="project-info">
+                        <h3>Project Name</h3>
+                        <p>Project description here</p>
+                        <div class="project-links">
+                            <a href="#" class="btn" aria-label="View live demo"><i class="fas fa-external-link-alt"></i> Demo</a>
+                            <a href="#" class="btn" aria-label="View source code"><i class="fab fa-github"></i> Code</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- More project items -->
             </div>
         </div>
     </section>
@@ -258,6 +299,31 @@
                 }
                 
                 setTimeout(typeText, 1000);
+            }
+            
+            // Lazy load images
+            const lazyImages = document.querySelectorAll('.lazy-image');
+            
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src;
+                            img.classList.remove('lazy-image');
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+                
+                lazyImages.forEach(img => {
+                    imageObserver.observe(img);
+                });
+            } else {
+                // Fallback for browsers that don't support IntersectionObserver
+                lazyImages.forEach(img => {
+                    img.src = img.dataset.src;
+                });
             }
         });
     </script>

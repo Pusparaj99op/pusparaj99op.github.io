@@ -1,353 +1,353 @@
 /**
- * Mobile-optimizations.js - Special optimizations for mobile devices
- * This module improves performance and experience on mobile devices
+ * Mobile Optimizations
+ * Enhances website performance on mobile devices
  */
-
-(function() {
-    'use strict';
-    
-    // Expose the API
-    window.mobileOptimizations = {
-        init: initMobileOptimizations
-    };
-    
-    // Device detection
+window.mobileOptimizations = (function() {
+    // Detect mobile devices
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+    const lowMemory = navigator.deviceMemory && navigator.deviceMemory < 4;
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     
     /**
-     * Initialize all mobile optimizations
+     * Initialize mobile optimizations
      */
-    function initMobileOptimizations() {
-        if (!isMobile) return; // Only apply to mobile devices
+    function init() {
+        if (!isMobile) return;
         
-        // Apply mobile-specific optimizations
         optimizeAnimations();
+        optimizeImages();
         enhanceTouchInteractions();
-        improveScrollPerformance();
-        createGestureNavigation();
-        optimizeFontRendering();
+        optimizeScrolling();
+        addPullToRefresh();
         
-        console.log('📱 Mobile optimizations applied');
+        // Apply further optimizations for low-memory devices
+        if (lowMemory) {
+            applyLowMemoryOptimizations();
+        }
     }
     
     /**
-     * Optimize animations for mobile by reducing complexity
+     * Optimize animations for mobile devices
      */
     function optimizeAnimations() {
-        // Reduce particles count for performance
-        const particlesCanvas = document.getElementById('particles-canvas');
-        if (particlesCanvas) {
-            particlesCanvas.style.opacity = '0.5'; // Lower opacity for better performance
+        // Disable or simplify heavy animations on mobile
+        document.querySelectorAll('.animation-heavy').forEach(el => {
+            el.classList.add('animation-mobile');
+        });
+        
+        // Reduce the number of particles in particle systems
+        document.querySelectorAll('[data-particle-count]').forEach(el => {
+            // Reduce particle count by 70% on mobile
+            const originalCount = parseInt(el.dataset.particleCount) || 50;
+            el.dataset.particleCount = Math.max(5, Math.floor(originalCount * 0.3));
+        });
+        
+        // Simplify or disable parallax effects
+        document.querySelectorAll('[data-parallax]').forEach(el => {
+            el.dataset.parallax = '0';  // Disable parallax
+        });
+        
+        // Disable 3D card effects
+        document.querySelectorAll('.card-3d').forEach(el => {
+            el.classList.remove('card-3d');
+        });
+        
+        // Simplify hover effects that might cause lag on touch devices
+        document.querySelectorAll('.hover-reveal, .hover-card, .glass-effect').forEach(el => {
+            el.classList.add('mobile-optimized');
+        });
+    }
+    
+    /**
+     * Optimize images for mobile devices
+     */
+    function optimizeImages() {
+        if ('loading' in HTMLImageElement.prototype) {
+            // Use native lazy loading
+            document.querySelectorAll('img').forEach(img => {
+                if (!img.hasAttribute('loading')) {
+                    img.setAttribute('loading', 'lazy');
+                }
+            });
         }
         
-        // Reduce 3D effects intensity
-        const card3dElements = document.querySelectorAll('.card-3d');
-        card3dElements.forEach(card => {
-            // Replace intensive 3D transforms with lighter ones
-            card.addEventListener('mousemove', (e) => {
-                // Override the intensive 3D effects with a simpler one for mobile
-                e.stopPropagation();
-                
-                // Simple hover effect instead of expensive 3D transform
-                card.style.transform = 'scale(1.03)';
-            });
+        // Check and swap to mobile optimized images if available
+        document.querySelectorAll('img[data-mobile-src]').forEach(img => {
+            const mobileSrc = img.dataset.mobileSrc;
+            if (mobileSrc) {
+                img.src = mobileSrc;
+            }
+        });
+        
+        // Optimize image sizes based on viewport
+        document.querySelectorAll('img:not(.no-optimize)').forEach(img => {
+            if (!img.complete || !img.naturalWidth) {
+                // Skip images that haven't loaded
+                return;
+            }
             
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'scale(1)';
-            });
-        });
-        
-        // Make magnetic buttons non-magnetic on mobile
-        const magneticBtns = document.querySelectorAll('.magnetic-btn');
-        magneticBtns.forEach(btn => {
-            btn.classList.remove('magnetic-btn');
-            btn.classList.add('mobile-btn');
-        });
-        
-        // Simplify WebGL projects on mobile
-        const webglProjects = document.querySelectorAll('.webgl-project');
-        webglProjects.forEach(container => {
-            // Replace WebGL with a static image if possible
-            const canvas = container.querySelector('canvas');
-            if (canvas) {
-                canvas.style.display = 'none';
-                
-                // Create and add a placeholder image
-                const img = document.createElement('img');
-                img.src = 'assets/images/webgl-placeholder.jpg';
-                img.alt = 'Project Preview';
-                img.classList.add('webgl-placeholder');
-                
-                // Add a note that full 3D is available on desktop
-                const note = document.createElement('div');
-                note.classList.add('mobile-note');
-                note.innerHTML = '<i class="fas fa-desktop"></i> Full 3D available on desktop';
-                
-                container.appendChild(img);
-                container.appendChild(note);
+            const containerWidth = img.parentElement.offsetWidth;
+            
+            // If image is significantly larger than its container, add a size hint
+            if (img.naturalWidth > containerWidth * 1.5) {
+                img.style.maxWidth = '100%';
+                img.style.height = 'auto';
             }
         });
     }
     
     /**
-     * Enhance touch interactions for better mobile experience
+     * Enhance touch interactions for better mobile UX
      */
     function enhanceTouchInteractions() {
-        // Add active state to all clickable elements for better touch feedback
-        const touchableElements = document.querySelectorAll('a, button, .btn, .project-item, .achievement-card');
+        // Increase touch target sizes for better accessibility
+        document.querySelectorAll('a, button, .btn, .nav-link').forEach(el => {
+            if (el.offsetWidth < 44 || el.offsetHeight < 44) {
+                el.classList.add('mobile-touch-target');
+            }
+        });
         
-        touchableElements.forEach(el => {
+        // Add CSS to improve touch targets if not already in stylesheet
+        if (!document.querySelector('#mobile-touch-styles')) {
+            const style = document.createElement('style');
+            style.id = 'mobile-touch-styles';
+            style.textContent = `
+                .mobile-touch-target {
+                    min-height: 44px !important;
+                    min-width: 44px !important;
+                    padding: 10px !important;
+                    display: inline-flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                }
+                
+                /* Improve tap feedback */
+                a:active, button:active, .btn:active {
+                    opacity: 0.7 !important;
+                    transition: opacity 0.1s !important;
+                }
+                
+                /* Optimize mobile hover effects */
+                .mobile-optimized {
+                    transform: none !important;
+                    transition: none !important;
+                }
+                
+                .mobile-optimized:active {
+                    transform: scale(0.98) !important;
+                    transition: transform 0.2s !important;
+                }
+                
+                /* Optimize animations for mobile */
+                .animation-mobile {
+                    animation-duration: 50% !important;
+                    animation-delay: 0ms !important;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        // Add active state for touch feedback
+        document.querySelectorAll('a, button, .btn').forEach(el => {
             el.addEventListener('touchstart', () => {
                 el.classList.add('touch-active');
-            });
+            }, { passive: true });
             
             el.addEventListener('touchend', () => {
-                setTimeout(() => {
-                    el.classList.remove('touch-active');
-                }, 100);
-            });
-            
-            el.addEventListener('touchcancel', () => {
                 el.classList.remove('touch-active');
-            });
+            }, { passive: true });
         });
-        
-        // Improve touch target sizes
-        const smallTouchTargets = document.querySelectorAll('.social-icon, .nav-icon, .filter-btn');
-        smallTouchTargets.forEach(target => {
-            target.classList.add('mobile-touch-target');
-        });
-        
-        // Add swipe capability to sliders
-        const sliders = document.querySelectorAll('.testimonial-slider');
-        addSwipeSupport(sliders);
     }
     
     /**
-     * Add swipe support to elements
-     * @param {NodeList} elements - Elements to add swipe support to
+     * Optimize scrolling performance on mobile
      */
-    function addSwipeSupport(elements) {
-        elements.forEach(element => {
-            let startX, startY;
-            let distX, distY;
-            const threshold = 100; // Minimum distance for a swipe
-            
-            element.addEventListener('touchstart', (e) => {
-                const touch = e.touches[0];
-                startX = touch.clientX;
-                startY = touch.clientY;
-            }, { passive: true });
-            
-            element.addEventListener('touchmove', (e) => {
-                if (!startX || !startY) return;
+    function optimizeScrolling() {
+        // Use passive event listeners for scroll events
+        const scrollElements = document.querySelectorAll('.scroll-container');
+        
+        scrollElements.forEach(el => {
+            el.addEventListener('scroll', handleScroll, { passive: true });
+        });
+        
+        // Main scroll optimization
+        window.addEventListener('scroll', () => {
+            // Add a "is-scrolling" class to reduce animations during scroll
+            if (!document.body.classList.contains('is-scrolling')) {
+                document.body.classList.add('is-scrolling');
                 
-                const touch = e.touches[0];
-                distX = touch.clientX - startX;
-                distY = touch.clientY - startY;
+                // Remove the class after scrolling stops
+                clearTimeout(window.scrollTimeout);
+                window.scrollTimeout = setTimeout(() => {
+                    document.body.classList.remove('is-scrolling');
+                }, 100);
+            }
+        }, { passive: true });
+        
+        function handleScroll() {
+            // Placeholder for custom scroll handling if needed
+        }
+    }
+    
+    /**
+     * Add pull-to-refresh functionality for mobile web apps
+     */
+    function addPullToRefresh() {
+        // Only add if this is configured as a web app
+        if (!document.body.dataset.webapp) return;
+        
+        let touchStart = 0;
+        let touchDistance = 0;
+        const threshold = 150;
+        let isPulling = false;
+        
+        // Create refresh indicator if it doesn't exist
+        let refreshIndicator = document.querySelector('.pull-to-refresh-indicator');
+        if (!refreshIndicator) {
+            refreshIndicator = document.createElement('div');
+            refreshIndicator.className = 'pull-to-refresh-indicator';
+            refreshIndicator.innerHTML = '<div class="refresh-spinner"></div><span>Pull to refresh</span>';
+            document.body.appendChild(refreshIndicator);
+            
+            // Add styles
+            const style = document.createElement('style');
+            style.textContent = `
+                .pull-to-refresh-indicator {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    height: 60px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: var(--bg-primary);
+                    color: var(--text-primary);
+                    transform: translateY(-100%);
+                    transition: transform 0.3s;
+                    z-index: 9999;
+                    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                }
                 
-                // If horizontal swipe is greater than vertical, prevent scrolling
-                if (Math.abs(distX) > Math.abs(distY)) {
+                .refresh-spinner {
+                    width: 20px;
+                    height: 20px;
+                    border: 2px solid transparent;
+                    border-top-color: var(--accent-primary);
+                    border-radius: 50%;
+                    margin-right: 10px;
+                }
+                
+                .pull-to-refresh-indicator.pulling .refresh-spinner {
+                    animation: spin 1s linear infinite;
+                }
+                
+                @keyframes spin {
+                    to { transform: rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        // Add touch event listeners
+        document.addEventListener('touchstart', e => {
+            // Only enable pull-to-refresh at the top of the page
+            if (window.scrollY <= 0) {
+                touchStart = e.touches[0].clientY;
+                isPulling = true;
+            }
+        }, { passive: true });
+        
+        document.addEventListener('touchmove', e => {
+            if (!isPulling) return;
+            
+            touchDistance = e.touches[0].clientY - touchStart;
+            
+            // Only activate when pulling down
+            if (touchDistance > 0) {
+                refreshIndicator.style.transform = `translateY(${Math.min(touchDistance * 0.5, threshold)}px)`;
+                
+                if (touchDistance > threshold) {
+                    refreshIndicator.querySelector('span').textContent = 'Release to refresh';
+                    refreshIndicator.classList.add('pulling');
+                } else {
+                    refreshIndicator.querySelector('span').textContent = 'Pull to refresh';
+                    refreshIndicator.classList.remove('pulling');
+                }
+                
+                // Prevent default scrolling behavior when pulling
+                if (touchDistance > 10) {
                     e.preventDefault();
                 }
-            }, { passive: false });
-            
-            element.addEventListener('touchend', (e) => {
-                if (!startX || !startY) return;
-                
-                // Check if it's a horizontal swipe
-                if (Math.abs(distX) > threshold && Math.abs(distY) < threshold * 0.5) {
-                    // Left swipe
-                    if (distX < 0) {
-                        // Simulate next slide click
-                        const nextDot = element.parentElement.querySelector('.testimonial-dot.active').nextElementSibling;
-                        if (nextDot) nextDot.click();
-                    } 
-                    // Right swipe
-                    else {
-                        // Simulate prev slide click
-                        const prevDot = element.parentElement.querySelector('.testimonial-dot.active').previousElementSibling;
-                        if (prevDot) prevDot.click();
-                    }
-                }
-                
-                // Reset values
-                startX = null;
-                startY = null;
-                distX = null;
-                distY = null;
-            }, { passive: true });
-        });
-    }
-    
-    /**
-     * Improve scroll performance by lazy loading and throttling events
-     */
-    function improveScrollPerformance() {
-        // Add lazy loading to images
-        const images = document.querySelectorAll('img:not([loading])');
-        images.forEach(img => {
-            img.setAttribute('loading', 'lazy');
-        });
-        
-        // Throttle scroll events
-        let scrollTimeout;
-        let lastScrollTop = 0;
-        
-        // Replace intensive scroll listeners with throttled ones
-        window.addEventListener('scroll', () => {
-            if (!scrollTimeout) {
-                scrollTimeout = setTimeout(() => {
-                    // Clear timeout
-                    scrollTimeout = null;
-                    
-                    // Check scroll direction
-                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                    const isScrollingDown = scrollTop > lastScrollTop;
-                    
-                    // Update header visibility based on scroll direction
-                    const header = document.querySelector('header');
-                    if (header && scrollTop > 200) {
-                        if (isScrollingDown) {
-                            header.classList.add('mobile-nav-hidden');
-                        } else {
-                            header.classList.remove('mobile-nav-hidden');
-                        }
-                    } else if (header) {
-                        header.classList.remove('mobile-nav-hidden');
-                    }
-                    
-                    // Update last scroll position
-                    lastScrollTop = scrollTop;
-                }, 100); // Throttle to 100ms
             }
-        }, { passive: true });
+        }, { passive: false });
         
-        // Disable heavy animations while scrolling
-        let isScrolling;
-        window.addEventListener('scroll', () => {
-            document.body.classList.add('is-scrolling');
+        document.addEventListener('touchend', () => {
+            if (!isPulling) return;
+            isPulling = false;
             
-            // Clear timeout if it exists
-            if (isScrolling) clearTimeout(isScrolling);
+            if (touchDistance > threshold) {
+                // Refresh the page
+                refreshIndicator.querySelector('span').textContent = 'Refreshing...';
+                setTimeout(() => {
+                    window.location.reload();
+                }, 300);
+            } else {
+                // Reset
+                refreshIndicator.style.transform = 'translateY(-100%)';
+            }
             
-            // Set timeout to remove class after scrolling stops
-            isScrolling = setTimeout(() => {
-                document.body.classList.remove('is-scrolling');
-            }, 200);
+            touchDistance = 0;
         }, { passive: true });
     }
     
     /**
-     * Create mobile gesture navigation
+     * Apply more aggressive optimizations for low memory devices
      */
-    function createGestureNavigation() {
-        // Create swipe navigation for sections
-        let touchStartY;
-        let touchEndY;
-        const minSwipeDistance = 100;
-        
-        document.addEventListener('touchstart', e => {
-            touchStartY = e.changedTouches[0].screenY;
-        }, { passive: true });
-        
-        document.addEventListener('touchend', e => {
-            touchEndY = e.changedTouches[0].screenY;
-            handleGesture();
-        }, { passive: true });
-        
-        function handleGesture() {
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('#navbar li a');
-            
-            // If enough vertical distance has been covered
-            if (touchStartY - touchEndY > minSwipeDistance) {
-                // Swiped up - go to next section
-                navigateToAdjacentSection('next', sections, navLinks);
-            } else if (touchEndY - touchStartY > minSwipeDistance) {
-                // Swiped down - go to previous section
-                navigateToAdjacentSection('prev', sections, navLinks);
-            }
-        }
-        
-        // Add double-tap to top
-        let lastTap = 0;
-        document.addEventListener('touchend', e => {
-            const currentTime = new Date().getTime();
-            const tapLength = currentTime - lastTap;
-            
-            if (tapLength < 300 && tapLength > 0) {
-                // Double tap detected
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-                e.preventDefault();
-            }
-            
-            lastTap = currentTime;
+    function applyLowMemoryOptimizations() {
+        // Remove all heavy animations
+        document.querySelectorAll('.animation-heavy, .particles-enhanced, .fire-container, .water-ripple').forEach(el => {
+            el.classList.add('low-memory-disabled');
         });
+        
+        // Disable all unnecessary effects
+        document.querySelectorAll('.blur-circle').forEach(el => {
+            el.style.display = 'none';
+        });
+        
+        // Reduce image quality for better performance
+        document.querySelectorAll('img:not(.essential-img)').forEach(img => {
+            img.classList.add('low-quality');
+        });
+        
+        // Add style for low memory optimizations
+        const style = document.createElement('style');
+        style.textContent = `
+            .low-memory-disabled {
+                animation: none !important;
+                transition: none !important;
+                transform: none !important;
+            }
+            
+            .low-memory-disabled * {
+                animation: none !important;
+                transition: none !important;
+            }
+            
+            .low-quality {
+                image-rendering: auto;
+                filter: brightness(1.05);
+            }
+        `;
+        document.head.appendChild(style);
     }
     
-    /**
-     * Navigate to adjacent section
-     * @param {string} direction - 'next' or 'prev'
-     * @param {NodeList} sections - All sections in the document
-     * @param {NodeList} navLinks - Navigation links
-     */
-    function navigateToAdjacentSection(direction, sections, navLinks) {
-        // Find current section
-        const scrollPosition = window.scrollY;
-        const windowHeight = window.innerHeight;
-        let currentSectionIndex = -1;
-        
-        sections.forEach((section, index) => {
-            const sectionTop = section.offsetTop - 100;
-            const sectionHeight = section.offsetHeight;
-            
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                currentSectionIndex = index;
-            }
-        });
-        
-        if (currentSectionIndex === -1) return;
-        
-        // Calculate target section based on direction
-        let targetIndex;
-        if (direction === 'next' && currentSectionIndex < sections.length - 1) {
-            targetIndex = currentSectionIndex + 1;
-        } else if (direction === 'prev' && currentSectionIndex > 0) {
-            targetIndex = currentSectionIndex - 1;
-        } else {
-            return;
-        }
-        
-        // Scroll to the target section
-        const targetSection = sections[targetIndex];
-        const targetTop = targetSection.offsetTop - 70; // Accounting for header
-        
-        window.scrollTo({
-            top: targetTop,
-            behavior: 'smooth'
-        });
-    }
-    
-    /**
-     * Optimize font rendering for mobile
-     */
-    function optimizeFontRendering() {
-        // Add mobile optimized font class
-        document.documentElement.classList.add('mobile-optimized-fonts');
-        
-        // Disable fancy text gradients
-        const gradientTexts = document.querySelectorAll('.gradient-text');
-        gradientTexts.forEach(text => {
-            // Still keep some visual interest, but simpler
-            text.classList.remove('gradient-text');
-            text.classList.add('mobile-highlight-text');
-        });
-        
-        // Use system fonts for better performance
-        document.documentElement.style.setProperty('--mobile-font-override', '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif');
-    }
+    // Return public API
+    return {
+        init,
+        optimizeAnimations,
+        optimizeImages,
+        enhanceTouchInteractions,
+        optimizeScrolling
+    };
 })();

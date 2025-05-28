@@ -347,9 +347,9 @@
         });
     }
     
-    // Initialize when DOM is ready
-    document.addEventListener('DOMContentLoaded', () => {
-        // If automatic initialization is wanted, uncomment the line below
-        // activateAllEffects();
-    });
-})();
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // If automatic initialization is wanted, uncomment the line below
+            // activateAllEffects();
+        });
+    })();

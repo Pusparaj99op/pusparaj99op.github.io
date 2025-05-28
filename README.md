@@ -159,7 +159,7 @@ The website includes:
 - UX Psychology principles inspired by research from [Nielsen Norman Group](https://www.nngroup.com/)
 - Design inspiration from [igloo.inc](https://www.igloo.inc/) and other premium portfolio websites
 
-## 📜 License
+## 📜 License..
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ---

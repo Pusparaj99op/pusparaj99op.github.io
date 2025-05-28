@@ -1,573 +1,378 @@
 /**
- * Animations.js - Enhanced animations and visual effects
- * This module handles all advanced animations to create a more immersive experience
+ * Advanced animations management
  */
-
-(function() {
-    'use strict';
-    
-    // Expose the API
-    window.animations = {
-        init: initAnimations,
-        particles: initParticleSystem,
-        parallax: initParallaxEffects,
-        reveal: initScrollReveal,
-        morph: initMorphingEffects,
-        perspective: initPerspectiveEffects,
-        floatingText: initFloatingTextEffect,
-        liquidButton: initLiquidButtonEffect,
-        pageTransitions: initPageTransitions,
-        textScramble: initTextScrambleEffect,
-        magneticElements: initMagneticElements,
-        dynamicBackground: initDynamicBackground,
-        hoverReveal: initHoverRevealEffect
-    };
-    
-    // Configuration
-    const config = {
-        particles: {
-            count: 100,
-            speed: 0.5,
-            connectionDistance: 100
-        },
-        reveal: {
-            threshold: 0.15,
-            delay: 100
-        },
-        floatingText: {
-            charactersClassName: 'floating-character',
-            baseDelay: 100,
-            randomness: 0.5
-        },
-        pageTransitions: {
-            duration: 800,
-            easing: 'cubic-bezier(0.76, 0, 0.24, 1)'
-        },
-        dynamicBackground: {
-            speed: 0.05,
-            colorShift: true
-        }
-    };
+window.animations = (function() {
+    // Track performance
+    const perfSensitive = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     
     /**
-     * Check if device is capable of running advanced animations
-     * @returns {boolean} True if device is high-end
+     * Initialize all animations
      */
-    function isHighEndDevice() {
-        // Priority for user preference
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            return false;
-        }
-        
-        // Check for mobile devices
-        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            return false;
-        }
-        
-        // Check for hardware concurrency (CPU cores)
-        if (navigator.hardwareConcurrency && navigator.hardwareConcurrency >= 4) {
-            return true;
-        }
-        
-        // Check for device memory if available
-        if (navigator.deviceMemory && navigator.deviceMemory >= 4) {
-            return true;
-        }
-        
-        // Check if device has accelerated graphics
-        const canvas = document.createElement('canvas');
-        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-        if (!gl) {
-            return false;
-        }
-        
-        const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-        if (debugInfo) {
-            const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-            // Check if renderer contains indicators of powerful GPU
-            if (/(nvidia|amd|radeon|intel iris|apple m|rtx|gtx)/i.test(renderer)) {
-                return true;
+    function init() {
+        initTextAnimations();
+        initParallaxEffects();
+        initMagneticElements();
+        init3dCards();
+        initScrollAnimations();
+        initRevealEffects();
+    }
+    
+    /**
+     * Initialize text-based animations like typing and split text
+     */
+    function initTextAnimations() {
+        // Typing animation
+        const typingElements = document.querySelectorAll('.typing-text');
+        typingElements.forEach(element => {
+            const text = element.dataset.text || element.textContent;
+            const typingDelay = parseInt(element.dataset.delay || 100);
+            
+            if (!element.dataset.initialized) {
+                element.dataset.initialized = 'true';
+                typeText(element, text, typingDelay);
             }
-        }
+        });
         
-        // Fall back to checking frame rate
-        return checkFrameRate() >= 45;
-    }
-    
-    /**
-     * Check frame rate by running a quick animation test
-     * @returns {number} Approximate frame rate
-     */
-    function checkFrameRate() {
-        return new Promise(resolve => {
-            let lastTime = performance.now();
-            let frameCount = 0;
-            let totalTime = 0;
-            
-            function countFrame(timestamp) {
-                frameCount++;
-                totalTime += timestamp - lastTime;
-                lastTime = timestamp;
-                
-                if (frameCount < 10) {
-                    requestAnimationFrame(countFrame);
-                } else {
-                    const fps = Math.round(1000 / (totalTime / frameCount));
-                    resolve(fps);
-                }
+        // Text scramble effect
+        const scrambleElements = document.querySelectorAll('.scramble-text');
+        scrambleElements.forEach(element => {
+            if (!element.dataset.initialized) {
+                element.dataset.initialized = 'true';
+                const scramble = new TextScramble(element);
+                scramble.setText(element.textContent);
             }
-            
-            requestAnimationFrame(countFrame);
         });
-    }
-    
-    /**
-     * Initialize all animations with better performance management
-     */
-    function initAnimations() {
-        // Check for animation preferences and device capabilities
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            console.log('🔄 Reduced motion preference detected. Using simplified animations.');
-            initBasicAnimations();
-            return;
-        }
         
-        // Check device capabilities
-        if (window.innerWidth < 768 || !isHighEndDevice()) {
-            console.log('🔄 Using optimized animations for this device');
-            initBasicAnimations();
-            return;
-        }
-        
-        // Initialize animations with IntersectionObserver for better performance
-        const animationObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
+        // Split text animations
+        const splitContainers = document.querySelectorAll('.split-text-container');
+        splitContainers.forEach(container => {
+            if (!container.dataset.initialized) {
+                container.dataset.initialized = 'true';
+                const text = container.textContent.trim();
+                container.innerHTML = '';
                 
-                // Get animation type from data attribute
-                const element = entry.target;
-                const animationType = element.dataset.animation;
+                text.split(' ').forEach((word, index) => {
+                    const wordEl = document.createElement('span');
+                    wordEl.className = 'split-text';
+                    wordEl.style.transitionDelay = `${0.05 * index}s`;
+                    wordEl.textContent = word + ' ';
+                    container.appendChild(wordEl);
+                });
                 
-                switch (animationType) {
-                    case 'particles':
-                        initParticleSystem(element);
-                        break;
-                    case 'parallax':
-                        initParallaxEffects([element]);
-                        break;
-                    case 'perspective':
-                        initPerspectiveEffects(element);
-                        break;
-                    case 'floating-text':
-                        initFloatingTextEffect(element);
-                        break;
-                    case 'liquid-button':
-                        initLiquidButtonEffect(element);
-                        break;
-                    case 'dynamic-bg':
-                        initDynamicBackground(element);
-                        break;
-                    // Default reveal animation handled by CSS
-                }
+                // Add animation class after a small delay to allow DOM to update
+                setTimeout(() => {
+                    container.querySelectorAll('.split-text').forEach(el => {
+                        el.classList.add('animated');
+                    });
+                }, 100);
+            }
+        });
+        
+        // Floating characters animation
+        const floatingContainers = document.querySelectorAll('[data-floating-text]');
+        floatingContainers.forEach(container => {
+            if (!container.dataset.initialized) {
+                container.dataset.initialized = 'true';
+                const text = container.textContent.trim();
+                container.innerHTML = '';
                 
-                if (!element.dataset.repeat) {
-                    animationObserver.unobserve(element);
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        // Observe elements with animation data attributes
-        document.querySelectorAll('[data-animation]').forEach(el => {
-            animationObserver.observe(el);
-        });
-        
-        // Always initialize scroll reveal for all animated elements
-        initScrollReveal();
-        
-        // Initialize page transitions
-        initPageTransitions();
-        
-        console.log('✨ Advanced animations initialized with performance optimizations');
-    }
-    
-    /**
-     * Initialize simpler animations for lower-end devices
-     */
-    function initBasicAnimations() {
-        console.log('🔄 Using basic animations for better performance');
-        
-        // Simplified reveal animations
-        const elements = document.querySelectorAll('.animate-on-scroll');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animated');
-                }
-            });
-        }, {
-            threshold: 0.15
-        });
-        
-        elements.forEach(element => {
-            observer.observe(element);
-        });
-        
-        // Basic hover effects
-        const buttons = document.querySelectorAll('.btn, .project-item, .achievement-card');
-        buttons.forEach(button => {
-            button.addEventListener('mouseenter', () => {
-                button.style.transform = 'translateY(-5px)';
-                button.style.transition = 'transform 0.3s ease';
-            });
-            
-            button.addEventListener('mouseleave', () => {
-                button.style.transform = 'translateY(0)';
-            });
-        });
-    }
-    
-    /**
-     * Optimize particle system for better performance
-     */
-    function initParticleSystem(container = null) {
-        const heroSection = container || document.querySelector('.hero');
-        if (!heroSection) return;
-        
-        const canvas = document.getElementById('particles-canvas') || createCanvas();
-        
-        function createCanvas() {
-            const newCanvas = document.createElement('canvas');
-            newCanvas.id = 'particles-canvas';
-            heroSection.prepend(newCanvas);
-            return newCanvas;
-        }
-        
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        let animationFrame;
-        let isVisible = true;
-        
-        // Resize handler
-        function resizeCanvas() {
-            canvas.width = heroSection.offsetWidth;
-            canvas.height = heroSection.offsetHeight;
-            createParticles();
-        }
-        
-        // Create particles
-        function createParticles() {
-            particles = [];
-            const { count, speed, connectionDistance } = config.particles;
-            const particleCount = Math.min(Math.floor(window.innerWidth / 10), count);
-            
-            for (let i = 0; i < particleCount; i++) {
-                const size = Math.random() * 3 + 1;
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    radius: size,
-                    speedX: (Math.random() - 0.5) * speed,
-                    speedY: (Math.random() - 0.5) * speed,
-                    color: [
-                        `rgba(108, 99, 255, ${Math.random() * 0.5 + 0.2})`,
-                        `rgba(0, 224, 255, ${Math.random() * 0.5 + 0.2})`,
-                        `rgba(255, 107, 107, ${Math.random() * 0.5 + 0.2})`
-                    ][Math.floor(Math.random() * 3)]
+                [...text].forEach((char, index) => {
+                    const span = document.createElement('span');
+                    span.className = 'floating-character';
+                    span.textContent = char;
+                    span.style.animationDelay = `${0.1 * index}s`;
+                    container.appendChild(span);
                 });
             }
-        }
-        
-        // Draw particles
-        function drawParticles() {
-            particles.forEach(particle => {
-                particle.x += particle.speedX;
-                particle.y += particle.speedY;
-                
-                if (particle.x < 0 || particle.x > canvas.width) {
-                    particle.speedX *= -1;
-                }
-                
-                if (particle.y < 0 || particle.y > canvas.height) {
-                    particle.speedY *= -1;
-                }
-                
-                ctx.beginPath();
-                ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-                ctx.fillStyle = particle.color;
-                ctx.fill();
-            });
-            
-            particles.forEach((particle, i) => {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particle.x - particles[j].x;
-                    const dy = particle.y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance < config.particles.connectionDistance) {
-                        ctx.beginPath();
-                        ctx.moveTo(particle.x, particle.y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(108, 99, 255, ${(1 - distance / config.particles.connectionDistance) * 0.2})`;
-                        ctx.stroke();
-                    }
-                }
-            });
-        }
-        
-        // Use requestAnimationFrame more efficiently
-        let lastTime = 0;
-        const fps = 30; // Limit FPS for better performance
-        const fpsInterval = 1000 / fps;
-        
-        function animate(timestamp) {
-            if (!isVisible) {
-                animationFrame = requestAnimationFrame(animate);
-                return;
-            }
-            
-            const elapsed = timestamp - lastTime;
-            
-            if (elapsed > fpsInterval) {
-                lastTime = timestamp - (elapsed % fpsInterval);
-                
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                drawParticles();
-            }
-            
-            animationFrame = requestAnimationFrame(animate);
-        }
-        
-        // Mouse interaction
-        heroSection.addEventListener('mousemove', (e) => {
-            if (!isHighEndDevice()) return;
-            
-            const rect = heroSection.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            particles.forEach(particle => {
-                const dx = x - particle.x;
-                const dy = y - particle.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                
-                if (distance < 120) {
-                    const angle = Math.atan2(dy, dx);
-                    const force = 0.2 * (1 - distance / 120);
-                    
-                    particle.speedX -= Math.cos(angle) * force;
-                    particle.speedY -= Math.sin(angle) * force;
-                }
-            });
         });
-        
-        // Check if element is visible to save resources
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                isVisible = entry.isIntersecting;
-                
-                if (isVisible) {
-                    if (!animationFrame) {
-                        animationFrame = requestAnimationFrame(animate);
-                    }
-                } else {
-                    if (animationFrame) {
-                        cancelAnimationFrame(animationFrame);
-                        animationFrame = null;
-                    }
-                }
-            });
-        }, { threshold: 0 });
-        
-        observer.observe(heroSection);
-        
-        // Initialize
-        resizeCanvas();
-        animate(0);
-        
-        // Handle resize
-        window.addEventListener('resize', debounce(resizeCanvas, 200));
-        
-        // Return clean-up function
-        return function cleanup() {
-            if (animationFrame) {
-                cancelAnimationFrame(animationFrame);
-            }
-            observer.disconnect();
-        };
     }
     
     /**
-     * Optimize parallax effects for smoother performance
+     * Initialize parallax effects
      */
-    function initParallaxEffects(elements = null) {
-        const parallaxElements = elements || document.querySelectorAll('[data-parallax]');
+    function initParallaxEffects() {
+        const parallaxElements = document.querySelectorAll('[data-parallax]');
         if (parallaxElements.length === 0) return;
         
-        // Use passive scroll listener for better performance
         let ticking = false;
-        let scrollY = window.scrollY;
+        let lastScrollY = window.scrollY;
         
-        // Throttle scroll events for better performance
-        const updateElements = () => {
+        const updateParallax = () => {
             parallaxElements.forEach(element => {
-                const speedX = parseFloat(element.dataset.parallaxX) || 0;
-                const speedY = parseFloat(element.dataset.parallaxY) || 0.1;
-                const speedRotate = parseFloat(element.dataset.parallaxRotate) || 0;
-                const reverse = element.dataset.parallaxReverse === 'true';
-                
-                const rect = element.getBoundingClientRect();
-                const centerY = rect.top + rect.height / 2;
-                const viewportCenter = window.innerHeight / 2;
-                const distanceFromCenter = centerY - viewportCenter;
-                
-                if (Math.abs(distanceFromCenter) < window.innerHeight) {
-                    const direction = reverse ? -1 : 1;
-                    const translateY = speedY * distanceFromCenter * direction * 0.1;
-                    const translateX = speedX * distanceFromCenter * direction * 0.1;
-                    const rotate = speedRotate * distanceFromCenter * direction * 0.01;
-                    
-                    element.style.transform = `translate3d(${translateX}px, ${translateY}px, 0) rotate(${rotate}deg)`;
-                }
+                const speed = parseFloat(element.dataset.parallax) || 0.1;
+                const offsetY = (lastScrollY * speed);
+                element.style.transform = `translate3d(0, ${offsetY}px, 0)`;
             });
-            
             ticking = false;
         };
         
         const requestTick = () => {
             if (!ticking) {
-                requestAnimationFrame(updateElements);
+                requestAnimationFrame(updateParallax);
                 ticking = true;
             }
         };
         
         window.addEventListener('scroll', () => {
-            scrollY = window.scrollY;
+            lastScrollY = window.scrollY;
             requestTick();
         }, { passive: true });
         
-        // Initial update
-        requestTick();
+        // Initial position
+        updateParallax();
     }
     
     /**
-     * Initialize scroll reveal animations with advanced effects
+     * Initialize magnetic elements that follow the cursor
      */
-    function initScrollReveal() {
-        const elements = document.querySelectorAll('.animate-on-scroll');
+    function initMagneticElements() {
+        const magneticButtons = document.querySelectorAll('.magnetic-btn');
+        const magneticElements = document.querySelectorAll('.magnetic-element');
+        const allMagnetic = [...magneticButtons, ...magneticElements];
         
-        const effectMap = {
-            'fade-up': { opacity: [0, 1], translateY: [30, 0] },
-            'fade-down': { opacity: [0, 1], translateY: [-30, 0] },
-            'fade-left': { opacity: [0, 1], translateX: [30, 0] },
-            'fade-right': { opacity: [0, 1], translateX: [-30, 0] },
-            'zoom-in': { opacity: [0, 1], scale: [0.8, 1] },
-            'zoom-out': { opacity: [0, 1], scale: [1.2, 1] },
-            'flip-up': { opacity: [0, 1], rotateX: [90, 0] },
-            'flip-down': { opacity: [0, 1], rotateX: [-90, 0] },
-            'flip-left': { opacity: [0, 1], rotateY: [-90, 0] },
-            'flip-right': { opacity: [0, 1], rotateY: [90, 0] },
-            'slide-up': { translateY: ['100%', 0] },
-            'slide-down': { translateY: ['-100%', 0] },
-            'slide-left': { translateX: ['100%', 0] },
-            'slide-right': { translateX: ['-100%', 0] }
-        };
+        if (allMagnetic.length === 0) return;
         
-        const getTransform = (effect, progress) => {
-            const transforms = [];
+        allMagnetic.forEach(element => {
+            element.addEventListener('mousemove', (e) => {
+                const rect = element.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                const strength = element.dataset.magneticStrength || 0.5;
+                element.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
+            });
             
-            if (effect.translateY) {
-                const value = effect.translateY[0] + (effect.translateY[1] - effect.translateY[0]) * progress;
-                transforms.push(`translateY(${value}${typeof effect.translateY[0] === 'string' ? '' : 'px'})`);
-            }
-            
-            if (effect.translateX) {
-                const value = effect.translateX[0] + (effect.translateX[1] - effect.translateX[0]) * progress;
-                transforms.push(`translateX(${value}${typeof effect.translateX[0] === 'string' ? '' : 'px'})`);
-            }
-            
-            if (effect.scale) {
-                const value = effect.scale[0] + (effect.scale[1] - effect.scale[0]) * progress;
-                transforms.push(`scale(${value})`);
-            }
-            
-            if (effect.rotateX) {
-                const value = effect.rotateX[0] + (effect.rotateX[1] - effect.rotateX[0]) * progress;
-                transforms.push(`rotateX(${value}deg)`);
-            }
-            
-            if (effect.rotateY) {
-                const value = effect.rotateY[0] + (effect.rotateY[1] - effect.rotateY[0]) * progress;
-                transforms.push(`rotateY(${value}deg)`);
-            }
-            
-            return transforms.join(' ');
-        };
+            element.addEventListener('mouseleave', () => {
+                element.style.transform = 'translate(0px, 0px)';
+            });
+        });
+    }
+    
+    /**
+     * Initialize 3D card effects
+     */
+    function init3dCards() {
+        const cards = document.querySelectorAll('.card-3d');
         
-        const applyStyles = (element, effect, progress) => {
-            const transform = getTransform(effect, progress);
-            if (transform) {
-                element.style.transform = transform;
-            }
+        cards.forEach(card => {
+            const content = card.querySelector('.card-3d-content');
             
-            if (effect.opacity) {
-                element.style.opacity = effect.opacity[0] + (effect.opacity[1] - effect.opacity[0]) * progress;
-            }
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(0)`;
+                
+                if (content) {
+                    content.style.transform = `translateZ(60px)`;
+                }
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) translateZ(0)`;
+                
+                if (content) {
+                    content.style.transform = `translateZ(0)`;
+                }
+            });
+        });
+    }
+    
+    /**
+     * Initialize scroll-based animations
+     */
+    function initScrollAnimations() {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
         };
         
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                const element = entry.target;
-                const animation = element.dataset.animation || 'fade-up';
-                const delay = parseInt(element.dataset.delay || 0);
-                const duration = parseInt(element.dataset.duration || 800);
-                const effect = effectMap[animation];
-                
-                if (!effect) return;
-                
                 if (entry.isIntersecting) {
-                    applyStyles(element, effect, 0);
-                    element.style.transition = `transform ${duration}ms cubic-bezier(0.25, 0.1, 0.25, 1.0) ${delay}ms, opacity ${duration}ms cubic-bezier(0.25, 0.1, 0.25, 1.0) ${delay}ms`;
-                    
-                    requestAnimationFrame(() => {
-                        applyStyles(element, effect, 1);
-                        element.classList.add('animated');
-                    });
-                    
-                    if (!element.dataset.repeat) {
-                        observer.unobserve(element);
-                    }
-                } else if (element.dataset.repeat) {
-                    applyStyles(element, effect, 0);
-                    element.classList.remove('animated');
+                    entry.target.classList.add('animated');
+                } else if (entry.target.dataset.repeat === 'true') {
+                    entry.target.classList.remove('animated');
                 }
             });
-        }, {
-            threshold: config.reveal.threshold,
-            rootMargin: '0px 0px -50px 0px'
-        });
+        }, observerOptions);
         
-        elements.forEach(element => {
-            observer.observe(element);
-        });
-        
-        return function cleanup() {
-            observer.disconnect();
-        };
+        const animatedElements = document.querySelectorAll('.animate-on-scroll');
+        animatedElements.forEach(el => observer.observe(el));
     }
     
     /**
-     * Utility: Improved debounce function
+     * Initialize image/content reveal effects
      */
-    function debounce(func, wait) {
-        let timeout;
-        return function(...args) {
-            const later = () => {
-                timeout = null;
-                func.apply(this, args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
+    function initRevealEffects() {
+        const hoverRevealElements = document.querySelectorAll('.hover-reveal');
+        
+        hoverRevealElements.forEach(element => {
+            const image = element.querySelector('.hover-reveal-image');
+            if (!image) return;
+            
+            element.addEventListener('mousemove', (e) => {
+                const rect = element.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+                
+                image.style.opacity = '1';
+                image.style.transform = `translate(${mouseX - image.offsetWidth/2}px, ${mouseY - image.offsetHeight/2}px)`;
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                image.style.opacity = '0';
+            });
+        });
+        
+        // Text reveal animations
+        const textRevealElements = document.querySelectorAll('.text-reveal');
+        textRevealElements.forEach(element => {
+            if (!element.dataset.initialized) {
+                element.dataset.initialized = 'true';
+                
+                const text = element.textContent.trim();
+                element.innerHTML = '';
+                
+                [...text].forEach(char => {
+                    const span = document.createElement('span');
+                    span.textContent = char === ' ' ? '\u00A0' : char;  // Non-breaking space for actual spaces
+                    element.appendChild(span);
+                });
+            }
+            
+            // Set up observer for this element
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        element.classList.add('revealed');
+                        observer.unobserve(element);
+                    }
+                });
+            }, { threshold: 0.2 });
+            
+            observer.observe(element);
+        });
+    }
+    
+    // Text scramble effect helper class
+    class TextScramble {
+        constructor(el) {
+            this.el = el;
+            this.chars = '!<>-_\\/[]{}—=+*^?#________';
+            this.update = this.update.bind(this);
+        }
+        
+        setText(newText) {
+            const oldText = this.el.innerText;
+            const length = Math.max(oldText.length, newText.length);
+            const promise = new Promise((resolve) => this.resolve = resolve);
+            this.queue = [];
+            
+            for (let i = 0; i < length; i++) {
+                const from = oldText[i] || '';
+                const to = newText[i] || '';
+                const start = Math.floor(Math.random() * 40);
+                const end = start + Math.floor(Math.random() * 40);
+                this.queue.push({ from, to, start, end });
+            }
+            
+            cancelAnimationFrame(this.frameRequest);
+            this.frame = 0;
+            this.update();
+            return promise;
+        }
+        
+        update() {
+            let output = '';
+            let complete = 0;
+            
+            for (let i = 0, n = this.queue.length; i < n; i++) {
+                let { from, to, start, end, char } = this.queue[i];
+                
+                if (this.frame >= end) {
+                    complete++;
+                    output += to;
+                } else if (this.frame >= start) {
+                    if (!char || Math.random() < 0.28) {
+                        char = this.randomChar();
+                        this.queue[i].char = char;
+                    }
+                    output += `<span class="scramble-char">${char}</span>`;
+                } else {
+                    output += from;
+                }
+            }
+            
+            this.el.innerHTML = output;
+            
+            if (complete === this.queue.length) {
+                this.resolve();
+            } else {
+                this.frameRequest = requestAnimationFrame(this.update);
+                this.frame++;
+            }
+        }
+        
+        randomChar() {
+            return this.chars[Math.floor(Math.random() * this.chars.length)];
+        }
+    }
+    
+    /**
+     * Type text animation
+     */
+    function typeText(element, text, delay = 100) {
+        let currentChar = 0;
+        element.textContent = '';
+        
+        function type() {
+            if (currentChar < text.length) {
+                element.textContent += text.charAt(currentChar);
+                currentChar++;
+                setTimeout(type, delay);
+            } else if (element.dataset.loop === 'true') {
+                setTimeout(() => {
+                    element.textContent = '';
+                    currentChar = 0;
+                    type();
+                }, 1500);
+            }
+        }
+        
+        type();
+    }
+    
+    /**
+     * Helper function to throttle function calls
+     */
+    function throttle(func, limit) {
+        let inThrottle;
+        return function() {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
         };
     }
+    
+    // Public API
+    return {
+        init,
+        initTextAnimations,
+        initParallaxEffects,
+        initMagneticElements,
+        init3dCards
+    };
 })();
