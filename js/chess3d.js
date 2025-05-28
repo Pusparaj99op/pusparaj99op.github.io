@@ -3,8 +3,7 @@
  * Advanced WebGL-based chess game with AI opponent
  */
 
-class Chess3D {
-    constructor(container) {
+class Chess3D {    constructor(container) {
         this.container = container;
         this.scene = null;
         this.camera = null;
@@ -18,19 +17,21 @@ class Chess3D {
         this.capturedPieces = { white: [], black: [] };
         this.aiDifficulty = 'intermediate';
         this.isAiThinking = false;
+        this.gameMode = 'human-vs-ai'; // human-vs-ai, human-vs-human
+        this.humanColor = 'white'; // which color the human plays
         
         // Chess board state (8x8 grid)
         this.boardState = this.initializeBoardState();
         
         this.init();
     }
-    
-    init() {
+      init() {
         this.setupScene();
         this.createBoard();
         this.createPieces();
         this.setupControls();
         this.setupEventListeners();
+        this.updateGameStatus(); // Initialize game status display
         this.animate();
         
         console.log('3D Chess game initialized successfully!');
@@ -184,12 +185,12 @@ class Chess3D {
             default:
                 geometry = new THREE.ConeGeometry(0.3, 0.6, 8);
         }
-        
-        const material = new THREE.MeshPhongMaterial({
-            color: color === 'white' ? 0xf5f5f5 : 0x2c2c2c,
-            shininess: 100,
+          const material = new THREE.MeshPhongMaterial({
+            color: color === 'white' ? 0xf8f8f8 : 0x1a1a1a,
+            shininess: 150,
             transparent: true,
-            opacity: 0.95
+            opacity: 0.95,
+            specular: color === 'white' ? 0x222222 : 0x444444
         });
         
         const piece = new THREE.Mesh(geometry, material);
@@ -290,9 +291,15 @@ class Chess3D {
         document.getElementById('toggleViewBtn')?.addEventListener('click', () => {
             this.toggleView();
         });
-        
-        document.getElementById('difficultySelect')?.addEventListener('change', (e) => {
+          document.getElementById('difficultySelect')?.addEventListener('change', (e) => {
             this.aiDifficulty = e.target.value;
+        });
+        
+        document.getElementById('colorSelect')?.addEventListener('change', (e) => {
+            this.humanColor = e.target.value;
+            console.log('Human color changed to:', this.humanColor);
+            // Start a new game with the new color selection
+            this.resetGame();
         });
     }
     
@@ -315,20 +322,40 @@ class Chess3D {
             }
         }
     }
-    
-    onMouseMove(event) {
+      onMouseMove(event) {
         this.updateMousePosition(event);
         
         const intersects = this.raycaster.intersectObjects(this.scene.children, true);
         
-        // Update cursor style
+        // Reset all piece hover effects
+        Object.values(this.pieces).forEach(piece => {
+            if (piece !== this.selectedPiece) {
+                piece.material.emissive.setHex(0x000000);
+            }
+        });
+        
+        // Update cursor style and add hover effects
         if (intersects.length > 0) {
             const object = intersects[0].object;
             if (object.userData.type && object.userData.type !== 'square') {
-                this.renderer.domElement.style.cursor = 'pointer';
+                // Check if this piece can be selected
+                const canSelect = object.userData.color === this.currentPlayer && 
+                                (this.gameMode !== 'human-vs-ai' || this.currentPlayer === this.humanColor) &&
+                                !this.isAiThinking;
+                
+                if (canSelect) {
+                    this.renderer.domElement.style.cursor = 'pointer';
+                    if (object !== this.selectedPiece) {
+                        object.material.emissive.setHex(0x222222);
+                    }
+                } else {
+                    this.renderer.domElement.style.cursor = 'not-allowed';
+                }
             } else {
                 this.renderer.domElement.style.cursor = 'default';
             }
+        } else {
+            this.renderer.domElement.style.cursor = 'default';
         }
     }
     
@@ -339,28 +366,32 @@ class Chess3D {
         
         this.raycaster.setFromCamera(this.mouse, this.camera);
     }
-    
-    selectPiece(piece) {
+      selectPiece(piece) {
         // Clear previous selection
         this.clearSelection();
         
-        // Only allow selecting pieces of current player
-        if (piece.userData.color !== this.currentPlayer) {
+        // Only allow selecting pieces of current player and only if it's human's turn
+        if (piece.userData.color !== this.currentPlayer || 
+            (this.gameMode === 'human-vs-ai' && this.currentPlayer !== this.humanColor)) {
+            console.log('Cannot select piece:', piece.userData.color, 'Current player:', this.currentPlayer, 'Human color:', this.humanColor);
             return;
         }
         
         this.selectedPiece = piece;
         
-        // Highlight selected piece
-        piece.material.emissive.setHex(0x333333);
+        // Enhanced highlighting for selected piece
+        piece.material.emissive.setHex(0x444444);
+        piece.material.opacity = 1.0;
         
         // Show possible moves
         this.showPossibleMoves(piece);
+        
+        console.log('Selected piece:', piece.userData.type, piece.userData.color);
     }
-    
-    clearSelection() {
+      clearSelection() {
         if (this.selectedPiece) {
             this.selectedPiece.material.emissive.setHex(0x000000);
+            this.selectedPiece.material.opacity = 0.95;
             this.selectedPiece = null;
         }
         
@@ -454,8 +485,7 @@ class Chess3D {
         
         // Check for game end conditions
         this.checkGameEnd();
-        
-        // AI move if it's AI's turn
+          // AI move if it's AI's turn
         if (this.currentPlayer === 'black' && this.gameState === 'playing') {
             setTimeout(() => {
                 this.makeAiMove();
@@ -471,16 +501,39 @@ class Chess3D {
         this.scene.remove(piece);
         
         // Update captured pieces display
-        this.updateCapturedPiecesDisplay();
-    }
-    
-    switchPlayer() {
+        this.updateCapturedPiecesDisplay();    }
+      switchPlayer() {
         this.currentPlayer = this.currentPlayer === 'white' ? 'black' : 'white';
         
-        // Update UI
+        // Update UI immediately
+        this.updateGameStatus();
+        
+        // Trigger AI move if current player is AI and it's AI's turn
+        if (this.gameMode === 'human-vs-ai' && this.currentPlayer !== this.humanColor && this.gameState === 'playing') {
+            this.isAiThinking = true;
+            setTimeout(() => this.makeAiMove(), 1000);
+        }
+    }
+      updateGameStatus() {
         const statusElement = document.getElementById('currentPlayer');
         if (statusElement) {
-            statusElement.textContent = `${this.currentPlayer.charAt(0).toUpperCase() + this.currentPlayer.slice(1)}'s Turn`;
+            const playerName = this.currentPlayer.charAt(0).toUpperCase() + this.currentPlayer.slice(1);
+            const isHumanTurn = this.currentPlayer === this.humanColor;
+            const turnText = isHumanTurn ? `Your Turn (${playerName})` : `AI Turn (${playerName})`;
+            
+            statusElement.textContent = turnText;
+            statusElement.style.color = this.currentPlayer === 'white' ? '#f5f5f5' : '#2c2c2c';
+            statusElement.style.fontWeight = isHumanTurn ? 'bold' : 'normal';
+            
+            // Add visual indicator for human turn
+            if (isHumanTurn) {
+                statusElement.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+                statusElement.style.padding = '0.5rem 1rem';
+                statusElement.style.borderRadius = '10px';
+            } else {
+                statusElement.style.background = 'transparent';
+                statusElement.style.padding = '0';
+            }
         }
     }
     
@@ -651,18 +704,34 @@ class Chess3D {
     isValidPosition(row, col) {
         return row >= 0 && row < 8 && col >= 0 && col < 8;
     }
-    
-    makeAiMove() {
-        this.isAiThinking = true;
+      makeAiMove() {
+        if (this.isAiThinking || this.gameState !== 'playing') return;
         
-        // Simple AI implementation
+        this.isAiThinking = true;
+        console.log('AI is thinking... Difficulty:', this.aiDifficulty);
+        
+        // Update status to show AI is thinking
+        const statusElement = document.getElementById('currentPlayer');
+        if (statusElement) {
+            statusElement.textContent = `AI is thinking... (${this.aiDifficulty})`;
+        }
+        
+        // Simple AI implementation with difficulty-based delays and logic
         const allPieces = Object.values(this.pieces).filter(
-            piece => piece.userData.color === 'black' && 
+            piece => piece.userData.color === this.currentPlayer && 
             this.scene.children.includes(piece)
         );
         
         let bestMove = null;
         let bestScore = -Infinity;
+        
+        // Difficulty affects thinking time and move quality
+        const thinkingTime = {
+            'beginner': 500,
+            'intermediate': 1000,
+            'advanced': 1500,
+            'expert': 2000
+        }[this.aiDifficulty] || 1000;
         
         allPieces.forEach(piece => {
             const moves = this.getPossibleMoves(piece);
@@ -675,12 +744,14 @@ class Chess3D {
             });
         });
         
-        if (bestMove) {
-            this.selectedPiece = bestMove.piece;
-            this.executeMove(bestMove.piece, bestMove.move.row, bestMove.move.col);
-        }
-        
-        this.isAiThinking = false;
+        setTimeout(() => {
+            if (bestMove) {
+                this.selectedPiece = bestMove.piece;
+                this.executeMove(bestMove.piece, bestMove.move.row, bestMove.move.col);
+                console.log('AI moved:', bestMove.piece.userData.type, 'to', bestMove.move.row, bestMove.move.col);
+            }
+            this.isAiThinking = false;
+        }, thinkingTime);
     }
     
     evaluateMove(piece, move) {
@@ -759,8 +830,7 @@ class Chess3D {
     newGame() {
         this.resetGame();
     }
-    
-    resetGame() {
+      resetGame() {
         // Clear scene
         Object.values(this.pieces).forEach(piece => {
             this.scene.remove(piece);
@@ -775,6 +845,7 @@ class Chess3D {
         this.moveHistory = [];
         this.capturedPieces = { white: [], black: [] };
         this.boardState = this.initializeBoardState();
+        this.isAiThinking = false;
         
         // Recreate pieces
         this.createPieces();
@@ -782,10 +853,13 @@ class Chess3D {
         // Update UI
         this.updateMoveHistoryDisplay();
         this.updateCapturedPiecesDisplay();
+        this.updateGameStatus();
         
-        const statusElement = document.getElementById('currentPlayer');
-        if (statusElement) {
-            statusElement.textContent = "White's Turn";
+        console.log('Game reset. Human playing as:', this.humanColor);
+        
+        // If human is playing black, AI makes the first move
+        if (this.humanColor === 'black') {
+            setTimeout(() => this.makeAiMove(), 1000);
         }
     }
     

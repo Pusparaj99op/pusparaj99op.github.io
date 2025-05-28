@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kalvin Shah - Portfolio</title>
-    <meta name="description" content="Personal portfolio website of Kalvin Shah - Developer, Designer & Creator">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <meta name="description" content="Personal portfolio website of Kalvin Shah - Developer, Designer & Creator">    <!-- Favicon -->
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="assets/images/favicon.svg">
+    <link rel="manifest" href="manifest.json">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,13 +16,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-      <!-- CSS Files -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    <!-- CSS Files -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/effects.css">
     <link rel="stylesheet" href="css/psychology-effects.css">
-    <link rel="stylesheet" href="css/mobile-optimizations.css">
-    <link rel="stylesheet" href="css/premium-enhancements.css">
+    <link rel="stylesheet" href="css/mobile-optimizations.css">    <link rel="stylesheet" href="css/premium-enhancements.css">
+    <link rel="stylesheet" href="css/safari-compatibility.css">
+    <link rel="stylesheet" href="css/premium-100k-enhancements.css">
+    <link rel="stylesheet" href="css/responsive-premium.css">    <link rel="stylesheet" href="css/ultra-premium-enhancements.css">
+    <link rel="stylesheet" href="css/chess-enhancements.css">
     
     <!-- Three.js for 3D Chess Game -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -76,16 +79,15 @@
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
-              <ul id="navbar">
+            </div>              <ul id="navbar">
                 <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
-                <li><a href="#chess-game">Chess Game</a></li>
                 <li><a href="#achievements">Achievements</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><a href="#chess-game">Chess Game</a></li>
             </ul>
         </div>
     </header>
@@ -395,81 +397,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </div>    </section>
     
-    <!-- 3D Chess Game Section -->
-    <section id="chess-game" class="chess-game">
-        <div class="container">
-            <h2 class="section-title">3D Chess Game</h2>
-            <p class="subtitle">Challenge yourself with an interactive 3D chess experience</p>
-            
-            <div class="chess-container">
-                <div class="chess-board-wrapper glass-effect">
-                    <div class="chess-controls">
-                        <button id="newGameBtn" class="btn primary-btn">
-                            <i class="fas fa-chess"></i> New Game
-                        </button>
-                        <button id="resetBtn" class="btn secondary-btn">
-                            <i class="fas fa-redo"></i> Reset
-                        </button>
-                        <button id="toggleViewBtn" class="btn secondary-btn">
-                            <i class="fas fa-sync-alt"></i> Toggle View
-                        </button>
-                        <div class="game-status">
-                            <span id="currentPlayer">White's Turn</span>
-                        </div>
-                    </div>
-                    
-                    <div id="chess3d" class="chess-3d-container">
-                        <!-- 3D Chess board will be rendered here -->
-                    </div>
-                    
-                    <div class="chess-info">
-                        <div class="captured-pieces">
-                            <div class="captured-white">
-                                <h4>Captured White Pieces</h4>
-                                <div id="capturedWhite" class="captured-list"></div>
-                            </div>
-                            <div class="captured-black">
-                                <h4>Captured Black Pieces</h4>
-                                <div id="capturedBlack" class="captured-list"></div>
-                            </div>
-                        </div>
-                        <div class="move-history">
-                            <h4>Move History</h4>
-                            <div id="moveHistory" class="move-list"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="chess-features glass-effect">
-                    <h3>Game Features</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-cube"></i> Full 3D chess board with WebGL rendering</li>
-                        <li><i class="fas fa-chess-knight"></i> All standard chess rules implemented</li>
-                        <li><i class="fas fa-brain"></i> AI opponent with multiple difficulty levels</li>
-                        <li><i class="fas fa-history"></i> Complete move history tracking</li>
-                        <li><i class="fas fa-mobile-alt"></i> Touch controls for mobile devices</li>
-                        <li><i class="fas fa-save"></i> Save and load game states</li>
-                        <li><i class="fas fa-trophy"></i> Achievement system</li>
-                        <li><i class="fas fa-chart-line"></i> Performance analytics</li>
-                    </ul>
-                    
-                    <div class="difficulty-selector">
-                        <h4>AI Difficulty</h4>
-                        <select id="difficultySelect" class="difficulty-dropdown">
-                            <option value="beginner">Beginner</option>
-                            <option value="intermediate" selected>Intermediate</option>
-                            <option value="advanced">Advanced</option>
-                            <option value="expert">Expert</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-      <!-- Achievements Section -->
+    <!-- Achievements Section -->
     <section id="achievements" class="achievements">
         <div class="container">
             <h2 class="section-title">Achievements & Stats</h2>
@@ -668,6 +598,83 @@
                         <div class="form-status"></div>
                     </form>
                 </div>
+            </div>        </div>
+    </section>
+    
+    <!-- 3D Chess Game Section -->
+    <section id="chess-game" class="chess-game">
+        <div class="container">
+            <h2 class="section-title">3D Chess Game</h2>
+            <p class="subtitle">Challenge yourself with an interactive 3D chess experience</p>
+            
+            <div class="chess-container">
+                <div class="chess-board-wrapper glass-effect">
+                    <div class="chess-controls">
+                        <button id="newGameBtn" class="btn primary-btn">
+                            <i class="fas fa-chess"></i> New Game
+                        </button>
+                        <button id="resetBtn" class="btn secondary-btn">
+                            <i class="fas fa-redo"></i> Reset
+                        </button>
+                        <button id="toggleViewBtn" class="btn secondary-btn">
+                            <i class="fas fa-sync-alt"></i> Toggle View
+                        </button>
+                        <div class="game-status">
+                            <span id="currentPlayer">White's Turn</span>
+                        </div>
+                    </div>
+                    
+                    <div id="chess3d" class="chess-3d-container">
+                        <!-- 3D Chess board will be rendered here -->
+                    </div>
+                    
+                    <div class="chess-info">
+                        <div class="captured-pieces">
+                            <div class="captured-white">
+                                <h4>Captured White Pieces</h4>
+                                <div id="capturedWhite" class="captured-list"></div>
+                            </div>
+                            <div class="captured-black">
+                                <h4>Captured Black Pieces</h4>
+                                <div id="capturedBlack" class="captured-list"></div>
+                            </div>
+                        </div>
+                        <div class="move-history">
+                            <h4>Move History</h4>
+                            <div id="moveHistory" class="move-list"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chess-features glass-effect">
+                    <h3>Game Features</h3>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-cube"></i> Full 3D chess board with WebGL rendering</li>
+                        <li><i class="fas fa-chess-knight"></i> All standard chess rules implemented</li>
+                        <li><i class="fas fa-brain"></i> AI opponent with multiple difficulty levels</li>
+                        <li><i class="fas fa-history"></i> Complete move history tracking</li>
+                        <li><i class="fas fa-mobile-alt"></i> Touch controls for mobile devices</li>
+                        <li><i class="fas fa-save"></i> Save and load game states</li>
+                        <li><i class="fas fa-trophy"></i> Achievement system</li>
+                        <li><i class="fas fa-chart-line"></i> Performance analytics</li>
+                    </ul>                    <div class="difficulty-selector">
+                        <h4>AI Difficulty</h4>
+                        <select id="difficultySelect" class="difficulty-dropdown" title="Select AI difficulty level" aria-label="Choose AI difficulty level">
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate" selected>Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                            <option value="expert">Expert</option>
+                        </select>
+                    </div>
+                    
+                    <div class="color-selector">
+                        <h4>Play As</h4>
+                        <select id="colorSelect" class="difficulty-dropdown" title="Choose your piece color" aria-label="Choose your piece color">
+                            <option value="white" selected>White (You move first)</option>
+                            <option value="black">Black (AI moves first)</option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -742,14 +749,14 @@
     <!-- Go to top button -->
     <a href="#" class="go-top" title="Go to top" aria-label="Go to top of page">
         <i class="fas fa-arrow-up"></i>
-    </a>
-      <!-- JavaScript Files -->
+    </a>    <!-- JavaScript Files -->
     <script src="js/script.js"></script>
     <script src="js/animations.js"></script>
     <script src="js/effects.js"></script>
     <script src="js/psychology.js"></script>
     <script src="js/mobile-optimizations.js"></script>
     <script src="js/chess3d.js"></script>
+    <script src="js/chess-enhancements.js"></script>
     
     <script>
         // Hide preloader once page is loaded
