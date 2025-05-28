@@ -312,10 +312,9 @@ header {
     transition: all 0.4s ease;
 }
 
-header.sticky {
-    background-color: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
+header.sticky {    background-color: var(--glass-bg);
     -webkit-backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur));
     border-bottom: 1px solid var(--glass-border);
     padding: 1rem 0;
     box-shadow: var(--glass-shadow);
@@ -513,8 +512,8 @@ header .container {
 
 /* Enhanced Section Styles with Glassmorphism */
 .about-content, .skills-content, .contact-content {
-    backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
     border-radius: 16px;
     position: relative;
     z-index: 1;
@@ -523,8 +522,8 @@ header .container {
 /* Add glassmorphism to achievement cards */
 .achievement-card {
     background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-border);
     border-radius: 16px;
     padding: 2rem;
@@ -595,8 +594,8 @@ header .container {
 
 .project-item {
     background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-border);
     border-radius: 16px;
     overflow: hidden;
@@ -1223,8 +1222,8 @@ header .container {
 .timeline-content {
     padding: 1.5rem;
     background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-border);
     border-radius: 10px;
     box-shadow: var(--glass-shadow);
@@ -1280,8 +1279,8 @@ header .container {
 
 .blog-card {
     background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-border);
     border-radius: 12px;
     overflow: hidden;
@@ -1394,8 +1393,8 @@ header .container {
     min-width: 350px;
     width: 350px;
     background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-border);
     border-radius: 16px;
     padding: 2rem;
@@ -1525,8 +1524,8 @@ model-viewer {
 .model-btn {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-    background: var(--glass-bg);
+    border-radius: 50%;    background: var(--glass-bg);
+    -webkit-backdrop-filter: blur(var(--glass-blur));
     backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-border);
     color: var(--text-primary);
@@ -1684,8 +1683,8 @@ model-viewer {
 .gradient-text {
     background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary), var(--accent-primary));
     background-size: 300% 100%;
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: gradient-shift 8s ease infinite;
 }

@@ -13,11 +13,10 @@
 }
 
 /* Enhanced Mobile Navigation */
-@media (max-width: 768px) {
-    .header {
+@media (max-width: 768px) {    .header {
         padding: 0.5rem 0;
-        backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px);
     }
     
     .logo h1 {
@@ -30,10 +29,9 @@
         right: -100%;
         height: 100vh;
         width: 80%;
-        max-width: 300px;
-        background: rgba(0, 0, 0, 0.95);
-        backdrop-filter: blur(20px);
+        max-width: 300px;        background: rgba(0, 0, 0, 0.95);
         -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px);
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -705,18 +703,20 @@
 /* High DPI/Retina Display Optimizations */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     .chess-3d-container canvas {
-        image-rendering: -webkit-optimize-contrast;
-        image-rendering: -moz-crisp-edges;
-        image-rendering: crisp-edges;
-        image-rendering: pixelated;
+        image-rendering: -webkit-optimize-contrast; /* Edge support */
+        image-rendering: -moz-crisp-edges; /* Firefox support */
+        /* stylelint-disable-next-line compat/compat */
+        image-rendering: crisp-edges; /* Modern browsers - Edge support added above */
+        image-rendering: pixelated; /* Fallback for pixel art */
     }
     
     .project-image,
     .skill-icon,
     .achievement-icon {
-        image-rendering: -webkit-optimize-contrast;
-        image-rendering: -moz-crisp-edges;
-        image-rendering: crisp-edges;
+        image-rendering: -webkit-optimize-contrast; /* Edge support */
+        image-rendering: -moz-crisp-edges; /* Firefox support */
+        /* stylelint-disable-next-line compat/compat */
+        image-rendering: crisp-edges; /* Modern browsers - Edge support added above */
     }
 }
 
