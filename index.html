@@ -16,12 +16,16 @@
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- CSS Files -->
+      <!-- CSS Files -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/effects.css">
     <link rel="stylesheet" href="css/psychology-effects.css">
     <link rel="stylesheet" href="css/mobile-optimizations.css">
+    <link rel="stylesheet" href="css/premium-enhancements.css">
+    
+    <!-- Three.js for 3D Chess Game -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     
     <!-- Preload critical resources -->
     <link rel="preload" href="js/script.js" as="script">
@@ -73,12 +77,13 @@
                 <span></span>
                 <span></span>
             </div>
-            
-            <ul id="navbar">
+              <ul id="navbar">
                 <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
+                <li><a href="#chess-game">Chess Game</a></li>
+                <li><a href="#achievements">Achievements</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -107,32 +112,161 @@
             </div>
         </div>
     </section>
-    
-    <!-- About Section -->
+      <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
             <h2 class="section-title">About Me</h2>
             <p class="subtitle">Get to know me better</p>
             
             <div class="about-content">
-                <!-- About content here -->
+                <div class="about-text">
+                    <h3>👋 Hi there, I'm Kalvin Shah (Pusparaj)</h3>
+                    <p>I'm a passionate developer focused on building innovative solutions. Welcome to my GitHub profile where I share my projects and contributions.</p>
+                    
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <h4>🌱 Currently Learning</h4>
+                            <ul>
+                                <li>Web Development</li>
+                                <li>Data Structures & Algorithms</li>
+                                <li>Cloud Computing</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <h4>💞️ Looking to Collaborate</h4>
+                            <ul>
+                                <li>Web Applications</li>
+                                <li>Open Source Tools</li>
+                                <li>Educational Technology</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <h4>⚡ Fun Fact</h4>
+                            <p>I can solve a Rubik's cube in under two minutes!</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-image">
+                    <div class="profile-card glass-effect">
+                        <div class="profile-avatar">
+                            <img src="https://avatars.githubusercontent.com/u/168293709?v=4" alt="Kalvin Shah Profile" loading="lazy">
+                        </div>
+                        <div class="profile-info">
+                            <h3>Kalvin Shah</h3>
+                            <p>@Pusparaj99op</p>
+                            <div class="github-stats">
+                                <span>1 follower • 2 following</span>
+                                <span>11 repositories • 14 stars</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-    
-    <!-- Skills Section -->
+      <!-- Skills Section -->
     <section id="skills" class="skills">
         <div class="container">
             <h2 class="section-title">My Skills</h2>
             <p class="subtitle">Technologies I work with</p>
             
             <div class="skills-content">
-                <!-- Skills content here -->
+                <div class="skills-categories">
+                    <div class="skill-category glass-effect">
+                        <h3>💻 Programming Languages</h3>
+                        <div class="skill-items">
+                            <div class="skill-item">
+                                <i class="fab fa-js-square"></i>
+                                <span>JavaScript</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <i class="fab fa-python"></i>
+                                <span>Python</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <i class="fab fa-html5"></i>
+                                <span>HTML5</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 95%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <i class="fab fa-css3-alt"></i>
+                                <span>CSS3</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 90%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category glass-effect">
+                        <h3>🚀 Frameworks & Libraries</h3>
+                        <div class="skill-items">
+                            <div class="skill-item">
+                                <i class="fab fa-react"></i>
+                                <span>React</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <i class="fab fa-node-js"></i>
+                                <span>Node.js</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 80%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <i class="fas fa-database"></i>
+                                <span>Express.js</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 75%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category glass-effect">
+                        <h3>🛠️ Tools & Technologies</h3>
+                        <div class="skill-items">
+                            <div class="skill-item">
+                                <i class="fab fa-git-alt"></i>
+                                <span>Git</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <i class="fab fa-docker"></i>
+                                <span>Docker</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 70%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <i class="fas fa-cloud"></i>
+                                <span>Cloud Computing</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 65%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-    
-    <!-- Projects Section -->
+      <!-- Projects Section -->
     <section id="projects" class="projects">
         <div class="container">
             <h2 class="section-title">My Projects</h2>
@@ -141,24 +275,252 @@
             <div class="projects-filter">
                 <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="web">Web Dev</button>
-                <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
-                <button class="filter-btn" data-filter="ui">UI/UX</button>
+                <button class="filter-btn" data-filter="python">Python</button>
+                <button class="filter-btn" data-filter="tools">Tools</button>
             </div>
             
             <div class="projects-container">
-                <!-- Project items here -->
-                <div class="project-item" data-category="web">
-                    <img src="placeholder.svg" data-src="assets/images/project1.jpg" alt="Project 1" class="lazy-image" loading="lazy">
+                <!-- INKSYNC Project -->
+                <div class="project-item glass-effect" data-category="web">
+                    <div class="project-image">
+                        <img src="https://opengraph.githubassets.com/1/Pusparaj99op/InkSync" alt="INKSYNC Project" loading="lazy">
+                        <div class="project-overlay">
+                            <div class="project-actions">
+                                <a href="https://github.com/Pusparaj99op/InkSync" class="btn" target="_blank" rel="noopener">
+                                    <i class="fab fa-github"></i> View Code
+                                </a>
+                                <a href="#" class="btn" target="_blank" rel="noopener">
+                                    <i class="fas fa-external-link-alt"></i> Live Demo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="project-info">
-                        <h3>Project Name</h3>
-                        <p>Project description here</p>
-                        <div class="project-links">
-                            <a href="#" class="btn" aria-label="View live demo"><i class="fas fa-external-link-alt"></i> Demo</a>
-                            <a href="#" class="btn" aria-label="View source code"><i class="fab fa-github"></i> Code</a>
+                        <h3>INKSYNC</h3>
+                        <p>A modern web application built with EJS templating engine. Features real-time synchronization and collaborative editing capabilities.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">EJS</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Node.js</span>
+                        </div>
+                        <div class="project-stats">
+                            <span><i class="fas fa-star"></i> 1</span>
+                            <span><i class="fas fa-eye"></i> Public</span>
                         </div>
                     </div>
                 </div>
-                <!-- More project items -->
+                
+                <!-- CRYPTO Project -->
+                <div class="project-item glass-effect" data-category="python">
+                    <div class="project-image">
+                        <img src="https://opengraph.githubassets.com/1/Pusparaj99op/CRYPTO" alt="CRYPTO Project" loading="lazy">
+                        <div class="project-overlay">
+                            <div class="project-actions">
+                                <a href="https://github.com/Pusparaj99op/CRYPTO" class="btn" target="_blank" rel="noopener">
+                                    <i class="fab fa-github"></i> View Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>CRYPTO</h3>
+                        <p>Cryptocurrency analysis and trading tools built with Python. Features real-time data processing and market analysis.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">API Integration</span>
+                            <span class="tech-tag">Data Analysis</span>
+                        </div>
+                        <div class="project-stats">
+                            <span><i class="fas fa-star"></i> 1</span>
+                            <span><i class="fas fa-eye"></i> Public</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AutoMovies Project -->
+                <div class="project-item glass-effect" data-category="python">
+                    <div class="project-image">
+                        <img src="https://opengraph.githubassets.com/1/Pusparaj99op/AutoMovies" alt="AutoMovies Project" loading="lazy">
+                        <div class="project-overlay">
+                            <div class="project-actions">
+                                <a href="https://github.com/Pusparaj99op/AutoMovies" class="btn" target="_blank" rel="noopener">
+                                    <i class="fab fa-github"></i> View Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>AutoMovies</h3>
+                        <p>Automated movie recommendation system. Originally forked from Learningbots79/movies and enhanced with additional features.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Machine Learning</span>
+                            <span class="tech-tag">Recommendations</span>
+                        </div>
+                        <div class="project-stats">
+                            <span><i class="fas fa-star"></i> 1</span>
+                            <span><i class="fas fa-code-branch"></i> Forked</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Website -->
+                <div class="project-item glass-effect" data-category="web">
+                    <div class="project-image">
+                        <img src="https://opengraph.githubassets.com/1/Pusparaj99op/pusparaj99op.github.io" alt="Portfolio Website" loading="lazy">
+                        <div class="project-overlay">
+                            <div class="project-actions">
+                                <a href="https://github.com/Pusparaj99op/pusparaj99op.github.io" class="btn" target="_blank" rel="noopener">
+                                    <i class="fab fa-github"></i> View Code
+                                </a>
+                                <a href="https://pusparaj99op.github.io/" class="btn" target="_blank" rel="noopener">
+                                    <i class="fas fa-external-link-alt"></i> Live Site
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Portfolio Website</h3>
+                        <p>Modern, responsive portfolio website with advanced visual effects and interactive elements. Built with vanilla JavaScript and CSS.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">HTML5</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">WebGL</span>
+                        </div>
+                        <div class="project-stats">
+                            <span><i class="fas fa-star"></i> 1</span>
+                            <span><i class="fas fa-globe"></i> Live</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 3D Chess Game Section -->
+    <section id="chess-game" class="chess-game">
+        <div class="container">
+            <h2 class="section-title">3D Chess Game</h2>
+            <p class="subtitle">Challenge yourself with an interactive 3D chess experience</p>
+            
+            <div class="chess-container">
+                <div class="chess-board-wrapper glass-effect">
+                    <div class="chess-controls">
+                        <button id="newGameBtn" class="btn primary-btn">
+                            <i class="fas fa-chess"></i> New Game
+                        </button>
+                        <button id="resetBtn" class="btn secondary-btn">
+                            <i class="fas fa-redo"></i> Reset
+                        </button>
+                        <button id="toggleViewBtn" class="btn secondary-btn">
+                            <i class="fas fa-sync-alt"></i> Toggle View
+                        </button>
+                        <div class="game-status">
+                            <span id="currentPlayer">White's Turn</span>
+                        </div>
+                    </div>
+                    
+                    <div id="chess3d" class="chess-3d-container">
+                        <!-- 3D Chess board will be rendered here -->
+                    </div>
+                    
+                    <div class="chess-info">
+                        <div class="captured-pieces">
+                            <div class="captured-white">
+                                <h4>Captured White Pieces</h4>
+                                <div id="capturedWhite" class="captured-list"></div>
+                            </div>
+                            <div class="captured-black">
+                                <h4>Captured Black Pieces</h4>
+                                <div id="capturedBlack" class="captured-list"></div>
+                            </div>
+                        </div>
+                        <div class="move-history">
+                            <h4>Move History</h4>
+                            <div id="moveHistory" class="move-list"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chess-features glass-effect">
+                    <h3>Game Features</h3>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-cube"></i> Full 3D chess board with WebGL rendering</li>
+                        <li><i class="fas fa-chess-knight"></i> All standard chess rules implemented</li>
+                        <li><i class="fas fa-brain"></i> AI opponent with multiple difficulty levels</li>
+                        <li><i class="fas fa-history"></i> Complete move history tracking</li>
+                        <li><i class="fas fa-mobile-alt"></i> Touch controls for mobile devices</li>
+                        <li><i class="fas fa-save"></i> Save and load game states</li>
+                        <li><i class="fas fa-trophy"></i> Achievement system</li>
+                        <li><i class="fas fa-chart-line"></i> Performance analytics</li>
+                    </ul>
+                    
+                    <div class="difficulty-selector">
+                        <h4>AI Difficulty</h4>
+                        <select id="difficultySelect" class="difficulty-dropdown">
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate" selected>Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                            <option value="expert">Expert</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+      <!-- Achievements Section -->
+    <section id="achievements" class="achievements">
+        <div class="container">
+            <h2 class="section-title">Achievements & Stats</h2>
+            <p class="subtitle">My development journey in numbers</p>
+            
+            <div class="achievements-grid">
+                <div class="achievement-card glass-effect">
+                    <div class="achievement-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="achievement-content">
+                        <h3>11</h3>
+                        <p>GitHub Repositories</p>
+                    </div>
+                </div>
+                
+                <div class="achievement-card glass-effect">
+                    <div class="achievement-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="achievement-content">
+                        <h3>14</h3>
+                        <p>GitHub Stars</p>
+                    </div>
+                </div>
+                
+                <div class="achievement-card glass-effect">
+                    <div class="achievement-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="achievement-content">
+                        <h3>3</h3>
+                        <p>Total Followers</p>
+                    </div>
+                </div>
+                
+                <div class="achievement-card glass-effect">
+                    <div class="achievement-icon">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <div class="achievement-content">
+                        <h3>< 2min</h3>
+                        <p>Rubik's Cube Record</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="github-contribution-graph glass-effect">
+                <h3>GitHub Activity</h3>
+                <img src="https://github-readme-stats.vercel.app/api?username=Pusparaj99op&show_icons=true&theme=radical" alt="GitHub Stats" loading="lazy">
+                <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Pusparaj99op&layout=compact&theme=radical" alt="Top Languages" loading="lazy">
             </div>
         </div>
     </section>
@@ -166,16 +528,65 @@
     <!-- Experience Section -->
     <section id="experience" class="experience">
         <div class="container">
-            <h2 class="section-title">Experience</h2>
-            <p class="subtitle">My professional journey</p>
+            <h2 class="section-title">Experience & Collaborations</h2>
+            <p class="subtitle">My professional journey and partnerships</p>
             
             <div class="timeline">
-                <!-- Timeline items here -->
+                <div class="timeline-item glass-effect">
+                    <div class="timeline-date">
+                        <span>2024 - Present</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Full Stack Developer</h3>
+                        <h4>Personal Projects & Open Source</h4>
+                        <p>Developing innovative web applications with modern technologies including React, Node.js, and Python. Focus on creating scalable solutions and contributing to open source projects.</p>
+                        <ul>
+                            <li>Built INKSYNC - Real-time collaborative editing platform</li>
+                            <li>Developed CRYPTO - Cryptocurrency analysis tools</li>
+                            <li>Enhanced AutoMovies - AI-powered recommendation system</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item glass-effect">
+                    <div class="timeline-date">
+                        <span>2024</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Collaboration with Pranay Gajbhiye</h3>
+                        <h4>Content Creator & Developer</h4>
+                        <p>Working alongside Pranay Gajbhiye, a talented content creator and developer. Collaborating on various projects that combine technical expertise with creative content.</p>
+                        <div class="collaboration-links">
+                            <a href="https://linkedin.com/in/pranay-gajbhiye-104059335" target="_blank" rel="noopener" class="btn">
+                                <i class="fab fa-linkedin"></i> LinkedIn Profile
+                            </a>
+                            <a href="https://www.youtube.com/@AnonymousRingtonesYT" target="_blank" rel="noopener" class="btn">
+                                <i class="fab fa-youtube"></i> YouTube Channel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item glass-effect">
+                    <div class="timeline-date">
+                        <span>2023 - 2024</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Learning & Skill Development</h3>
+                        <h4>Self-Directed Learning</h4>
+                        <p>Intensive focus on modern web development technologies, data structures & algorithms, and cloud computing. Building a strong foundation in both frontend and backend development.</p>
+                        <ul>
+                            <li>Mastered React.js and modern JavaScript ES6+</li>
+                            <li>Learned Python for data analysis and automation</li>
+                            <li>Explored cloud technologies and Docker containerization</li>
+                            <li>Contributed to open source projects on GitHub</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-    
-    <!-- Contact Section -->
+      <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
             <h2 class="section-title">Contact Me</h2>
@@ -183,24 +594,76 @@
             
             <div class="contact-content">
                 <div class="contact-info">
-                    <!-- Contact info here -->
+                    <div class="contact-card glass-effect">
+                        <h3>📫 Get in Touch</h3>
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <h4>Email</h4>
+                                    <a href="mailto:Kalvinshah@hotmail.com">Kalvinshah@hotmail.com</a>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <i class="fas fa-globe"></i>
+                                <div>
+                                    <h4>Website</h4>
+                                    <a href="https://pusparaj99op.github.io" target="_blank" rel="noopener">pusparaj99op.github.io</a>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <i class="fab fa-github"></i>
+                                <div>
+                                    <h4>GitHub</h4>
+                                    <a href="https://github.com/Pusparaj99op" target="_blank" rel="noopener">@Pusparaj99op</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="social-links">
+                            <h4>Connect with me</h4>
+                            <div class="social-icons">
+                                <a href="https://github.com/Pusparaj99op" class="social-icon" target="_blank" rel="noopener" title="GitHub">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="https://linkedin.com/in/pranay-gajbhiye-104059335" class="social-icon" target="_blank" rel="noopener" title="LinkedIn (Collaborator)">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="https://www.youtube.com/@AnonymousRingtonesYT" class="social-icon" target="_blank" rel="noopener" title="YouTube (Collaborator)">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                                <a href="mailto:Kalvinshah@hotmail.com" class="social-icon" title="Email">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="contact-form-container">
-                    <form id="contact-form">
+                    <form id="contact-form" class="glass-effect">
+                        <h3>Send me a message</h3>
                         <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" id="subject" name="subject" placeholder="Subject">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" placeholder="What's this about?">
                         </div>
                         <div class="form-group">
-                            <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" placeholder="Tell me about your project or idea..." required></textarea>
                         </div>
-                        <button type="submit" class="btn primary-btn">Send Message</button>
+                        <button type="submit" class="btn primary-btn">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
                         
                         <div class="form-status"></div>
                     </form>
@@ -208,14 +671,14 @@
             </div>
         </div>
     </section>
-    
-    <!-- Footer -->
+      <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
                     <h2>Kalvin<span>Shah</span></h2>
                     <p>Creating digital experiences that matter.</p>
+                    <p>Passionate developer focused on building innovative solutions.</p>
                 </div>
                 
                 <div class="footer-links">
@@ -223,44 +686,70 @@
                     <ul>
                         <li><a href="#home">Home</a></li>
                         <li><a href="#about">About</a></li>
+                        <li><a href="#skills">Skills</a></li>
                         <li><a href="#projects">Projects</a></li>
+                        <li><a href="#chess-game">Chess Game</a></li>
                         <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-projects">
+                    <h3>Featured Projects</h3>
+                    <ul>
+                        <li><a href="https://github.com/Pusparaj99op/InkSync" target="_blank" rel="noopener">INKSYNC</a></li>
+                        <li><a href="https://github.com/Pusparaj99op/CRYPTO" target="_blank" rel="noopener">CRYPTO</a></li>
+                        <li><a href="https://github.com/Pusparaj99op/AutoMovies" target="_blank" rel="noopener">AutoMovies</a></li>
+                        <li><a href="https://github.com/Pusparaj99op/pusparaj99op.github.io" target="_blank" rel="noopener">Portfolio</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-social">
                     <h3>Connect With Me</h3>
                     <div class="social-icons">
-                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="https://github.com/Pusparaj99op" class="social-icon" target="_blank" rel="noopener" title="Visit my GitHub profile">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/pranay-gajbhiye-104059335" class="social-icon" target="_blank" rel="noopener" title="Connect on LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@AnonymousRingtonesYT" class="social-icon" target="_blank" rel="noopener" title="Subscribe to YouTube channel">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="mailto:Kalvinshah@hotmail.com" class="social-icon" title="Send me an email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="footer-stats">
+                        <p><strong>11</strong> Repositories • <strong>14</strong> Stars</p>
+                        <p>Rubik's Cube: <strong>&lt; 2 minutes</strong></p>
                     </div>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2023 Kalvin Shah. All rights reserved.</p>
+                <p>&copy; 2024 Kalvin Shah (Pusparaj99op). All rights reserved.</p>
+                <p>Built with ❤️ using modern web technologies</p>
             </div>
         </div>
     </footer>
     
     <!-- Theme toggle button -->
-    <button class="theme-toggle">
+    <button class="theme-toggle" title="Toggle dark/light theme" aria-label="Toggle theme">
         <i class="fas fa-sun"></i>
     </button>
     
     <!-- Go to top button -->
-    <a href="#" class="go-top">
+    <a href="#" class="go-top" title="Go to top" aria-label="Go to top of page">
         <i class="fas fa-arrow-up"></i>
     </a>
-    
-    <!-- JavaScript Files -->
+      <!-- JavaScript Files -->
     <script src="js/script.js"></script>
     <script src="js/animations.js"></script>
     <script src="js/effects.js"></script>
     <script src="js/psychology.js"></script>
     <script src="js/mobile-optimizations.js"></script>
+    <script src="js/chess3d.js"></script>
     
     <script>
         // Hide preloader once page is loaded
