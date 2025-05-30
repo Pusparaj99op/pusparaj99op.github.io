@@ -155,61 +155,29 @@ document.addEventListener('DOMContentLoaded', () => {
             if (link.getAttribute('href').substring(1) === current) {
                 link.classList.add('active');
             }
-        });
-    }, { passive: true });    // Initialize theme toggle
-    if (themeToggle) {
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        });    }, { passive: true });
 
-        // Set initial theme
-        if (savedTheme === 'light') {
-            document.body.classList.add('light-mode');
-            themeToggle.querySelector('i').classList.replace('fa-sun', 'fa-moon');
-        } else if (savedTheme === 'dark') {
-            document.body.classList.remove('light-mode');
-            themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
-        } else if (prefersDark) {
-            document.body.classList.remove('light-mode');
-            themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
-        } else {
-            document.body.classList.add('light-mode');
-            themeToggle.querySelector('i').classList.replace('fa-sun', 'fa-moon');
-        }
-
-        themeToggle.addEventListener('click', () => {
-            themeToggle.classList.add('animate-toggle');
-            setTimeout(() => themeToggle.classList.remove('animate-toggle'), 500);
-
-            document.body.classList.toggle('light-mode');
-
-            const icon = themeToggle.querySelector('i');
-            if (document.body.classList.contains('light-mode')) {
-                icon.classList.replace('fa-sun', 'fa-moon');
-                localStorage.setItem('theme', 'light');
-            } else {
-                icon.classList.replace('fa-moon', 'fa-sun');
-                localStorage.setItem('theme', 'dark');
-            }
-        });
-    }
-
-    // Smooth scrolling for anchor links
+    // Smooth scrolling for anchor links - Enhanced performance and conflict avoidance
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
 
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
+                // Use optimized scrolling with better performance parameters
                 target.scrollIntoView({
                     behavior: 'smooth',
-                    block: 'start'
+                    block: 'start',
+                    inline: 'nearest'  // Better performance than 'start'
                 });
 
+                // Close mobile menu if open
                 if (hamburger && navbar.classList.contains('active')) {
                     hamburger.classList.remove('active');
                     navbar.classList.remove('active');
                 }
 
+                // Update active navigation link
                 navLinks.forEach(link => {
                     link.classList.remove('active');
                 });
@@ -236,12 +204,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.mobileOptimizations.init();
             }
         }
-    }
-
-    // Back to top button
+    }    // Back to top button - Enhanced scrolling with performance optimization
     if (goTopBtn) {
         goTopBtn.addEventListener('click', (e) => {
             e.preventDefault();
+            // Use optimized scrolling to avoid conflicts with CSS scroll-behavior
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
