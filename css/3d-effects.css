@@ -23,11 +23,10 @@
 .theme-toggle {
     position: relative;
     width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    height: 50px;    border-radius: 50%;
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     display: flex;
     align-items: center;
@@ -99,8 +98,8 @@
 
 /* Glassmorphism effects for better 3D integration */
 .hero-content {
-    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.05);
     border-radius: 20px;
     padding: 2rem;
@@ -177,8 +176,8 @@
 /* Modern Glassmorphism Effects */
 .glass-enhanced {
     background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
+    backdrop-filter: blur(25px);
     border: 1px solid rgba(255, 255, 255, 0.15);
     box-shadow: 
         0 8px 32px rgba(31, 38, 135, 0.37),

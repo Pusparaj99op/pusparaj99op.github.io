@@ -28,11 +28,28 @@
     <meta name="twitter:description" content="Explore the innovative portfolio of Kalvin Shah - showcasing cutting-edge web development projects, modern design solutions, and interactive experiences.">
     <meta name="twitter:image" content="https://pusparaj99op.github.io/assets/images/twitter-card.png">
     <meta name="twitter:creator" content="@Pusparaj99op">
-    <meta name="twitter:site" content="@Pusparaj99op">
-    
-    <!-- Additional Meta Tags -->
-    <!-- Theme Color for PWA (Chrome, Edge, Safari) -->
-    <meta name="theme-color" content="#677eea">
+    <meta name="twitter:site" content="@Pusparaj99op">    <!-- Additional Meta Tags -->    <!-- PWA Theme Colors (Progressive Enhancement - Chrome, Edge, Safari support) -->
+    <!-- Theme color will be set via JavaScript for compatible browsers -->
+    <script>
+        // Progressive enhancement: Add theme-color meta tag for supported browsers
+        (function() {
+            // Check if browser supports theme-color (Chrome, Edge, Safari)
+            const isSupported = 'CSS' in window && CSS.supports && (
+                CSS.supports('color', '#000') || 
+                navigator.userAgent.includes('Chrome') || 
+                navigator.userAgent.includes('Safari') || 
+                navigator.userAgent.includes('Edge')
+            );
+            
+            if (isSupported) {
+                const themeColorMeta = document.createElement('meta');
+                themeColorMeta.name = 'theme-color';
+                themeColorMeta.content = '#677eea';
+                document.head.appendChild(themeColorMeta);
+            }
+        })();
+    </script>
+    <!-- Browser-specific alternatives for broader support -->
     <meta name="msapplication-navbutton-color" content="#677eea">
     <meta name="apple-mobile-web-app-status-bar-style" content="#677eea">
     <meta name="msapplication-TileColor" content="#677eea">
@@ -64,8 +81,8 @@
     <link rel="stylesheet" href="css/premium-100k-enhancements.css">
     <link rel="stylesheet" href="css/responsive-premium.css">
     <link rel="stylesheet" href="css/ultra-premium-enhancements.css">
-    <link rel="stylesheet" href="css/skill-progress.css">
-    <link rel="stylesheet" href="css/modern-animations.css">
+    <link rel="stylesheet" href="css/skill-progress.css">    <link rel="stylesheet" href="css/modern-animations.css">
+    <link rel="stylesheet" href="css/enhanced-3d-animations.css">
       <!-- Three.js for 3D Background Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
@@ -138,16 +155,32 @@
             </ul>
         </div>
     </header>
-      <!-- Hero Section -->    <!-- Hero Section -->
+      <!-- Enhanced UI Elements -->
+    <div class="scroll-progress">
+        <div class="scroll-progress-bar"></div>
+    </div>
+    
+    <!-- Scroll Indicators -->
+    <div class="scroll-indicator">
+        <div class="scroll-dot active" data-section="Home" data-target="home"></div>
+        <div class="scroll-dot" data-section="About" data-target="about"></div>
+        <div class="scroll-dot" data-section="Skills" data-target="skills"></div>
+        <div class="scroll-dot" data-section="Projects" data-target="projects"></div>
+        <div class="scroll-dot" data-section="Achievements" data-target="achievements"></div>
+        <div class="scroll-dot" data-section="Contact" data-target="contact"></div>
+    </div>
+
+    <!-- Hero Section -->    <!-- Hero Section -->
     <section id="home" class="hero scroll-reveal">
         <canvas id="three-bg"></canvas>
+        <canvas id="enhanced-3d-canvas"></canvas>
         <canvas id="particles-canvas"></canvas>
         <div class="blur-circle blur-circle-1 floating-element"></div>
         <div class="blur-circle blur-circle-2 floating-element"></div>
         
         <div class="container">
             <div class="hero-content">
-                <h1 class="animate-on-scroll magnetic-element">Hi, I'm <span class="gradient-text">Kalvin Shah</span></h1>
+                <h1 class="animate-on-scroll magnetic-element hover-glow typing-effect">Hi, I'm <span class="gradient-text">Kalvin Shah</span></h1>
                 <h2 class="animate-on-scroll delay-1">
                     <span class="typing-container">
                         <span class="typing-text"></span>
@@ -160,10 +193,10 @@
                 </div>
             </div>
         </div>
-    </section>      <!-- About Section -->
+    </section>    <!-- About Section -->
     <section id="about" class="about scroll-reveal">
-        <div class="container">
-            <h2 class="section-title animate-on-scroll">About Me</h2>
+        <canvas class="section-particles" data-section="about"></canvas>
+        <div class="container">            <h2 class="section-title animate-on-scroll typing-effect">About Me</h2>
             <p class="subtitle animate-on-scroll">Get to know me better</p>
             
             <div class="about-content">
@@ -214,88 +247,94 @@
                 </div>
             </div>
         </div>
-    </section>
-      <!-- Skills Section -->
+    </section>    <!-- Skills Section -->
     <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title">My Skills</h2>
+        <canvas class="section-particles" data-section="skills"></canvas>
+        <div class="container">            <h2 class="section-title typing-effect">My Skills</h2>
             <p class="subtitle">Technologies I work with</p>
             
             <div class="skills-content">
                 <div class="skills-categories">
                     <div class="skill-category glass-effect">
-                        <h3>💻 Programming Languages</h3>
-                        <div class="skill-items">
+                        <h3>💻 Programming Languages</h3>                        <div class="skill-items">
                             <div class="skill-item">
                                 <i class="fab fa-js-square"></i>                                <span>JavaScript</span>
-                                <div class="skill-bar">
+                                <div class="skill-bar" data-progress="90">
                                     <div class="skill-progress"></div>
+                                    <span class="progress-counter">0%</span>
                                 </div>
                             </div>
                             <div class="skill-item">
                                 <i class="fab fa-python"></i>                                <span>Python</span>
-                                <div class="skill-bar">
+                                <div class="skill-bar" data-progress="85">
                                     <div class="skill-progress"></div>
+                                    <span class="progress-counter">0%</span>
                                 </div>
                             </div>
                             <div class="skill-item">
                                 <i class="fab fa-html5"></i>                                <span>HTML5</span>
-                                <div class="skill-bar">
+                                <div class="skill-bar" data-progress="95">
                                     <div class="skill-progress"></div>
+                                    <span class="progress-counter">0%</span>
                                 </div>
                             </div>
                             <div class="skill-item">
                                 <i class="fab fa-css3-alt"></i>                                <span>CSS3</span>
-                                <div class="skill-bar">
+                                <div class="skill-bar" data-progress="92">
                                     <div class="skill-progress"></div>
+                                    <span class="progress-counter">0%</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
                     <div class="skill-category glass-effect">
-                        <h3>🚀 Frameworks & Libraries</h3>
-                        <div class="skill-items">
+                        <h3>🚀 Frameworks & Libraries</h3>                        <div class="skill-items">
                             <div class="skill-item">
                                 <i class="fab fa-react"></i>                                <span>React</span>
-                                <div class="skill-bar">
+                                <div class="skill-bar" data-progress="80">
                                     <div class="skill-progress"></div>
+                                    <span class="progress-counter">0%</span>
                                 </div>
                             </div>
                             <div class="skill-item">
                                 <i class="fab fa-node-js"></i>                                <span>Node.js</span>
-                                <div class="skill-bar">
+                                <div class="skill-bar" data-progress="75">
                                     <div class="skill-progress"></div>
+                                    <span class="progress-counter">0%</span>
                                 </div>
                             </div>
                             <div class="skill-item">
                                 <i class="fas fa-database"></i>                                <span>Express.js</span>
-                                <div class="skill-bar">
+                                <div class="skill-bar" data-progress="78">
                                     <div class="skill-progress"></div>
+                                    <span class="progress-counter">0%</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
                     <div class="skill-category glass-effect">
-                        <h3>🛠️ Tools & Technologies</h3>
-                        <div class="skill-items">
+                        <h3>🛠️ Tools & Technologies</h3>                        <div class="skill-items">
                             <div class="skill-item">
                                 <i class="fab fa-git-alt"></i>                                <span>Git</span>
-                                <div class="skill-bar">
+                                <div class="skill-bar" data-progress="88">
                                     <div class="skill-progress"></div>
+                                    <span class="progress-counter">0%</span>
                                 </div>
                             </div>
                             <div class="skill-item">
                                 <i class="fab fa-docker"></i>                                <span>Docker</span>
-                                <div class="skill-bar">
+                                <div class="skill-bar" data-progress="70">
                                     <div class="skill-progress"></div>
+                                    <span class="progress-counter">0%</span>
                                 </div>
                             </div>
                             <div class="skill-item">
                                 <i class="fas fa-cloud"></i>                                <span>Cloud Computing</span>
-                                <div class="skill-bar">
+                                <div class="skill-bar" data-progress="72">
                                     <div class="skill-progress"></div>
+                                    <span class="progress-counter">0%</span>
                                 </div>
                             </div>
                         </div>
@@ -309,25 +348,23 @@
         <div class="container">
             <h2 class="section-title">My Projects</h2>
             <p class="subtitle">Some of my recent work</p>
-            
-            <div class="projects-filter">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="web">Web Dev</button>
-                <button class="filter-btn" data-filter="python">Python</button>
-                <button class="filter-btn" data-filter="tools">Tools</button>
+              <div class="projects-filter">
+                <button class="filter-btn active magnetic-element ripple-element" data-filter="all">All</button>
+                <button class="filter-btn magnetic-element ripple-element" data-filter="web">Web Dev</button>
+                <button class="filter-btn magnetic-element ripple-element" data-filter="python">Python</button>
+                <button class="filter-btn magnetic-element ripple-element" data-filter="tools">Tools</button>
             </div>
             
-            <div class="projects-container">
-                <!-- INKSYNC Project -->
-                <div class="project-item glass-effect" data-category="web">
+            <div class="projects-container">                <!-- INKSYNC Project -->
+                <div class="project-item glass-effect tilt-element ripple-element" data-category="web">
                     <div class="project-image">
                         <img src="https://opengraph.githubassets.com/1/Pusparaj99op/InkSync" alt="INKSYNC Project" loading="lazy">
                         <div class="project-overlay">
                             <div class="project-actions">
-                                <a href="https://github.com/Pusparaj99op/InkSync" class="btn" target="_blank" rel="noopener">
+                                <a href="https://github.com/Pusparaj99op/InkSync" class="btn magnetic-element" target="_blank" rel="noopener">
                                     <i class="fab fa-github"></i> View Code
                                 </a>
-                                <a href="#" class="btn" target="_blank" rel="noopener">
+                                <a href="#" class="btn magnetic-element" target="_blank" rel="noopener">
                                     <i class="fas fa-external-link-alt"></i> Live Demo
                                 </a>
                             </div>
@@ -347,14 +384,13 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- CRYPTO Project -->
-                <div class="project-item glass-effect" data-category="python">
+                  <!-- CRYPTO Project -->
+                <div class="project-item glass-effect tilt-element ripple-element" data-category="python">
                     <div class="project-image">
                         <img src="https://opengraph.githubassets.com/1/Pusparaj99op/CRYPTO" alt="CRYPTO Project" loading="lazy">
                         <div class="project-overlay">
                             <div class="project-actions">
-                                <a href="https://github.com/Pusparaj99op/CRYPTO" class="btn" target="_blank" rel="noopener">
+                                <a href="https://github.com/Pusparaj99op/CRYPTO" class="btn magnetic-element" target="_blank" rel="noopener">
                                     <i class="fab fa-github"></i> View Code
                                 </a>
                             </div>
@@ -374,14 +410,13 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- AutoMovies Project -->
-                <div class="project-item glass-effect" data-category="python">
+                  <!-- AutoMovies Project -->
+                <div class="project-item glass-effect tilt-element ripple-element" data-category="python">
                     <div class="project-image">
                         <img src="https://opengraph.githubassets.com/1/Pusparaj99op/AutoMovies" alt="AutoMovies Project" loading="lazy">
                         <div class="project-overlay">
                             <div class="project-actions">
-                                <a href="https://github.com/Pusparaj99op/AutoMovies" class="btn" target="_blank" rel="noopener">
+                                <a href="https://github.com/Pusparaj99op/AutoMovies" class="btn magnetic-element" target="_blank" rel="noopener">
                                     <i class="fab fa-github"></i> View Code
                                 </a>
                             </div>
@@ -401,17 +436,16 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- Portfolio Website -->
-                <div class="project-item glass-effect" data-category="web">
+                  <!-- Portfolio Website -->
+                <div class="project-item glass-effect tilt-element ripple-element" data-category="web">
                     <div class="project-image">
                         <img src="https://opengraph.githubassets.com/1/Pusparaj99op/pusparaj99op.github.io" alt="Portfolio Website" loading="lazy">
                         <div class="project-overlay">
                             <div class="project-actions">
-                                <a href="https://github.com/Pusparaj99op/pusparaj99op.github.io" class="btn" target="_blank" rel="noopener">
+                                <a href="https://github.com/Pusparaj99op/pusparaj99op.github.io" class="btn magnetic-element" target="_blank" rel="noopener">
                                     <i class="fab fa-github"></i> View Code
                                 </a>
-                                <a href="https://pusparaj99op.github.io/" class="btn" target="_blank" rel="noopener">
+                                <a href="https://pusparaj99op.github.io/" class="btn magnetic-element" target="_blank" rel="noopener">
                                     <i class="fas fa-external-link-alt"></i> Live Site
                                 </a>
                             </div>
@@ -440,9 +474,8 @@
         <div class="container">
             <h2 class="section-title">Achievements & Stats</h2>
             <p class="subtitle">My development journey in numbers</p>
-            
-            <div class="achievements-grid">
-                <div class="achievement-card glass-effect">
+              <div class="achievements-grid">
+                <div class="achievement-card glass-effect tilt-element hover-glow ripple-element">
                     <div class="achievement-icon">
                         <i class="fas fa-code"></i>
                     </div>
@@ -452,7 +485,7 @@
                     </div>
                 </div>
                 
-                <div class="achievement-card glass-effect">
+                <div class="achievement-card glass-effect tilt-element hover-glow ripple-element">
                     <div class="achievement-icon">
                         <i class="fas fa-star"></i>
                     </div>
@@ -462,7 +495,7 @@
                     </div>
                 </div>
                 
-                <div class="achievement-card glass-effect">
+                <div class="achievement-card glass-effect tilt-element hover-glow ripple-element">
                     <div class="achievement-icon">
                         <i class="fas fa-users"></i>
                     </div>
@@ -472,7 +505,7 @@
                     </div>
                 </div>
                 
-                <div class="achievement-card glass-effect">
+                <div class="achievement-card glass-effect tilt-element hover-glow ripple-element">
                     <div class="achievement-icon">
                         <i class="fas fa-cube"></i>
                     </div>
@@ -557,13 +590,12 @@
         <div class="container">
             <h2 class="section-title">Contact Me</h2>
             <p class="subtitle">Let's get in touch</p>
-            
-            <div class="contact-content">
+              <div class="contact-content">
                 <div class="contact-info">
-                    <div class="contact-card glass-effect">
+                    <div class="contact-card glass-effect tilt-element hover-glow">
                         <h3>📫 Get in Touch</h3>
                         <div class="contact-methods">
-                            <div class="contact-method">
+                            <div class="contact-method magnetic-element">
                                 <i class="fas fa-envelope"></i>
                                 <div>
                                     <h4>Email</h4>
@@ -571,7 +603,7 @@
                                 </div>
                             </div>
                             
-                            <div class="contact-method">
+                            <div class="contact-method magnetic-element">
                                 <i class="fas fa-globe"></i>
                                 <div>
                                     <h4>Website</h4>
@@ -579,7 +611,7 @@
                                 </div>
                             </div>
                             
-                            <div class="contact-method">
+                            <div class="contact-method magnetic-element">
                                 <i class="fab fa-github"></i>
                                 <div>
                                     <h4>GitHub</h4>
@@ -591,16 +623,16 @@
                         <div class="social-links">
                             <h4>Connect with me</h4>
                             <div class="social-icons">
-                                <a href="https://github.com/Pusparaj99op" class="social-icon" target="_blank" rel="noopener" title="GitHub">
+                                <a href="https://github.com/Pusparaj99op" class="social-icon magnetic-element" target="_blank" rel="noopener" title="GitHub">
                                     <i class="fab fa-github"></i>
                                 </a>
-                                <a href="https://linkedin.com/in/pranay-gajbhiye-104059335" class="social-icon" target="_blank" rel="noopener" title="LinkedIn (Collaborator)">
+                                <a href="https://linkedin.com/in/pranay-gajbhiye-104059335" class="social-icon magnetic-element" target="_blank" rel="noopener" title="LinkedIn (Collaborator)">
                                     <i class="fab fa-linkedin-in"></i>
                                 </a>
-                                <a href="https://www.youtube.com/@AnonymousRingtonesYT" class="social-icon" target="_blank" rel="noopener" title="YouTube (Collaborator)">
+                                <a href="https://www.youtube.com/@AnonymousRingtonesYT" class="social-icon magnetic-element" target="_blank" rel="noopener" title="YouTube (Collaborator)">
                                     <i class="fab fa-youtube"></i>
                                 </a>
-                                <a href="mailto:Kalvinshah@hotmail.com" class="social-icon" title="Email">
+                                <a href="mailto:Kalvinshah@hotmail.com" class="social-icon magnetic-element" title="Email">
                                     <i class="fas fa-envelope"></i>
                                 </a>
                             </div>
@@ -609,7 +641,7 @@
                 </div>
                 
                 <div class="contact-form-container">
-                    <form id="contact-form" class="glass-effect">
+                    <form id="contact-form" class="glass-effect tilt-element">
                         <h3>Send me a message</h3>
                         <div class="form-group">
                             <label for="name">Your Name</label>
@@ -626,8 +658,7 @@
                         <div class="form-group">
                             <label for="message">Message</label>
                             <textarea id="message" name="message" placeholder="Tell me about your project or idea..." required></textarea>
-                        </div>
-                        <button type="submit" class="btn primary-btn">
+                        </div>                        <button type="submit" class="btn primary-btn magnetic-element ripple-element">
                             <i class="fas fa-paper-plane"></i> Send Message
                         </button>
                         
@@ -707,6 +738,9 @@
     <script src="js/effects.js"></script>
     <script src="js/psychology.js"></script>
     <script src="js/mobile-optimizations.js"></script>
+    <script src="js/enhanced-3d-effects.js"></script>
+    <script src="js/advanced-scroll-effects.js"></script>    <script src="js/enhanced-interactive-effects.js"></script>
+    <script src="js/advanced-enhancements.js"></script>
     
     <script>
         // Initialize all modern effects

@@ -701,22 +701,13 @@
 }
 
 /* High DPI/Retina Display Optimizations */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .chess-3d-container canvas {
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {    .chess-3d-container canvas {
         image-rendering: -webkit-optimize-contrast; /* Edge support */
-        image-rendering: -moz-crisp-edges; /* Firefox support */
-        /* stylelint-disable-next-line compat/compat */
-        image-rendering: crisp-edges; /* Modern browsers - Edge support added above */
         image-rendering: pixelated; /* Fallback for pixel art */
-    }
-    
-    .project-image,
+    }    .project-image,
     .skill-icon,
     .achievement-icon {
         image-rendering: -webkit-optimize-contrast; /* Edge support */
-        image-rendering: -moz-crisp-edges; /* Firefox support */
-        /* stylelint-disable-next-line compat/compat */
-        image-rendering: crisp-edges; /* Modern browsers - Edge support added above */
     }
 }
 
