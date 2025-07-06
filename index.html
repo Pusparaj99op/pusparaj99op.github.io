@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<!--
+File: index.html
+Purpose: Main portfolio page for Kalvin Shah
+Version: 2.0.0
+Last Modified: July 6, 2025
+Description: Responsive portfolio website with modern UI effects,
+             optimized performance and accessibility features
+-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +18,7 @@
     <meta name="robots" content="index, follow">
     <meta name="language" content="English">
     <meta name="revisit-after" content="7 days">
-    
+
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Kalvin Shah - Portfolio | Developer & Designer">
     <meta property="og:description" content="Explore the innovative portfolio of Kalvin Shah - showcasing cutting-edge web development projects, modern design solutions, and interactive experiences.">
@@ -21,35 +29,17 @@
     <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="Kalvin Shah Portfolio">
     <meta property="og:locale" content="en_US">
-    
+
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Kalvin Shah - Portfolio | Developer & Designer">
     <meta name="twitter:description" content="Explore the innovative portfolio of Kalvin Shah - showcasing cutting-edge web development projects, modern design solutions, and interactive experiences.">
     <meta name="twitter:image" content="https://pusparaj99op.github.io/assets/images/twitter-card.png">
     <meta name="twitter:creator" content="@Pusparaj99op">
-    <meta name="twitter:site" content="@Pusparaj99op">    <!-- Additional Meta Tags -->    <!-- PWA Theme Colors (Progressive Enhancement - Chrome, Edge, Safari support) -->
-    <!-- Theme color will be set via JavaScript for compatible browsers -->
-    <script>
-        // Progressive enhancement: Add theme-color meta tag for supported browsers
-        (function() {
-            // Check if browser supports theme-color (Chrome, Edge, Safari)
-            const isSupported = 'CSS' in window && CSS.supports && (
-                CSS.supports('color', '#000') || 
-                navigator.userAgent.includes('Chrome') || 
-                navigator.userAgent.includes('Safari') || 
-                navigator.userAgent.includes('Edge')
-            );
-            
-            if (isSupported) {
-                const themeColorMeta = document.createElement('meta');
-                themeColorMeta.name = 'theme-color';
-                themeColorMeta.content = '#677eea';
-                document.head.appendChild(themeColorMeta);
-            }
-        })();
-    </script>
-    <!-- Browser-specific alternatives for broader support -->
+    <meta name="twitter:site" content="@Pusparaj99op">
+
+    <!-- PWA Theme Colors (Progressive Enhancement) -->
+    <meta name="theme-color" content="#677eea">
     <meta name="msapplication-navbutton-color" content="#677eea">
     <meta name="apple-mobile-web-app-status-bar-style" content="#677eea">
     <meta name="msapplication-TileColor" content="#677eea">
@@ -57,60 +47,80 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Kalvin Shah">
     <meta name="format-detection" content="telephone=no">
-    
+
     <!-- Favicon -->
     <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="assets/images/favicon.svg">
     <link rel="manifest" href="manifest.json">
-    
-    <!-- Google Fonts -->
+
+    <!-- Preconnect to External Domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+    <!-- Critical CSS Preload -->
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="preload" href="css/theme.css" as="style">
+
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    <!-- CSS Files -->    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS Files - Grouped by Priority -->
+    <!-- Core Styles -->
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/theme.css">
-    <link rel="stylesheet" href="css/3d-effects.css">
+
+    <!-- Enhancement Styles - Consider combining these into fewer files -->
     <link rel="stylesheet" href="css/effects.css">
+    <link rel="stylesheet" href="css/3d-effects.css">
     <link rel="stylesheet" href="css/psychology-effects.css">
+    <link rel="stylesheet" href="css/skill-progress.css">
+    <link rel="stylesheet" href="css/modern-animations.css">
+    <link rel="stylesheet" href="css/enhanced-3d-animations.css">
+
+    <!-- Optimization and Compatibility Styles -->
     <link rel="stylesheet" href="css/mobile-optimizations.css">
-    <link rel="stylesheet" href="css/premium-enhancements.css">
     <link rel="stylesheet" href="css/safari-compatibility.css">
+    <link rel="stylesheet" href="css/premium-enhancements.css">
     <link rel="stylesheet" href="css/premium-100k-enhancements.css">
     <link rel="stylesheet" href="css/responsive-premium.css">
     <link rel="stylesheet" href="css/ultra-premium-enhancements.css">
-    <link rel="stylesheet" href="css/skill-progress.css">    <link rel="stylesheet" href="css/modern-animations.css">
-    <link rel="stylesheet" href="css/enhanced-3d-animations.css">      <!-- Three.js for 3D Background Animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-    
-    <!-- Three.js Post-Processing Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/BokehPass.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/FilmPass.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/HalftonePass.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/FXAAShader.js"></script>
-    
-    <!-- Preload critical resources -->
+
+    <!-- Preload Critical JavaScript -->
     <link rel="preload" href="js/script.js" as="script">
-    
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <link rel="preload" href="js/performance-optimizer.js" as="script">
+
+    <!-- Three.js Libraries - Loaded with defer attribute -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js" defer></script>
+
+    <!-- Three.js Post-Processing Libraries - Loaded with defer attribute -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/BokehPass.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/FilmPass.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/HalftonePass.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/FXAAShader.js" defer></script>
+
+    <!-- Google Analytics - Update with your actual tracking ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR-TRACKING-ID"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
+      gtag('config', 'G-YOUR-TRACKING-ID');
     </script>
-    
-    <!-- Structured Data -->
+
+    <!-- Structured Data - Updated with actual social links -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -118,69 +128,74 @@
       "name": "Pusparaj",
       "url": "https://pusparaj99op.github.io",
       "sameAs": [
-        "https://twitter.com/yourtwitter",
         "https://github.com/pusparaj99op",
-        "https://linkedin.com/in/yourlinkedin"
+        "https://linkedin.com/in/pranay-gajbhiye-104059335"
       ],
       "jobTitle": "Software Developer",
       "worksFor": {
         "@type": "Organization",
-        "name": "Your Company"
+        "name": "Freelancer"
       }
     }
     </script>
 </head>
 <body>
     <!-- Preloader -->
-    <div class="preloader">
+    <div class="preloader" aria-hidden="true">
         <div class="loader"></div>
-    </div>      <!-- Header -->
+    </div>
+
+    <!-- Header -->
     <header>
         <div class="container">
             <div class="logo">
                 <h1 class="floating">Kalvin<span class="animated-gradient-text">Shah</span></h1>
             </div>
-            
+
             <div class="header-controls">
-                <!-- Theme toggle button from offline.html -->
-                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <!-- Theme toggle button -->
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light theme">
                     <i class="fas fa-moon"></i>
                 </button>
             </div>
-            
-            <ul id="navbar" class="stagger-in">
-                <li><a href="#home" class="active magnetic-element">Home</a></li>
-                <li><a href="#about" class="magnetic-element">About</a></li>
-                <li><a href="#skills" class="magnetic-element">Skills</a></li>
-                <li><a href="#projects" class="magnetic-element">Projects</a></li>
-                <li><a href="#achievements" class="magnetic-element">Achievements</a></li>
-                <li><a href="#experience" class="magnetic-element">Experience</a></li>
-                <li><a href="blog/blog.html" class="magnetic-element">Blog</a></li>
-                <li><a href="#contact" class="magnetic-element">Contact</a></li>
-            </ul>
+
+            <nav aria-label="Main navigation">
+                <ul id="navbar" class="stagger-in">
+                    <li><a href="#home" class="active magnetic-element">Home</a></li>
+                    <li><a href="#about" class="magnetic-element">About</a></li>
+                    <li><a href="#skills" class="magnetic-element">Skills</a></li>
+                    <li><a href="#projects" class="magnetic-element">Projects</a></li>
+                    <li><a href="#achievements" class="magnetic-element">Achievements</a></li>
+                    <li><a href="#experience" class="magnetic-element">Experience</a></li>
+                    <li><a href="blog/blog.html" class="magnetic-element">Blog</a></li>
+                    <li><a href="#contact" class="magnetic-element">Contact</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
-      <!-- Enhanced UI Elements -->
-    <div class="scroll-progress">
+
+    <!-- Enhanced UI Elements -->
+    <div class="scroll-progress" aria-hidden="true">
         <div class="scroll-progress-bar"></div>
     </div>
-    
+
     <!-- Scroll Indicators -->
-    <div class="scroll-indicator">
+    <div class="scroll-indicator" aria-label="Page navigation">
         <div class="scroll-dot active" data-section="Home" data-target="home"></div>
         <div class="scroll-dot" data-section="About" data-target="about"></div>
         <div class="scroll-dot" data-section="Skills" data-target="skills"></div>
         <div class="scroll-dot" data-section="Projects" data-target="projects"></div>
         <div class="scroll-dot" data-section="Achievements" data-target="achievements"></div>
         <div class="scroll-dot" data-section="Contact" data-target="contact"></div>
-    </div>    <!-- Hero Section -->    <!-- Hero Section -->
+    </div>
+
+    <!-- Hero Section -->
     <section id="home" class="hero scroll-reveal">
-        <canvas id="three-bg"></canvas>
-        <!-- <canvas id="enhanced-3d-canvas"></canvas> --> <!-- Canvas for Enhanced3DEffects, commented out to remove -->
-        <canvas id="particles-canvas"></canvas>
-        <div class="blur-circle blur-circle-1 floating-element morphing-bg"></div>
-        <div class="blur-circle blur-circle-2 floating-element morphing-bg"></div>
-        
+        <canvas id="three-bg" aria-hidden="true"></canvas>
+        <canvas id="particles-canvas" aria-hidden="true"></canvas>
+        <div class="blur-circle blur-circle-1 floating-element morphing-bg" aria-hidden="true"></div>
+        <div class="blur-circle blur-circle-2 floating-element morphing-bg" aria-hidden="true"></div>
+
         <div class="container">
             <div class="hero-content">
                 <h1 class="animate-on-scroll magnetic-element hover-glow typing-effect floating">Hi, I'm <span class="gradient-text animated-gradient-text">Kalvin Shah</span></h1>
@@ -196,17 +211,20 @@
                 </div>
             </div>
         </div>
-    </section>    <!-- About Section -->
+    </section>
+
+    <!-- About Section -->
     <section id="about" class="about scroll-reveal">
-        <canvas class="section-particles" data-section="about"></canvas>
-        <div class="container">            <h2 class="section-title animate-on-scroll typing-effect">About Me</h2>
+        <canvas class="section-particles" data-section="about" aria-hidden="true"></canvas>
+        <div class="container">
+            <h2 class="section-title animate-on-scroll typing-effect">About Me</h2>
             <p class="subtitle animate-on-scroll pulse-effect">Get to know me better</p>
-            
+
             <div class="about-content">
                 <div class="about-text scroll-reveal">
                     <h3 class="stagger-child">👋 Hi there, I'm Kalvin Shah (Pusparaj)</h3>
                     <p class="stagger-child">I'm a passionate developer focused on building innovative solutions. Welcome to my GitHub profile where I share my projects and contributions.</p>
-                    
+
                     <div class="about-stats stagger-in">
                         <div class="stat-item stagger-child glass-card-premium interactive-3d-item">
                             <h4>🌱 Currently Learning</h4>
@@ -216,7 +234,7 @@
                                 <li>Cloud Computing</li>
                             </ul>
                         </div>
-                        
+
                         <div class="stat-item glass-card-premium interactive-3d-item">
                             <h4>💞️ Looking to Collaborate</h4>
                             <ul>
@@ -225,117 +243,133 @@
                                 <li>Educational Technology</li>
                             </ul>
                         </div>
-                        
+
                         <div class="stat-item glass-card-premium interactive-3d-item">
                             <h4>⚡ Fun Fact</h4>
                             <p>I can solve a Rubik's cube in under two minutes!</p>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="about-image">
                     <div class="profile-card glass-effect glass-card-premium magnetic-element interactive-3d-item">
                         <div class="profile-avatar">
-                            <img src="https://avatars.githubusercontent.com/u/168293709?v=4" alt="Kalvin Shah Profile" loading="lazy">
+                            <img src="https://avatars.githubusercontent.com/u/168293709?v=4" alt="Kalvin Shah Profile" width="200" height="200" loading="lazy">
                         </div>
                         <div class="profile-info">
                             <h3 class="animated-gradient-text">Kalvin Shah</h3>
                             <p>@Pusparaj99op</p>
                             <div class="github-stats pulse-effect">
-                                <span>1 follower • 2 following</span>
-                                <span>11 repositories • 14 stars</span>
+                                <span><i class="fas fa-user-friends" aria-hidden="true"></i> 1 follower • 2 following</span>
+                                <span><i class="fas fa-code-branch" aria-hidden="true"></i> 11 repositories • 14 stars</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>    <!-- Skills Section -->
+    </section>
+
+    <!-- Skills Section -->
     <section id="skills" class="skills">
-        <canvas class="section-particles" data-section="skills"></canvas>
-        <div class="container">            <h2 class="section-title typing-effect">My Skills</h2>
+        <canvas class="section-particles" data-section="skills" aria-hidden="true"></canvas>
+        <div class="container">
+            <h2 class="section-title typing-effect">My Skills</h2>
             <p class="subtitle pulse-effect">Technologies I work with</p>
-            
+
             <div class="skills-content">
                 <div class="skills-categories stagger-in">
                     <div class="skill-category glass-effect glass-card-premium interactive-3d-item">
-                        <h3>💻 Programming Languages</h3>                        <div class="skill-items">
+                        <h3>💻 Programming Languages</h3>
+                        <div class="skill-items">
                             <div class="skill-item magnetic-element">
-                                <i class="fab fa-js-square"></i>                                <span>JavaScript</span>
-                                <div class="skill-bar" data-progress="90">
+                                <i class="fab fa-js-square" aria-hidden="true"></i>
+                                <span>JavaScript</span>
+                                <div class="skill-bar" data-progress="90" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
                                     <div class="skill-progress"></div>
                                     <span class="progress-counter">0%</span>
                                 </div>
                             </div>
                             <div class="skill-item magnetic-element">
-                                <i class="fab fa-python"></i>                                <span>Python</span>
-                                <div class="skill-bar" data-progress="85">
+                                <i class="fab fa-python" aria-hidden="true"></i>
+                                <span>Python</span>
+                                <div class="skill-bar" data-progress="85" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
                                     <div class="skill-progress"></div>
                                     <span class="progress-counter">0%</span>
                                 </div>
                             </div>
                             <div class="skill-item magnetic-element">
-                                <i class="fab fa-html5"></i>                                <span>HTML5</span>
-                                <div class="skill-bar" data-progress="95">
+                                <i class="fab fa-html5" aria-hidden="true"></i>
+                                <span>HTML5</span>
+                                <div class="skill-bar" data-progress="95" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">
                                     <div class="skill-progress"></div>
                                     <span class="progress-counter">0%</span>
                                 </div>
                             </div>
                             <div class="skill-item magnetic-element">
-                                <i class="fab fa-css3-alt"></i>                                <span>CSS3</span>
-                                <div class="skill-bar" data-progress="92">
+                                <i class="fab fa-css3-alt" aria-hidden="true"></i>
+                                <span>CSS3</span>
+                                <div class="skill-bar" data-progress="92" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100">
                                     <div class="skill-progress"></div>
                                     <span class="progress-counter">0%</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="skill-category glass-effect glass-card-premium interactive-3d-item">
-                        <h3>🚀 Frameworks & Libraries</h3>                        <div class="skill-items">
+                        <h3>🚀 Frameworks & Libraries</h3>
+                        <div class="skill-items">
                             <div class="skill-item magnetic-element">
-                                <i class="fab fa-react"></i>                                <span>React</span>
-                                <div class="skill-bar" data-progress="80">
+                                <i class="fab fa-react" aria-hidden="true"></i>
+                                <span>React</span>
+                                <div class="skill-bar" data-progress="80" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
                                     <div class="skill-progress"></div>
                                     <span class="progress-counter">0%</span>
                                 </div>
                             </div>
                             <div class="skill-item magnetic-element">
-                                <i class="fab fa-node-js"></i>                                <span>Node.js</span>
-                                <div class="skill-bar" data-progress="75">
+                                <i class="fab fa-node-js" aria-hidden="true"></i>
+                                <span>Node.js</span>
+                                <div class="skill-bar" data-progress="75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
                                     <div class="skill-progress"></div>
                                     <span class="progress-counter">0%</span>
                                 </div>
                             </div>
                             <div class="skill-item">
-                                <i class="fas fa-database"></i>                                <span>Express.js</span>
-                                <div class="skill-bar" data-progress="78">
+                                <i class="fas fa-database" aria-hidden="true"></i>
+                                <span>Express.js</span>
+                                <div class="skill-bar" data-progress="78" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100">
                                     <div class="skill-progress"></div>
                                     <span class="progress-counter">0%</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="skill-category glass-effect interactive-3d-item">
-                        <h3>🛠️ Tools & Technologies</h3>                        <div class="skill-items">
+                        <h3>🛠️ Tools & Technologies</h3>
+                        <div class="skill-items">
                             <div class="skill-item">
-                                <i class="fab fa-git-alt"></i>                                <span>Git</span>
-                                <div class="skill-bar" data-progress="88">
+                                <i class="fab fa-git-alt" aria-hidden="true"></i>
+                                <span>Git</span>
+                                <div class="skill-bar" data-progress="88" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100">
                                     <div class="skill-progress"></div>
                                     <span class="progress-counter">0%</span>
                                 </div>
                             </div>
                             <div class="skill-item">
-                                <i class="fab fa-docker"></i>                                <span>Docker</span>
-                                <div class="skill-bar" data-progress="70">
+                                <i class="fab fa-docker" aria-hidden="true"></i>
+                                <span>Docker</span>
+                                <div class="skill-bar" data-progress="70" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
                                     <div class="skill-progress"></div>
                                     <span class="progress-counter">0%</span>
                                 </div>
                             </div>
                             <div class="skill-item">
-                                <i class="fas fa-cloud"></i>                                <span>Cloud Computing</span>
-                                <div class="skill-bar" data-progress="72">
+                                <i class="fas fa-cloud" aria-hidden="true"></i>
+                                <span>Cloud Computing</span>
+                                <div class="skill-bar" data-progress="72" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100">
                                     <div class="skill-progress"></div>
                                     <span class="progress-counter">0%</span>
                                 </div>
@@ -345,29 +379,33 @@
                 </div>
             </div>
         </div>
-    </section>      <!-- Projects Section -->
+    </section>
+
+    <!-- Projects Section -->
     <section id="projects" class="projects">
         <div class="container">
             <h2 class="section-title floating">My Projects</h2>
             <p class="subtitle pulse-effect">Some of my recent work</p>
-              <div class="projects-filter stagger-in">
+
+            <div class="projects-filter stagger-in">
                 <button class="filter-btn active premium-button magnetic-element" data-filter="all">All</button>
                 <button class="filter-btn premium-button magnetic-element" data-filter="web">Web Dev</button>
                 <button class="filter-btn premium-button magnetic-element" data-filter="python">Python</button>
                 <button class="filter-btn premium-button magnetic-element" data-filter="tools">Tools</button>
             </div>
-            
-            <div class="projects-container stagger-in">                <!-- INKSYNC Project -->
+
+            <div class="projects-container stagger-in">
+                <!-- INKSYNC Project -->
                 <div class="project-item glass-effect glass-card-premium tilt-element ripple-element" data-category="web">
                     <div class="project-image">
-                        <img src="https://opengraph.githubassets.com/1/Pusparaj99op/InkSync" alt="INKSYNC Project" loading="lazy">
+                        <img src="https://opengraph.githubassets.com/1/Pusparaj99op/InkSync" alt="INKSYNC Project" width="600" height="315" loading="lazy">
                         <div class="project-overlay">
                             <div class="project-actions">
                                 <a href="https://github.com/Pusparaj99op/InkSync" class="btn premium-button magnetic-element" target="_blank" rel="noopener">
-                                    <i class="fab fa-github"></i> View Code
+                                    <i class="fab fa-github" aria-hidden="true"></i> View Code
                                 </a>
                                 <a href="#" class="btn premium-button magnetic-element" target="_blank" rel="noopener">
-                                    <i class="fas fa-external-link-alt"></i> Live Demo
+                                    <i class="fas fa-external-link-alt" aria-hidden="true"></i> Live Demo
                                 </a>
                             </div>
                         </div>
@@ -381,19 +419,20 @@
                             <span class="tech-tag">Node.js</span>
                         </div>
                         <div class="project-stats pulse-effect">
-                            <span><i class="fas fa-star"></i> 1</span>
-                            <span><i class="fas fa-eye"></i> Public</span>
+                            <span><i class="fas fa-star" aria-hidden="true"></i> 1</span>
+                            <span><i class="fas fa-eye" aria-hidden="true"></i> Public</span>
                         </div>
                     </div>
                 </div>
-                  <!-- CRYPTO Project -->
+
+                <!-- CRYPTO Project -->
                 <div class="project-item glass-effect glass-card-premium tilt-element ripple-element" data-category="python">
                     <div class="project-image">
-                        <img src="https://opengraph.githubassets.com/1/Pusparaj99op/CRYPTO" alt="CRYPTO Project" loading="lazy">
+                        <img src="https://opengraph.githubassets.com/1/Pusparaj99op/CRYPTO" alt="CRYPTO Project" width="600" height="315" loading="lazy">
                         <div class="project-overlay">
                             <div class="project-actions">
                                 <a href="https://github.com/Pusparaj99op/CRYPTO" class="btn premium-button magnetic-element" target="_blank" rel="noopener">
-                                    <i class="fab fa-github"></i> View Code
+                                    <i class="fab fa-github" aria-hidden="true"></i> View Code
                                 </a>
                             </div>
                         </div>
@@ -407,19 +446,20 @@
                             <span class="tech-tag">Data Analysis</span>
                         </div>
                         <div class="project-stats pulse-effect">
-                            <span><i class="fas fa-star"></i> 1</span>
-                            <span><i class="fas fa-eye"></i> Public</span>
+                            <span><i class="fas fa-star" aria-hidden="true"></i> 1</span>
+                            <span><i class="fas fa-eye" aria-hidden="true"></i> Public</span>
                         </div>
                     </div>
                 </div>
-                  <!-- AutoMovies Project -->
+
+                <!-- AutoMovies Project -->
                 <div class="project-item glass-effect glass-card-premium tilt-element ripple-element" data-category="python">
                     <div class="project-image">
-                        <img src="https://opengraph.githubassets.com/1/Pusparaj99op/AutoMovies" alt="AutoMovies Project" loading="lazy">
+                        <img src="https://opengraph.githubassets.com/1/Pusparaj99op/AutoMovies" alt="AutoMovies Project" width="600" height="315" loading="lazy">
                         <div class="project-overlay">
                             <div class="project-actions">
                                 <a href="https://github.com/Pusparaj99op/AutoMovies" class="btn premium-button magnetic-element" target="_blank" rel="noopener">
-                                    <i class="fab fa-github"></i> View Code
+                                    <i class="fab fa-github" aria-hidden="true"></i> View Code
                                 </a>
                             </div>
                         </div>
@@ -433,22 +473,23 @@
                             <span class="tech-tag">Recommendations</span>
                         </div>
                         <div class="project-stats pulse-effect">
-                            <span><i class="fas fa-star"></i> 1</span>
-                            <span><i class="fas fa-code-branch"></i> Forked</span>
+                            <span><i class="fas fa-star" aria-hidden="true"></i> 1</span>
+                            <span><i class="fas fa-code-branch" aria-hidden="true"></i> Forked</span>
                         </div>
                     </div>
                 </div>
-                  <!-- Portfolio Website -->
+
+                <!-- Portfolio Website -->
                 <div class="project-item glass-effect glass-card-premium tilt-element ripple-element" data-category="web">
                     <div class="project-image">
-                        <img src="https://opengraph.githubassets.com/1/Pusparaj99op/pusparaj99op.github.io" alt="Portfolio Website" loading="lazy">
+                        <img src="https://opengraph.githubassets.com/1/Pusparaj99op/pusparaj99op.github.io" alt="Portfolio Website" width="600" height="315" loading="lazy">
                         <div class="project-overlay">
                             <div class="project-actions">
                                 <a href="https://github.com/Pusparaj99op/pusparaj99op.github.io" class="btn magnetic-element" target="_blank" rel="noopener">
-                                    <i class="fab fa-github"></i> View Code
+                                    <i class="fab fa-github" aria-hidden="true"></i> View Code
                                 </a>
                                 <a href="https://pusparaj99op.github.io/" class="btn magnetic-element" target="_blank" rel="noopener">
-                                    <i class="fas fa-external-link-alt"></i> Live Site
+                                    <i class="fas fa-external-link-alt" aria-hidden="true"></i> Live Site
                                 </a>
                             </div>
                         </div>
@@ -463,53 +504,55 @@
                             <span class="tech-tag">WebGL</span>
                         </div>
                         <div class="project-stats">
-                            <span><i class="fas fa-star"></i> 1</span>
-                            <span><i class="fas fa-globe"></i> Live</span>
+                            <span><i class="fas fa-star" aria-hidden="true"></i> 1</span>
+                            <span><i class="fas fa-globe" aria-hidden="true"></i> Live</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>    </section>
-    
+        </div>
+    </section>
+
     <!-- Achievements Section -->
     <section id="achievements" class="achievements">
         <div class="container">
             <h2 class="section-title">Achievements & Stats</h2>
             <p class="subtitle">My development journey in numbers</p>
-              <div class="achievements-grid">
+
+            <div class="achievements-grid">
                 <div class="achievement-card glass-effect hover-glow ripple-element interactive-3d-item">
                     <div class="achievement-icon">
-                        <i class="fas fa-code"></i>
+                        <i class="fas fa-code" aria-hidden="true"></i>
                     </div>
                     <div class="achievement-content">
                         <h3>11</h3>
                         <p>GitHub Repositories</p>
                     </div>
                 </div>
-                
+
                 <div class="achievement-card glass-effect hover-glow ripple-element interactive-3d-item">
                     <div class="achievement-icon">
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
                     </div>
                     <div class="achievement-content">
                         <h3>14</h3>
                         <p>GitHub Stars</p>
                     </div>
                 </div>
-                
+
                 <div class="achievement-card glass-effect hover-glow ripple-element interactive-3d-item">
                     <div class="achievement-icon">
-                        <i class="fas fa-users"></i>
+                        <i class="fas fa-users" aria-hidden="true"></i>
                     </div>
                     <div class="achievement-content">
                         <h3>3</h3>
                         <p>Total Followers</p>
                     </div>
                 </div>
-                
+
                 <div class="achievement-card glass-effect hover-glow ripple-element interactive-3d-item">
                     <div class="achievement-icon">
-                        <i class="fas fa-cube"></i>
+                        <i class="fas fa-cube" aria-hidden="true"></i>
                     </div>
                     <div class="achievement-content">
                         <h3>< 2min</h3>
@@ -517,21 +560,21 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="github-contribution-graph glass-effect">
                 <h3>GitHub Activity</h3>
-                <img src="https://github-readme-stats.vercel.app/api?username=Pusparaj99op&show_icons=true&theme=radical" alt="GitHub Stats" loading="lazy">
-                <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Pusparaj99op&layout=compact&theme=radical" alt="Top Languages" loading="lazy">
+                <img src="https://github-readme-stats.vercel.app/api?username=Pusparaj99op&show_icons=true&theme=radical" alt="GitHub Stats" width="495" height="195" loading="lazy">
+                <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Pusparaj99op&layout=compact&theme=radical" alt="Top Languages" width="400" height="195" loading="lazy">
             </div>
         </div>
     </section>
-    
+
     <!-- Experience Section -->
     <section id="experience" class="experience">
         <div class="container">
             <h2 class="section-title">Experience & Collaborations</h2>
             <p class="subtitle">My professional journey and partnerships</p>
-            
+
             <div class="timeline">
                 <div class="timeline-item glass-effect">
                     <div class="timeline-date">
@@ -548,7 +591,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="timeline-item glass-effect">
                     <div class="timeline-date">
                         <span>2024</span>
@@ -559,15 +602,15 @@
                         <p>Working alongside Pranay Gajbhiye, a talented content creator and developer. Collaborating on various projects that combine technical expertise with creative content.</p>
                         <div class="collaboration-links">
                             <a href="https://linkedin.com/in/pranay-gajbhiye-104059335" target="_blank" rel="noopener" class="btn">
-                                <i class="fab fa-linkedin"></i> LinkedIn Profile
+                                <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn Profile
                             </a>
                             <a href="https://www.youtube.com/@AnonymousRingtonesYT" target="_blank" rel="noopener" class="btn">
-                                <i class="fab fa-youtube"></i> YouTube Channel
+                                <i class="fab fa-youtube" aria-hidden="true"></i> YouTube Channel
                             </a>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="timeline-item glass-effect">
                     <div class="timeline-date">
                         <span>2023 - 2024</span>
@@ -587,61 +630,57 @@
             </div>
         </div>
     </section>
-      <!-- Contact Section -->
+
+    <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
             <h2 class="section-title">Contact Me</h2>
             <p class="subtitle">Let's get in touch</p>
-              <div class="contact-content">
+
+            <div class="contact-content">
                 <div class="contact-info">
                     <div class="contact-card glass-effect tilt-element hover-glow">
                         <h3>📫 Get in Touch</h3>
                         <div class="contact-methods">
                             <div class="contact-method magnetic-element">
-                                <i class="fas fa-envelope"></i>
+                                <i class="fas fa-envelope" aria-hidden="true"></i>
                                 <div>
                                     <h4>Email</h4>
                                     <a href="mailto:Kalvinshah@hotmail.com">Kalvinshah@hotmail.com</a>
                                 </div>
                             </div>
-                            
+
                             <div class="contact-method magnetic-element">
-                                <i class="fas fa-globe"></i>
+                                <i class="fas fa-globe" aria-hidden="true"></i>
                                 <div>
                                     <h4>Website</h4>
-                                    <a href="https://pusparaj99op.github.io" target="_blank" rel="noopener">pusparaj99op.github.io</a>
+                                    <a href="https://pusparaj99op.github.io">pusparaj99op.github.io</a>
                                 </div>
                             </div>
-                            
+
                             <div class="contact-method magnetic-element">
-                                <i class="fab fa-github"></i>
+                                <i class="fab fa-github" aria-hidden="true"></i>
                                 <div>
                                     <h4>GitHub</h4>
-                                    <a href="https://github.com/Pusparaj99op" target="_blank" rel="noopener">@Pusparaj99op</a>
+                                    <a href="https://github.com/Pusparaj99op">github.com/Pusparaj99op</a>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="social-links">
                             <h4>Connect with me</h4>
                             <div class="social-icons">
                                 <a href="https://github.com/Pusparaj99op" class="social-icon magnetic-element" target="_blank" rel="noopener" title="GitHub">
-                                    <i class="fab fa-github"></i>
+                                    <i class="fab fa-github" aria-hidden="true"></i>
                                 </a>
                                 <a href="https://linkedin.com/in/pranay-gajbhiye-104059335" class="social-icon magnetic-element" target="_blank" rel="noopener" title="LinkedIn (Collaborator)">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                                <a href="https://www.youtube.com/@AnonymousRingtonesYT" class="social-icon magnetic-element" target="_blank" rel="noopener" title="YouTube (Collaborator)">
-                                    <i class="fab fa-youtube"></i>
-                                </a>
-                                <a href="mailto:Kalvinshah@hotmail.com" class="social-icon magnetic-element" title="Email">
-                                    <i class="fas fa-envelope"></i>
+                                    <i class="fab fa-linkedin" aria-hidden="true"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="contact-form-container">
                     <form id="contact-form" class="glass-effect tilt-element">
                         <h3>Send me a message</h3>
@@ -660,169 +699,167 @@
                         <div class="form-group">
                             <label for="message">Message</label>
                             <textarea id="message" name="message" placeholder="Tell me about your project or idea..." required></textarea>
-                        </div>                        <button type="submit" class="btn primary-btn magnetic-element ripple-element">
-                            <i class="fas fa-paper-plane"></i> Send Message
+                        </div>
+                        <button type="submit" class="btn primary-btn magnetic-element ripple-element">
+                            Send Message
                         </button>
-                        
-                        <div class="form-status"></div>
+
+                        <div class="form-status" aria-live="polite"></div>
                     </form>
                 </div>
-            </div>        </div>    </section>
-    
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Kalvin Shah</h2>
+                    <p>Web Developer & Designer</p>
+                </div>
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
             </div>
-            
+
             <div class="footer-bottom">
+                <p>&copy; 2025 Kalvin Shah. All Rights Reserved.</p>
             </div>
         </div>
-    </footer>    
+    </footer>
+
     <!-- Go to top button -->
     <a href="#" class="go-top" title="Go to top" aria-label="Go to top of page">
         <i class="fas fa-arrow-up"></i>
-    </a>    <!-- JavaScript Files -->    <script src="js/performance-optimizer.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/3d-background.js"></script>
-    <script src="js/modern-effects.js"></script>
-    <script src="js/animations.js"></script>
-    <script src="js/effects.js"></script>
-    <script src="js/psychology.js"></script>
-    <script src="js/mobile-optimizations.js"></script>
-    <script src="js/enhanced-3d-effects.js"></script>
-    <script src="js/advanced-scroll-effects.js"></script>    <script src="js/enhanced-interactive-effects.js"></script>    <script src="js/advanced-enhancements.js"></script>
-    <script src="js/magnetic-cursor.js"></script>
-    
+    </a>
+
+    <!-- JavaScript Files - Load in optimal order -->
+    <script src="js/performance-optimizer.js" defer></script>
+    <script src="js/script.js" defer></script>
+    <script src="js/3d-background.js" defer></script>
+    <script src="js/animations.js" defer></script>
+    <script src="js/effects.js" defer></script>
+    <script src="js/modern-effects.js" defer></script>
+    <script src="js/psychology.js" defer></script>
+    <script src="js/mobile-optimizations.js" defer></script>
+    <script src="js/enhanced-3d-effects.js" defer></script>
+    <script src="js/advanced-scroll-effects.js" defer></script>
+    <script src="js/enhanced-interactive-effects.js" defer></script>
+    <script src="js/advanced-enhancements.js" defer></script>
+    <script src="js/magnetic-cursor.js" defer></script>
+    <script src="js/form-validation.js" defer></script>
+
     <script>
-        // Theme toggling logic from offline.html
-        const themeToggle = document.getElementById('theme-toggle');
-        const body = document.body;
-        const icon = themeToggle.querySelector('i');
-        
-        // Check localStorage for saved theme preference
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-            body.classList.remove('dark-mode'); // Ensure dark-mode is removed if light is saved
-            icon.classList.replace('fa-moon', 'fa-sun');
-        } else if (savedTheme === 'dark') {
-            body.classList.add('dark-mode'); // Ensure dark-mode is added if dark is saved
-            icon.classList.replace('fa-sun', 'fa-moon');
-        } else {
-            // Default to dark mode if no preference or if system prefers dark
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                body.classList.add('dark-mode');
-                icon.classList.replace('fa-sun', 'fa-moon');
-                localStorage.setItem('theme', 'dark');
-            } else {
+        // Wait for DOM content to be loaded before initializing
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggling functionality
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+            const icon = themeToggle.querySelector('i');
+
+            // Check localStorage for saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
                 body.classList.remove('dark-mode');
                 icon.classList.replace('fa-moon', 'fa-sun');
-                localStorage.setItem('theme', 'light');
-            }
-        }
-        
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            
-            if (body.classList.contains('dark-mode')) {
+            } else if (savedTheme === 'dark') {
+                body.classList.add('dark-mode');
                 icon.classList.replace('fa-sun', 'fa-moon');
-                localStorage.setItem('theme', 'dark');
             } else {
-                icon.classList.replace('fa-moon', 'fa-sun');
-                localStorage.setItem('theme', 'light');
+                // Default to system preference
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    body.classList.add('dark-mode');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
             }
+
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+
+                if (body.classList.contains('dark-mode')) {
+                    icon.classList.replace('fa-sun', 'fa-moon');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Initialize all effects and components
+            initializeComponents();
+
+            // Hide preloader once page is loaded
+            window.addEventListener('load', () => {
+                document.querySelector('.preloader').classList.add('preloader-finish');
+                initializeTypingEffect();
+            });
         });
 
-        // Initialize all modern effects
-        document.addEventListener('DOMContentLoaded', function() {
+        // Initialize all components
+        function initializeComponents() {
             // Initialize 3D Background
             if (typeof ThreeDBackground !== 'undefined') {
                 new ThreeDBackground();
             }
-            
+
             // Initialize Modern Effects
             if (typeof ModernEffects !== 'undefined') {
                 new ModernEffects();
             }
-              // Initialize Scroll Animations
+
+            // Initialize Scroll Animations
             if (typeof ScrollAnimations !== 'undefined') {
                 new ScrollAnimations();
             }
-            
-            // Initialize Enhanced 3D Effects (already handled in enhanced-3d-effects.js)
-            // if (typeof Enhanced3DEffects !== 'undefined') {
-            //    if (!window.enhanced3D) { // Ensure only one instance
-            //        window.enhanced3D = new Enhanced3DEffects();
-            //    }
-            // }
-            
-        });
-    </script>
-    
-    <script>
-        // Hide preloader once page is loaded
-        window.addEventListener('load', () => {
-            document.querySelector('.preloader').classList.add('preloader-finish');
-            
-            // Initialize typing effect
+        }
+
+        // Initialize typing effect
+        function initializeTypingEffect() {
             const typingText = document.querySelector('.typing-text');
             if (typingText) {
                 const texts = ["Web Developer", "UX Designer", "Problem Solver"];
                 let textIndex = 0;
                 let charIndex = 0;
                 let isDeleting = false;
-                
+                let typingSpeed = 100;
+
                 function typeText() {
                     const currentText = texts[textIndex];
-                    
+
                     if (isDeleting) {
                         typingText.textContent = currentText.substring(0, charIndex - 1);
                         charIndex--;
+                        typingSpeed = 50;
                     } else {
                         typingText.textContent = currentText.substring(0, charIndex + 1);
                         charIndex++;
+                        typingSpeed = 100;
                     }
-                    
+
                     if (!isDeleting && charIndex === currentText.length) {
                         isDeleting = true;
-                        setTimeout(typeText, 1500);
+                        typingSpeed = 1000; // Pause before deleting
                     } else if (isDeleting && charIndex === 0) {
                         isDeleting = false;
                         textIndex = (textIndex + 1) % texts.length;
-                        setTimeout(typeText, 500);
-                    } else {
-                        setTimeout(typeText, isDeleting ? 50 : 100);
+                        typingSpeed = 300; // Pause before typing next text
                     }
+
+                    setTimeout(typeText, typingSpeed);
                 }
-                
-                setTimeout(typeText, 1000);
+
+                typeText(); // Start typing animation
             }
-            
-            // Lazy load images
-            const lazyImages = document.querySelectorAll('.lazy-image');
-            
-            if ('IntersectionObserver' in window) {
-                const imageObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const img = entry.target;
-                            img.src = img.dataset.src;
-                            img.classList.remove('lazy-image');
-                            imageObserver.unobserve(img);
-                        }
-                    });
-                });
-                
-                lazyImages.forEach(img => {
-                    imageObserver.observe(img);
-                });
-            } else {
-                // Fallback for browsers that don't support IntersectionObserver
-                lazyImages.forEach(img => {
-                    img.src = img.dataset.src;
-                });
-            }
-        });
+        }
     </script>
 </body>
 </html>
