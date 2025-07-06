@@ -63,11 +63,8 @@
     0%, 100% { 
         transform: translateY(0) rotate(0deg);
     }
-    33% { 
-        transform: translateY(-20px) rotate(1deg);
-    }
-    66% { 
-        transform: translateY(-10px) rotate(-1deg);
+    50% { /* Simplified to a single intermediate step for a gentler float */
+        transform: translateY(-10px); /* Reduced vertical movement */
     }
 }
 

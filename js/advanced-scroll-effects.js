@@ -22,61 +22,90 @@ class AdvancedScrollEffects {
         this.setupSmoothScrolling();
         this.setupParallaxElements();
         this.setupScrollTriggers();
-        this.setupSectionNavigation();
+        // this.setupSectionNavigation(); // Consider removing or simplifying if causing issues
         this.setupScrollProgress();
-        this.setupMorphingBackground();
+        // this.setupMorphingBackground(); // Consider removing or simplifying if causing issues
         this.bindEvents();
     }
 
     setupSmoothScrolling() {
-        // Smooth scrolling implementation
-        let isScrolling = false;
+        // Simplified smooth scrolling - relying more on native browser capabilities or CSS
+        // The custom wheel and touchmove handlers can sometimes conflict or be overly complex.
+        // Consider using CSS `scroll-behavior: smooth;` on the `html` element.
+        // If more control is needed, ensure the existing implementation is heavily optimized.
+
+        // For this iteration, we'll reduce the complexity of the custom smooth scroll.
+        // We can disable the custom wheel event listener for now or make it less aggressive.
         
-        window.addEventListener('wheel', (e) => {
+        // Option 1: Disable custom wheel scrolling to test if it's the source of lag
+        // window.removeEventListener('wheel', this.customWheelScrollHandler); // Assuming you refactor to a named handler
+
+        // Option 2: Simplify the existing smooth scroll or reduce its aggressiveness
+        let isScrolling = false;
+        this.customWheelScrollHandler = (e) => { // Store handler for potential removal
             if (!this.smoothScrolling) return;
             
-            e.preventDefault();
-            
+            // Reduce interference: only preventDefault if we are actually handling the scroll
+            // e.preventDefault(); // Moved down
+
+            // COMPLETELY DISABLE CUSTOM WHEEL SCROLL LOGIC FOR NOW
+            /*
             if (!isScrolling) {
+                e.preventDefault(); // Prevent default only when we initiate a custom scroll
                 isScrolling = true;
                 
                 const delta = e.deltaY;
+                // Reduce scroll step or increase duration for a less "jerky" feel if issues persist
+                const scrollAmount = delta * 0.8; // Reduced sensitivity
                 const targetScroll = Math.max(0, Math.min(
                     document.body.scrollHeight - window.innerHeight,
-                    window.scrollY + delta
+                    window.scrollY + scrollAmount
                 ));
                 
-                this.smoothScrollTo(targetScroll, 800).then(() => {
+                // Shorter duration for quicker, potentially smoother feel, or longer if easing is the issue
+                this.smoothScrollTo(targetScroll, 300).then(() => { // Reduced duration
                     isScrolling = false;
                 });
             }
-        }, { passive: false });
+            */
+        };
+        
+        // window.addEventListener('wheel', this.customWheelScrollHandler, { passive: false }); // COMPLETELY DISABLED THIS LISTENER
 
-        // Handle mobile touch scrolling
+        // Mobile touch scrolling can also be simplified or made less aggressive
         let touchStartY = 0;
-        let touchMoveY = 0;
-        
-        window.addEventListener('touchstart', (e) => {
+        // let touchMoveY = 0; // Not strictly needed if calculating delta differently
+
+        this.touchStartHandler = (e) => {
             touchStartY = e.touches[0].clientY;
-        });
+        };
+
+        this.touchMoveHandler = (e) => {
+            if (!this.smoothScrolling || isScrolling) return; // Don't interfere if already scrolling
+
+            const touchMoveY = e.touches[0].clientY;
+            const delta = (touchStartY - touchMoveY) * 1.0; // Reduced sensitivity for touch
+            
+            // To avoid conflicts, consider if direct scrollTo is better or if it should also use smoothScrollTo
+            // For now, let's keep direct scroll for touch to see if it's smoother
+            // but ensure it doesn't fight with other scroll logic.
+            
+            // Debounce or throttle this if it's firing too rapidly
+            // requestAnimationFrame(() => { // Process scroll in animation frame
+            //     window.scrollBy(0, delta);
+            // });
+            // Simpler approach:
+            window.scrollBy({ top: delta, behavior: 'smooth' }); // Use native smooth if possible for touch
+
+
+            touchStartY = touchMoveY; // Update startY for next movement delta
+        };
         
-        window.addEventListener('touchmove', (e) => {
-            if (!this.smoothScrolling) return;
-            
-            touchMoveY = e.touches[0].clientY;
-            const delta = (touchStartY - touchMoveY) * 2;
-            
-            const targetScroll = Math.max(0, Math.min(
-                document.body.scrollHeight - window.innerHeight,
-                window.scrollY + delta
-            ));
-            
-            window.scrollTo(0, targetScroll);
-            touchStartY = touchMoveY;
-        });
+        window.addEventListener('touchstart', this.touchStartHandler, { passive: true }); // passive: true if not preventing default
+        window.addEventListener('touchmove', this.touchMoveHandler, { passive: false }); // passive: false if e.preventDefault() might be called
     }
 
-    smoothScrollTo(target, duration = 1000) {
+    smoothScrollTo(target, duration = 500) { // Default duration adjusted
         return new Promise((resolve) => {
             const start = window.scrollY;
             const distance = target - start;
@@ -86,8 +115,9 @@ class AdvancedScrollEffects {
                 const elapsed = currentTime - startTime;
                 const progress = Math.min(elapsed / duration, 1);
                 
-                // Easing function (ease-out-cubic)
-                const ease = 1 - Math.pow(1 - progress, 3);
+                // Easing function (ease-out-cubic or easeOutQuad for potentially smoother feel)
+                // const ease = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+                const ease = progress * (2 - progress); // easeOutQuad, simpler and often smooth
                 
                 window.scrollTo(0, start + distance * ease);
                 
@@ -104,15 +134,17 @@ class AdvancedScrollEffects {
 
     setupParallaxElements() {
         // Enhanced parallax with multiple layers and effects
+        // Re-introducing parallax with more conservative settings and fewer elements initially.
         const parallaxConfig = [
-            { selector: '.hero-background', speed: 0.5, direction: 'vertical' },
-            { selector: '.floating-elements', speed: 0.3, direction: 'vertical' },
-            { selector: '.background-shapes', speed: 0.7, direction: 'vertical' },
-            { selector: '.project-card', speed: 0.2, direction: 'vertical', rotate: true },
-            { selector: '.skill-icon', speed: 0.4, direction: 'horizontal', scale: true },
-            { selector: '.achievement-card', speed: 0.6, direction: 'both', opacity: true }
+            { selector: '.hero-background', speed: 0.3, direction: 'vertical' }, // Slower speed
+            // { selector: '.floating-elements', speed: 0.2, direction: 'vertical' }, // Keep disabled for now
+            { selector: '.background-shapes', speed: 0.5, direction: 'vertical' }, // Slower speed
+            // { selector: '.project-card', speed: 0.05, direction: 'vertical', rotate: false }, // Very subtle if re-enabled
+            // { selector: '.skill-icon', speed: 0.1, direction: 'horizontal', scale: false },
+            // { selector: '.achievement-card', speed: 0.15, direction: 'vertical', opacity: false }
         ];
 
+        this.parallaxElements = []; // Clear existing
         parallaxConfig.forEach(config => {
             const elements = document.querySelectorAll(config.selector);
             elements.forEach(element => {
@@ -132,58 +164,26 @@ class AdvancedScrollEffects {
 
     setupScrollTriggers() {
         // Advanced scroll triggers with multiple animation types
+        // Re-introducing a limited set of scroll triggers with performant animations.
         const triggers = [
             {
                 selector: '.hero-content',
-                animation: 'slideInUp',
+                animation: 'fadeInUp', // Using a more standard and performant animation name
                 offset: 0.1,
-                duration: 1000,
+                duration: 600, // Reduced duration
                 delay: 0
             },
             {
                 selector: '.about-content',
-                animation: 'fadeInScale',
+                animation: 'fadeInScale', // Ensure this is a performant CSS animation
                 offset: 0.2,
-                duration: 800,
-                delay: 200
+                duration: 500, // Reduced duration
+                delay: 50 // Reduced delay
             },
-            {
-                selector: '.project-card',
-                animation: 'slideInStagger',
-                offset: 0.15,
-                duration: 600,
-                delay: 100
-            },
-            {
-                selector: '.skill-item',
-                animation: 'bounceIn',
-                offset: 0.2,
-                duration: 500,
-                delay: 50
-            },
-            {
-                selector: '.achievement-card',
-                animation: 'flipIn',
-                offset: 0.25,
-                duration: 700,
-                delay: 150
-            },
-            {
-                selector: '.timeline-item',
-                animation: 'slideInAlternate',
-                offset: 0.2,
-                duration: 800,
-                delay: 200
-            },
-            {
-                selector: '.contact-card',
-                animation: 'morphIn',
-                offset: 0.3,
-                duration: 1000,
-                delay: 0
-            }
+            // Add more triggers cautiously, ensuring they are optimized.
         ];
 
+        this.scrollTriggers = []; // Clear existing
         triggers.forEach(trigger => {
             const elements = document.querySelectorAll(trigger.selector);
             elements.forEach((element, index) => {
@@ -434,60 +434,90 @@ class AdvancedScrollEffects {
     }
 
     updateParallax() {
-        const scrollRatio = this.scrollPosition / (document.body.scrollHeight - window.innerHeight);
-        
-        this.parallaxElements.forEach(item => {
-            const { element, speed, direction, rotate, scale, opacity } = item;
+        // Optimize parallax updates:
+        // 1. Only update visible elements.
+        // 2. Throttle or debounce this function if called too frequently.
+        // 3. Use requestAnimationFrame for updates.
+
+        if (!this.parallaxElements.length) return;
+
+        requestAnimationFrame(() => {
+            const scrollRatio = this.scrollPosition / (document.body.scrollHeight - window.innerHeight);
             
-            let transformString = item.originalTransform || '';
-            
-            // Vertical parallax
-            if (direction === 'vertical' || direction === 'both') {
-                const yOffset = this.scrollPosition * speed;
-                transformString += ` translateY(${yOffset}px)`;
-            }
-            
-            // Horizontal parallax
-            if (direction === 'horizontal' || direction === 'both') {
-                const xOffset = this.scrollPosition * speed * 0.5;
-                transformString += ` translateX(${xOffset}px)`;
-            }
-            
-            // Rotation effect
-            if (rotate) {
-                const rotation = scrollRatio * 360 * speed;
-                transformString += ` rotate(${rotation}deg)`;
-            }
-            
-            // Scale effect
-            if (scale) {
-                const scaleValue = 1 + (scrollRatio * speed * 0.5);
-                transformString += ` scale(${scaleValue})`;
-            }
-            
-            element.style.transform = transformString;
-            
-            // Opacity effect
-            if (opacity) {
-                const opacityValue = Math.max(0.1, 1 - (scrollRatio * speed));
-                element.style.opacity = opacityValue;
-            }
+            this.parallaxElements.forEach(item => {
+                const rect = item.element.getBoundingClientRect();
+                // Check if the element is roughly within the viewport or close to it
+                // (e.g., allow some buffer for elements about to enter or leave)
+                const buffer = window.innerHeight * 0.5; // 50% buffer top and bottom
+                if (rect.bottom < -buffer || rect.top > window.innerHeight + buffer) {
+                    // Element is well outside the viewport, skip updating it
+                    // Optionally, reset to a default state if needed when it goes off-screen
+                    // For now, just skip the transform update for performance.
+                    return; 
+                }
+
+                const { element, speed, direction, rotate, scale, opacity } = item;
+                
+                let transformString = item.originalTransform || '';
+                
+                // Vertical parallax
+                if (direction === 'vertical' || direction === 'both') {
+                    const yOffset = this.scrollPosition * speed;
+                    transformString += ` translateY(${yOffset}px)`;
+                }
+                
+                // Horizontal parallax
+                if (direction === 'horizontal' || direction === 'both') {
+                    const xOffset = this.scrollPosition * speed * 0.5;
+                    transformString += ` translateX(${xOffset}px)`;
+                }
+                
+                // Rotation effect
+                if (rotate) {
+                    const rotation = scrollRatio * 360 * speed;
+                    transformString += ` rotate(${rotation}deg)`;
+                }
+                
+                // Scale effect
+                if (scale) {
+                    const scaleValue = 1 + (scrollRatio * speed * 0.5);
+                    transformString += ` scale(${scaleValue})`;
+                }
+                
+                element.style.transform = transformString;
+                
+                // Opacity effect
+                if (opacity) {
+                    const opacityValue = Math.max(0.1, 1 - (scrollRatio * speed));
+                    element.style.opacity = opacityValue;
+                }
+            });
         });
     }
 
     updateScrollTriggers() {
-        this.scrollTriggers.forEach(trigger => {
-            if (!trigger.triggered) {
-                const rect = trigger.element.getBoundingClientRect();
-                const elementTop = rect.top;
-                const elementHeight = rect.height;
-                const triggerPoint = window.innerHeight * (1 - trigger.offset);
-                
-                if (elementTop <= triggerPoint) {
-                    trigger.triggered = true;
-                    this.animateElement(trigger);
+        // Optimize scroll triggers:
+        // 1. Use IntersectionObserver for visibility detection if possible (more performant).
+        //    However, the current boundingClientRect approach is fine if not too many elements.
+        // 2. Ensure animations are efficient.
+
+        // For now, this function will do less if scrollTriggers is empty.
+        if (!this.scrollTriggers.length) return;
+        
+        requestAnimationFrame(() => {
+            this.scrollTriggers.forEach(trigger => {
+                if (!trigger.triggered) {
+                    const rect = trigger.element.getBoundingClientRect();
+                    const elementTop = rect.top;
+                    const elementHeight = rect.height;
+                    const triggerPoint = window.innerHeight * (1 - trigger.offset);
+                    
+                    if (elementTop <= triggerPoint) {
+                        trigger.triggered = true;
+                        this.animateElement(trigger);
+                    }
                 }
-            }
+            });
         });
     }
 
@@ -643,10 +673,33 @@ class AdvancedScrollEffects {
     }
 
     updateMorphingBackground() {
-        if (this.morphingBackground) {
-            const hue = 220 + (this.scrollPosition / 10) % 360;
-            this.morphingBackground.style.setProperty('--hue', hue);
-        }
+        if (this.optimizationLevel === 'high') return; // Skip if high optimization
+
+        const scrollY = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = scrollY / docHeight;
+
+        // Optimized: Use requestAnimationFrame for smoother updates and reduce complexity.
+        // The morphing effect should be subtle and not resource-intensive.
+        // Example: Change background gradient based on scroll.
+        // This is a placeholder for a more optimized morphing effect.
+        // If the original was too heavy, it needs to be replaced or heavily simplified.
+
+        // For now, let's assume a simple gradient change to test re-integration.
+        // If a canvas or WebGL based morphing background was used, it needs careful optimization.
+        // const morphElement = document.querySelector('.morphing-bg'); // Assuming this element exists
+        // if (morphElement) {
+        //     const color1Stop = Math.min(100, scrollPercent * 100 + 20); // Example calculation
+        //     const color2Stop = Math.max(0, 80 - scrollPercent * 100); // Example calculation
+        //     morphElement.style.background = `linear-gradient(135deg, 
+        //         hsl(${200 + scrollPercent * 50}, 70%, 60%) 0%, 
+        //         hsl(${240 + scrollPercent * 30}, 80%, 50%) ${color1Stop}%, 
+        //         hsl(${280 - scrollPercent * 60}, 75%, 55%) 100%
+        //     )`; 
+        // }
+        // The above morphing background logic is commented out as it was a placeholder.
+        // The actual morphing background implementation needs to be reviewed and optimized separately
+        // if it was causing performance issues. For now, we focus on parallax and scroll triggers.
     }
 
     onSectionChange(index) {
@@ -662,7 +715,7 @@ class AdvancedScrollEffects {
         });
 
         // Trigger 3D effects if available
-        if (window.enhanced3D) {
+        if (window.enhanced3D && typeof window.enhanced3D.triggerElementAnimation === 'function') {
             const animationTypes = ['explosion', 'wave', 'spiral', 'fadeIn'];
             const animationType = animationTypes[index % animationTypes.length];
             window.enhanced3D.triggerElementAnimation(animationType);
@@ -730,9 +783,13 @@ class AdvancedScrollEffects {
 
     destroy() {
         // Clean up event listeners and elements
-        window.removeEventListener('wheel', this.smoothScrollHandler);
-        window.removeEventListener('scroll', this.scrollHandler);
-        window.removeEventListener('mousemove', this.mouseMoveHandler);
+        // window.removeEventListener('wheel', this.smoothScrollHandler); // Original, if you had one
+        // window.removeEventListener('wheel', this.customWheelScrollHandler); // For the new one - NOW DISABLED
+        window.removeEventListener('touchstart', this.touchStartHandler);
+        window.removeEventListener('touchmove', this.touchMoveHandler);
+
+        window.removeEventListener('scroll', this.scrollHandlerRef); // Assuming scrollHandlerRef is bound
+        window.removeEventListener('mousemove', this.mouseMoveHandlerRef); // Assuming mouseMoveHandlerRef is bound
         
         // Remove created elements
         const indicators = document.querySelector('.scroll-indicators');
@@ -747,7 +804,9 @@ class AdvancedScrollEffects {
 
 // Auto-initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    window.advancedScrollEffects = new AdvancedScrollEffects();
+    if (typeof AdvancedScrollEffects !== 'undefined') {
+        window.advancedScrollEffects = new AdvancedScrollEffects();
+    }
     
     // Add some custom CSS for the animations
     const style = document.createElement('style');

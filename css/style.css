@@ -48,38 +48,69 @@
 }
 
 html {
-    scroll-behavior: smooth;
-    font-size: 16px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--accent-primary) var(--bg-secondary);
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--bg-secondary);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--accent-primary);
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-secondary);
+  scroll-behavior: smooth; /* Enable native smooth scrolling */
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
-    line-height: 1.6;
-    color: var(--text-primary);
-    background-color: var(--bg-primary);
-    overflow-x: hidden;
-    transition: background-color 0.3s ease, color 0.3s ease;
+  /* Add will-change for elements that are frequently animated or subject to transform changes,
+     but use it sparingly as overuse can hinder performance.
+     Example:
+     will-change: transform, opacity;
+  */
+  /* Consider overflow-x: hidden if there are no intentional horizontal scroll elements
+     to prevent accidental horizontal scrollbars that can sometimes affect performance. */
+  overflow-x: hidden;
+  font-family: var(--font-primary);
+  color: var(--text-color);
+  background-color: var(--background-color);
+  line-height: 1.7;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+/* Optimize animations - ensure they use transform and opacity */
+/* Example of a performant animation class */
+.performant-animation {
+  will-change: transform, opacity;
+  animation: example-animation 1s ease-out;
+}
+
+@keyframes example-animation {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* If you have elements with fixed backgrounds that cover large areas,
+   they can sometimes cause repaint issues during scroll.
+   Test if `background-attachment: scroll;` improves performance for those elements.
+   e.g.,
+   .large-fixed-background-element {
+       background-attachment: scroll !important;
+   }
+*/
+
+/* Reduce complexity of box-shadows if they are heavily used,
+   as they can be expensive to render.
+   Consider simpler shadows or using pseudo-elements for layered shadow effects.
+*/
+
+/* Ensure images are optimized and appropriately sized.
+   Lazy loading is good, but also ensure the initial viewport images are not excessively large.
+*/
+
+/*
+    The following are existing styles from your file.
+    Review them for potential performance bottlenecks, especially complex selectors,
+    heavy box-shadows, or many transitions/animations not using transform/opacity.
+*/
 
 .container {
     max-width: var(--max-width);
@@ -1044,15 +1075,15 @@ header .container {
 }
 
 /* Add floating animation to elements */
-.floating {
+/* .floating {
     animation: float 6s ease-in-out infinite;
-}
+} */
 
-@keyframes float {
+/* @keyframes float {
     0% { transform: translateY(0px); }
     50% { transform: translateY(-15px); }
     100% { transform: translateY(0px); }
-}
+} */
 
 /* Social icons hover effect */
 .social-icon {
@@ -1785,6 +1816,7 @@ model-viewer {
 .glass-card {
     background: var(--glass-bg);
     backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur)); /* Added for Safari compatibility */
     border: 1px solid var(--glass-border);
     border-radius: var(--border-radius);
     box-shadow: var(--glass-shadow);

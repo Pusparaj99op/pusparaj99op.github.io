@@ -98,45 +98,169 @@
 
 /* Glassmorphism effects for better 3D integration */
 .hero-content {
+    position: relative; /* Ensure hero content is above 3D elements */
+    z-index: 3; /* Higher z-index than 3D canvas */
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05); /* Subtle glass effect */
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 20px;
-    padding: 2rem;
+    border-radius: 15px;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center content within the glass card */
 }
 
-.light-mode .hero-content {
-    background: rgba(0, 0, 0, 0.03);
-    border-color: rgba(0, 0, 0, 0.1);
-}
-
-/* Enhanced buttons with 3D effects */
+/* Basic Button Styles (reverted from complex 3D) */
 .btn {
+    display: inline-block;
+    padding: 12px 28px;
+    margin: 10px;
+    border-radius: 50px; /* Rounded shape */
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent; /* Prepare for border transitions */
     position: relative;
-    overflow: hidden;
-    transform-style: preserve-3d;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden; /* For potential ripple or shine effects */
+    z-index: 1; /* Ensure buttons are above other elements */
 }
 
-.btn::before {
-    content: '';
-    position: absolute;
+.primary-btn {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+}
+
+.primary-btn:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.secondary-btn {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.secondary-btn:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.2);
+}
+
+.btn:active {
+    transform: translateY(0px); /* Press down effect */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Premium Button Enhancements (Simplified) */
+.premium-button {
+    /* Basic premium styles, can be expanded */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Interactive 3D Elements (Styles for canvas if needed, or remove if canvas is gone) */
+#enhanced-3d-canvas {
+    position: fixed; /* Changed from absolute to fixed */
     top: 0;
-    left: -100%;
+    left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s ease;
+    z-index: 0; /* Behind other content but above basic background */
+    pointer-events: none; /* Allow clicks to pass through */
+    opacity: 0.7; /* Adjust as needed */
 }
 
-.btn:hover::before {
-    left: 100%;
+/* Ensure other elements are above the canvas */
+header, section, footer {
+    position: relative;
+    z-index: 2; /* Ensure sections are above the 3D canvas */
 }
 
-.btn:hover {
-    transform: translateY(-3px) translateZ(20px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+/* Specific adjustments for sections if needed */
+.hero {
+    z-index: 2; /* Ensure hero is above the canvas */
+}
+
+/* Ensure interactive elements like theme toggle are on top */
+.theme-toggle {
+    z-index: 1002; /* Keep theme toggle above everything */
+}
+
+/* Ensure navbar is on top */
+#navbar {
+    z-index: 1001; /* Keep navbar above general content */
+}
+
+/* Ensure scroll indicators are on top */
+.scroll-indicator {
+    z-index: 1000; /* Keep scroll indicators accessible */
+}
+
+/* Project Item 3D Interactive Styles */
+.project-item {
+    perspective: 1000px; /* Add perspective for 3D effects */
+    transition: transform 0.5s cubic-bezier(0.05, 0.65, 0.25, 1.5), box-shadow 0.5s ease; /* Smooth transition for transform and shadow */
+    will-change: transform, box-shadow; /* Optimize for animations */
+}
+
+.project-item:hover {
+    transform: translateZ(20px) rotateX(5deg) rotateY(-5deg); /* Lift and tilt on hover */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 5px 15px rgba(0,0,0,0.2); /* Enhanced shadow for 3D effect */
+}
+
+.project-item .project-image {
+    transition: transform 0.5s cubic-bezier(0.05, 0.65, 0.25, 1.5); /* Smooth transition for image */
+    will-change: transform;
+}
+
+.project-item:hover .project-image {
+    transform: translateY(-10px) scale(1.03); /* Image lifts slightly and scales */
+}
+
+.project-item .project-info {
+    transition: transform 0.5s cubic-bezier(0.05, 0.65, 0.25, 1.5); /* Smooth transition for info */
+    will-change: transform;
+}
+
+.project-item:hover .project-info {
+    transform: translateY(5px); /* Info part moves down slightly to enhance depth */
+}
+
+/* Styles for other interactive 3D items (About Me, Achievements) */
+.interactive-3d-item {
+    perspective: 1000px;
+    transition: transform 0.5s cubic-bezier(0.05, 0.65, 0.25, 1.5), box-shadow 0.5s ease;
+    will-change: transform, box-shadow;
+}
+
+.interactive-3d-item:hover {
+    transform: translateZ(15px) rotateX(3deg) rotateY(-3deg); /* Subtle lift and tilt */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25), 0 4px 12px rgba(0,0,0,0.15); /* Adjusted shadow */
+}
+
+/* Ensure profile card in About Me also gets the effect if it has interactive-3d-item */
+.profile-card.interactive-3d-item:hover {
+    transform: translateZ(20px) rotateX(4deg) rotateY(-4deg); /* Slightly more pronounced for profile card */
+}
+
+/* General content z-index if necessary */
+.container {
+    position: relative;
+    z-index: 2; /* Default for content containers */
+}
+
+/* Ensure preloader is on top when active */
+.preloader {
+    z-index: 9999;
 }
 
 /* Modern Scroll-Triggered 3D Effects */

@@ -142,15 +142,10 @@
             </div>
             
             <div class="header-controls">
-                <button id="theme-toggle" class="theme-toggle premium-button magnetic-element" aria-label="Toggle theme">
-                    <i class="fas fa-sun"></i>
+                <!-- Theme toggle button from offline.html -->
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
                 </button>
-                
-                <div class="hamburger magnetic-element">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
             </div>
             
             <ul id="navbar" class="stagger-in">
@@ -181,7 +176,7 @@
     </div>    <!-- Hero Section -->    <!-- Hero Section -->
     <section id="home" class="hero scroll-reveal">
         <canvas id="three-bg"></canvas>
-        <canvas id="enhanced-3d-canvas"></canvas>
+        <!-- <canvas id="enhanced-3d-canvas"></canvas> --> <!-- Canvas for Enhanced3DEffects, commented out to remove -->
         <canvas id="particles-canvas"></canvas>
         <div class="blur-circle blur-circle-1 floating-element morphing-bg"></div>
         <div class="blur-circle blur-circle-2 floating-element morphing-bg"></div>
@@ -204,16 +199,16 @@
     </section>    <!-- About Section -->
     <section id="about" class="about scroll-reveal">
         <canvas class="section-particles" data-section="about"></canvas>
-        <div class="container">            <h2 class="section-title animate-on-scroll typing-effect floating">About Me</h2>
+        <div class="container">            <h2 class="section-title animate-on-scroll typing-effect">About Me</h2>
             <p class="subtitle animate-on-scroll pulse-effect">Get to know me better</p>
             
             <div class="about-content">
                 <div class="about-text scroll-reveal">
-                    <h3 class="stagger-child floating">👋 Hi there, I'm Kalvin Shah (Pusparaj)</h3>
+                    <h3 class="stagger-child">👋 Hi there, I'm Kalvin Shah (Pusparaj)</h3>
                     <p class="stagger-child">I'm a passionate developer focused on building innovative solutions. Welcome to my GitHub profile where I share my projects and contributions.</p>
                     
                     <div class="about-stats stagger-in">
-                        <div class="stat-item stagger-child glass-card-premium floating">
+                        <div class="stat-item stagger-child glass-card-premium interactive-3d-item">
                             <h4>🌱 Currently Learning</h4>
                             <ul>
                                 <li>Web Development</li>
@@ -222,7 +217,7 @@
                             </ul>
                         </div>
                         
-                        <div class="stat-item glass-card-premium floating">
+                        <div class="stat-item glass-card-premium interactive-3d-item">
                             <h4>💞️ Looking to Collaborate</h4>
                             <ul>
                                 <li>Web Applications</li>
@@ -231,7 +226,7 @@
                             </ul>
                         </div>
                         
-                        <div class="stat-item glass-card-premium floating">
+                        <div class="stat-item glass-card-premium interactive-3d-item">
                             <h4>⚡ Fun Fact</h4>
                             <p>I can solve a Rubik's cube in under two minutes!</p>
                         </div>
@@ -239,7 +234,7 @@
                 </div>
                 
                 <div class="about-image">
-                    <div class="profile-card glass-effect glass-card-premium floating magnetic-element">
+                    <div class="profile-card glass-effect glass-card-premium magnetic-element interactive-3d-item">
                         <div class="profile-avatar">
                             <img src="https://avatars.githubusercontent.com/u/168293709?v=4" alt="Kalvin Shah Profile" loading="lazy">
                         </div>
@@ -258,12 +253,12 @@
     </section>    <!-- Skills Section -->
     <section id="skills" class="skills">
         <canvas class="section-particles" data-section="skills"></canvas>
-        <div class="container">            <h2 class="section-title typing-effect floating">My Skills</h2>
+        <div class="container">            <h2 class="section-title typing-effect">My Skills</h2>
             <p class="subtitle pulse-effect">Technologies I work with</p>
             
             <div class="skills-content">
                 <div class="skills-categories stagger-in">
-                    <div class="skill-category glass-effect glass-card-premium floating">
+                    <div class="skill-category glass-effect glass-card-premium interactive-3d-item">
                         <h3>💻 Programming Languages</h3>                        <div class="skill-items">
                             <div class="skill-item magnetic-element">
                                 <i class="fab fa-js-square"></i>                                <span>JavaScript</span>
@@ -296,7 +291,7 @@
                         </div>
                     </div>
                     
-                    <div class="skill-category glass-effect glass-card-premium floating">
+                    <div class="skill-category glass-effect glass-card-premium interactive-3d-item">
                         <h3>🚀 Frameworks & Libraries</h3>                        <div class="skill-items">
                             <div class="skill-item magnetic-element">
                                 <i class="fab fa-react"></i>                                <span>React</span>
@@ -322,7 +317,7 @@
                         </div>
                     </div>
                     
-                    <div class="skill-category glass-effect">
+                    <div class="skill-category glass-effect interactive-3d-item">
                         <h3>🛠️ Tools & Technologies</h3>                        <div class="skill-items">
                             <div class="skill-item">
                                 <i class="fab fa-git-alt"></i>                                <span>Git</span>
@@ -356,14 +351,14 @@
             <h2 class="section-title floating">My Projects</h2>
             <p class="subtitle pulse-effect">Some of my recent work</p>
               <div class="projects-filter stagger-in">
-                <button class="filter-btn active premium-button magnetic-element ripple-element" data-filter="all">All</button>
-                <button class="filter-btn premium-button magnetic-element ripple-element" data-filter="web">Web Dev</button>
-                <button class="filter-btn premium-button magnetic-element ripple-element" data-filter="python">Python</button>
-                <button class="filter-btn premium-button magnetic-element ripple-element" data-filter="tools">Tools</button>
+                <button class="filter-btn active premium-button magnetic-element" data-filter="all">All</button>
+                <button class="filter-btn premium-button magnetic-element" data-filter="web">Web Dev</button>
+                <button class="filter-btn premium-button magnetic-element" data-filter="python">Python</button>
+                <button class="filter-btn premium-button magnetic-element" data-filter="tools">Tools</button>
             </div>
             
             <div class="projects-container stagger-in">                <!-- INKSYNC Project -->
-                <div class="project-item glass-effect glass-card-premium tilt-element ripple-element floating" data-category="web">
+                <div class="project-item glass-effect glass-card-premium tilt-element ripple-element" data-category="web">
                     <div class="project-image">
                         <img src="https://opengraph.githubassets.com/1/Pusparaj99op/InkSync" alt="INKSYNC Project" loading="lazy">
                         <div class="project-overlay">
@@ -392,7 +387,7 @@
                     </div>
                 </div>
                   <!-- CRYPTO Project -->
-                <div class="project-item glass-effect glass-card-premium tilt-element ripple-element floating" data-category="python">
+                <div class="project-item glass-effect glass-card-premium tilt-element ripple-element" data-category="python">
                     <div class="project-image">
                         <img src="https://opengraph.githubassets.com/1/Pusparaj99op/CRYPTO" alt="CRYPTO Project" loading="lazy">
                         <div class="project-overlay">
@@ -418,7 +413,7 @@
                     </div>
                 </div>
                   <!-- AutoMovies Project -->
-                <div class="project-item glass-effect glass-card-premium tilt-element ripple-element floating" data-category="python">
+                <div class="project-item glass-effect glass-card-premium tilt-element ripple-element" data-category="python">
                     <div class="project-image">
                         <img src="https://opengraph.githubassets.com/1/Pusparaj99op/AutoMovies" alt="AutoMovies Project" loading="lazy">
                         <div class="project-overlay">
@@ -444,7 +439,7 @@
                     </div>
                 </div>
                   <!-- Portfolio Website -->
-                <div class="project-item glass-effect glass-card-premium tilt-element ripple-element floating" data-category="web">
+                <div class="project-item glass-effect glass-card-premium tilt-element ripple-element" data-category="web">
                     <div class="project-image">
                         <img src="https://opengraph.githubassets.com/1/Pusparaj99op/pusparaj99op.github.io" alt="Portfolio Website" loading="lazy">
                         <div class="project-overlay">
@@ -482,7 +477,7 @@
             <h2 class="section-title">Achievements & Stats</h2>
             <p class="subtitle">My development journey in numbers</p>
               <div class="achievements-grid">
-                <div class="achievement-card glass-effect tilt-element hover-glow ripple-element">
+                <div class="achievement-card glass-effect hover-glow ripple-element interactive-3d-item">
                     <div class="achievement-icon">
                         <i class="fas fa-code"></i>
                     </div>
@@ -492,7 +487,7 @@
                     </div>
                 </div>
                 
-                <div class="achievement-card glass-effect tilt-element hover-glow ripple-element">
+                <div class="achievement-card glass-effect hover-glow ripple-element interactive-3d-item">
                     <div class="achievement-icon">
                         <i class="fas fa-star"></i>
                     </div>
@@ -502,7 +497,7 @@
                     </div>
                 </div>
                 
-                <div class="achievement-card glass-effect tilt-element hover-glow ripple-element">
+                <div class="achievement-card glass-effect hover-glow ripple-element interactive-3d-item">
                     <div class="achievement-icon">
                         <i class="fas fa-users"></i>
                     </div>
@@ -512,7 +507,7 @@
                     </div>
                 </div>
                 
-                <div class="achievement-card glass-effect tilt-element hover-glow ripple-element">
+                <div class="achievement-card glass-effect hover-glow ripple-element interactive-3d-item">
                     <div class="achievement-icon">
                         <i class="fas fa-cube"></i>
                     </div>
@@ -678,60 +673,9 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">
-                    <h2>Kalvin<span>Shah</span></h2>
-                    <p>Creating digital experiences that matter.</p>
-                    <p>Passionate developer focused on building innovative solutions.</p>
-                </div>
-                
-                <div class="footer-links">
-                    <h3>Quick Links</h3>
-                    <ul>                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#skills">Skills</a></li>
-                        <li><a href="#projects">Projects</a></li>
-                        <li><a href="#achievements">Achievements</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-projects">
-                    <h3>Featured Projects</h3>
-                    <ul>
-                        <li><a href="https://github.com/Pusparaj99op/InkSync" target="_blank" rel="noopener">INKSYNC</a></li>
-                        <li><a href="https://github.com/Pusparaj99op/CRYPTO" target="_blank" rel="noopener">CRYPTO</a></li>
-                        <li><a href="https://github.com/Pusparaj99op/AutoMovies" target="_blank" rel="noopener">AutoMovies</a></li>
-                        <li><a href="https://github.com/Pusparaj99op/pusparaj99op.github.io" target="_blank" rel="noopener">Portfolio</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-social">
-                    <h3>Connect With Me</h3>
-                    <div class="social-icons">
-                        <a href="https://github.com/Pusparaj99op" class="social-icon" target="_blank" rel="noopener" title="Visit my GitHub profile">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://linkedin.com/in/pranay-gajbhiye-104059335" class="social-icon" target="_blank" rel="noopener" title="Connect on LinkedIn">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="https://www.youtube.com/@AnonymousRingtonesYT" class="social-icon" target="_blank" rel="noopener" title="Subscribe to YouTube channel">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                        <a href="mailto:Kalvinshah@hotmail.com" class="social-icon" title="Send me an email">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                    </div>
-                    
-                    <div class="footer-stats">
-                        <p><strong>11</strong> Repositories • <strong>14</strong> Stars</p>
-                        <p>Rubik's Cube: <strong>&lt; 2 minutes</strong></p>
-                    </div>
-                </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2024 Kalvin Shah (Pusparaj99op). All rights reserved.</p>
-                <p>Built with ❤️ using modern web technologies</p>
             </div>
         </div>
     </footer>    
@@ -749,9 +693,46 @@
     <script src="js/enhanced-3d-effects.js"></script>
     <script src="js/advanced-scroll-effects.js"></script>    <script src="js/enhanced-interactive-effects.js"></script>    <script src="js/advanced-enhancements.js"></script>
     <script src="js/magnetic-cursor.js"></script>
-    <script src="js/portfolio-tester.js"></script>
     
     <script>
+        // Theme toggling logic from offline.html
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+        
+        // Check localStorage for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            body.classList.remove('dark-mode'); // Ensure dark-mode is removed if light is saved
+            icon.classList.replace('fa-moon', 'fa-sun');
+        } else if (savedTheme === 'dark') {
+            body.classList.add('dark-mode'); // Ensure dark-mode is added if dark is saved
+            icon.classList.replace('fa-sun', 'fa-moon');
+        } else {
+            // Default to dark mode if no preference or if system prefers dark
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                body.classList.add('dark-mode');
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-mode');
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
         // Initialize all modern effects
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize 3D Background
@@ -768,10 +749,13 @@
                 new ScrollAnimations();
             }
             
-            // Initialize Portfolio Tester (only in development)
-            if (typeof PortfolioTester !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
-                new PortfolioTester();
-            }
+            // Initialize Enhanced 3D Effects (already handled in enhanced-3d-effects.js)
+            // if (typeof Enhanced3DEffects !== 'undefined') {
+            //    if (!window.enhanced3D) { // Ensure only one instance
+            //        window.enhanced3D = new Enhanced3DEffects();
+            //    }
+            // }
+            
         });
     </script>
     

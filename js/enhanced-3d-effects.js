@@ -9,32 +9,47 @@ class Enhanced3DEffects {
         this.camera = null;
         this.renderer = null;
         this.particles = [];
-        this.meshes = [];
+        this.interactiveMeshes = []; // Renamed from this.meshes for clarity
         this.clock = new THREE.Clock();
         this.mouse = new THREE.Vector2();
         this.raycaster = new THREE.Raycaster();
         this.scrollY = 0;
         this.currentIntersect = null;
-        
+        this.isDisposed = false; // Flag to prevent multiple disposals
+
+        // Singleton pattern: Ensure only one instance is created
+        if (Enhanced3DEffects.instance) {
+            // Optionally, log a warning or handle as needed
+            console.warn("Enhanced3DEffects instance already exists. Disposing new one.");
+            this.dispose(); // Dispose this new instance
+            return Enhanced3DEffects.instance;
+        }
+        Enhanced3DEffects.instance = this;
+
         this.init();
         this.setupEventListeners();
         this.animate();
     }
 
     init() {
-        const canvas = document.getElementById('enhanced-3d-canvas');
+        const canvasId = 'enhanced-3d-canvas';
+        let canvas = document.getElementById(canvasId);
+
         if (!canvas) {
-            // Create canvas if it doesn't exist
-            const newCanvas = document.createElement('canvas');
-            newCanvas.id = 'enhanced-3d-canvas';
-            newCanvas.style.position = 'fixed';
-            newCanvas.style.top = '0';
-            newCanvas.style.left = '0';
-            newCanvas.style.width = '100%';
-            newCanvas.style.height = '100%';
-            newCanvas.style.zIndex = '1';
-            newCanvas.style.pointerEvents = 'none';
-            document.body.appendChild(newCanvas);
+            // console.log("Enhanced3DEffects: Canvas not found, creating one.");
+            // canvas = document.createElement('canvas');
+            // canvas.id = canvasId;
+            // canvas.style.position = 'fixed';
+            // canvas.style.top = '0';
+            // canvas.style.left = '0';
+            // canvas.style.width = '100%';
+            // canvas.style.height = '100%';
+            // canvas.style.zIndex = '0'; // Ensure it's behind content
+            // canvas.style.pointerEvents = 'none'; // Allow interaction with elements on top
+            // document.body.insertBefore(canvas, document.body.firstChild); // Insert at the beginning
+            console.warn("Enhanced3DEffects: Canvas with ID 'enhanced-3d-canvas' not found. Effects will not be initialized.");
+            this.dispose(); // Dispose if canvas is not found
+            return;
         }
 
         // Scene setup
@@ -71,7 +86,7 @@ class Enhanced3DEffects {
         this.createInteractiveMeshes();
         
         // Create scroll-triggered 3D elements
-        this.createScrollElements();
+        // this.createScrollElements(); // Commented out as per removal request
     }
 
     setupLighting() {
@@ -270,419 +285,187 @@ class Enhanced3DEffects {
     }
 
     createInteractiveMeshes() {
-        // Create floating geometric shapes that respond to mouse
-        const shapes = [
-            new THREE.BoxGeometry(8, 8, 8),
-            new THREE.SphereGeometry(5, 16, 16),
-            new THREE.ConeGeometry(4, 10, 8),
-            new THREE.OctahedronGeometry(6),
-            new THREE.TorusGeometry(6, 2, 8, 16)
-        ];
+        // Simplified: Create fewer, less complex meshes or remove them entirely
+        // For now, we will remove the creation of these meshes to disable the Figma-like feature.
+        this.interactiveMeshes = []; 
 
-        shapes.forEach((geometry, index) => {
-            const material = new THREE.MeshPhongMaterial({
-                color: new THREE.Color().setHSL(index * 0.2, 0.7, 0.6),
-                transparent: true,
-                opacity: 0.8,
-                shininess: 100
-            });
-
-            const mesh = new THREE.Mesh(geometry, material);
-            mesh.position.set(
-                (index - 2) * 40,
-                Math.sin(index) * 20,
-                -80 + index * 10
-            );
-
-            mesh.userData = {
-                originalPosition: mesh.position.clone(),
-                hoverScale: 1,
-                rotationSpeed: Math.random() * 0.02 + 0.01
-            };
-
-            mesh.castShadow = true;
-            mesh.receiveShadow = true;
-
-            this.scene.add(mesh);
-            this.meshes.push(mesh);
-        });
+        /* Example of how you might add a simple mesh if desired later:
+        const geometry = new THREE.BoxGeometry(10, 10, 10);
+        const material = new THREE.MeshStandardMaterial({ color: 0x00ff00, roughness: 0.5, metalness: 0.1 });
+        const simpleMesh = new THREE.Mesh(geometry, material);
+        simpleMesh.position.set(0, 0, -20);
+        this.scene.add(simpleMesh);
+        this.interactiveMeshes.push(simpleMesh);
+        */
     }
 
-    createScrollElements() {
-        // Create elements that animate based on scroll position
-        const scrollGeometry = new THREE.RingGeometry(10, 15, 32);
-        const scrollMaterial = new THREE.MeshBasicMaterial({
-            color: 0xFF6B9D,
-            transparent: true,
-            opacity: 0.5,
-            side: THREE.DoubleSide
-        });
+    // createScrollElements() { // Commented out as per removal request
+    //     // ... existing scroll elements creation ...
+    // }
 
-        for (let i = 0; i < 5; i++) {
-            const ring = new THREE.Mesh(scrollGeometry, scrollMaterial.clone());
-            ring.position.set(
-                Math.sin(i * Math.PI * 0.4) * 60,
-                i * 100 - 200,
-                Math.cos(i * Math.PI * 0.4) * 30
-            );
-            
-            ring.userData = {
-                scrollOffset: i * 0.2,
-                originalY: ring.position.y
-            };
+    setupEventListeners() {
+        if (this.isDisposed) return;
+        window.addEventListener('mousemove', this.onMouseMove.bind(this), false);
+        window.addEventListener('resize', this.onWindowResize.bind(this), false);
+        // window.addEventListener('scroll', this.onScroll.bind(this), false); // Commented out scroll listener
+    }
 
-            this.scene.add(ring);
-            this.meshes.push(ring);
+    onMouseMove(event) {
+        if (this.isDisposed) return;
+        this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        // Raycasting for hover effects (Simplified or removed if no interactive meshes)
+        this.raycaster.setFromCamera(this.mouse, this.camera);
+        const intersects = this.raycaster.intersectObjects(this.interactiveMeshes);
+
+        if (intersects.length > 0) {
+            if (this.currentIntersect !== intersects[0].object) {
+                // Optional: Handle hover on any remaining simple meshes
+                // intersects[0].object.material.color.set(0xff0000); // Example: change color
+                this.currentIntersect = intersects[0].object;
+                document.body.style.cursor = 'pointer'; // Or 'grab' if it makes sense
+            }
+        } else {
+            if (this.currentIntersect) {
+                // Optional: Revert hover effect
+                // this.currentIntersect.material.color.set(0x00ff00); // Example: revert color
+            }
+            this.currentIntersect = null;
+            document.body.style.cursor = 'default';
         }
     }
 
-    setupEventListeners() {
-        // Mouse movement
-        window.addEventListener('mousemove', (event) => {
-            this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-            this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-        });
-
-        // Scroll events
-        window.addEventListener('scroll', () => {
-            this.scrollY = window.scrollY;
-        });
-
-        // Resize handler
-        window.addEventListener('resize', () => {
-            this.camera.aspect = window.innerWidth / window.innerHeight;
-            this.camera.updateProjectionMatrix();
-            this.renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-
-        // Touch events for mobile
-        window.addEventListener('touchmove', (event) => {
-            if (event.touches.length > 0) {
-                this.mouse.x = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
-                this.mouse.y = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
-            }
-        });
-    }
+    // onScroll() { // Commented out as per removal request
+    //     if (this.isDisposed) return;
+    //     this.scrollY = window.scrollY;
+    //     // ... existing scroll animation logic ...
+    // }
 
     animate() {
-        requestAnimationFrame(() => this.animate());
+        if (this.isDisposed) return;
+        requestAnimationFrame(this.animate.bind(this));
+        const delta = this.clock.getDelta();
 
-        const elapsedTime = this.clock.getElapsedTime();
+        // Animate particles
+        this.particles.forEach(particleSystem => {
+            if (particleSystem.material.uniforms && particleSystem.material.uniforms.time) {
+                particleSystem.material.uniforms.time.value += delta * 0.5;
+            }
+            // Add any other particle animation logic here
+        });
 
-        // Update particle systems
-        this.updateParticles(elapsedTime);
+        // Animate interactive meshes (if any remain)
+        this.interactiveMeshes.forEach(mesh => {
+            // mesh.rotation.x += 0.005;
+            // mesh.rotation.y += 0.005;
+        });
 
-        // Update interactive meshes
-        this.updateMeshes(elapsedTime);
-
-        // Update scroll-based animations
-        this.updateScrollAnimations();
-
-        // Update camera based on mouse
-        this.updateCamera();
-
-        // Raycast for interactions
-        this.updateRaycasting();
+        // Animate scroll elements (if any remain)
+        // this.scrollElements.forEach(element => { ... });
 
         this.renderer.render(this.scene, this.camera);
     }
 
-    updateParticles(time) {
-        this.particles.forEach(particleSystem => {
-            if (particleSystem.material) {
-                particleSystem.material.uniforms.time.value = time;
-            }
-            
-            if (particleSystem.nodes) {
-                // Update connected particles
-                particleSystem.nodes.forEach(node => {
-                    node.position.add(node.userData.velocity);
-                    
-                    // Bounce off boundaries
-                    if (Math.abs(node.position.x) > 50) node.userData.velocity.x *= -1;
-                    if (Math.abs(node.position.y) > 50) node.userData.velocity.y *= -1;
-                    if (Math.abs(node.position.z) > 25) node.userData.velocity.z *= -1;
-                });
-            }
-        });
+    onWindowResize() {
+        if (this.isDisposed) return;
+        this.camera.aspect = window.innerWidth / window.innerHeight;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     }
 
-    updateMeshes(time) {
-        this.meshes.forEach((mesh, index) => {
-            // Basic rotation
-            if (mesh.userData.rotationSpeed) {
-                mesh.rotation.x += mesh.userData.rotationSpeed;
-                mesh.rotation.y += mesh.userData.rotationSpeed * 0.7;
-            }
+    dispose() {
+        if (this.isDisposed) return;
+        this.isDisposed = true;
 
-            // Morphing animation
-            if (mesh.userData.morphSpeed) {
-                mesh.scale.setScalar(1 + Math.sin(time * mesh.userData.morphSpeed) * 0.1);
-            }
+        console.log("Disposing Enhanced3DEffects...");
 
-            // Hover effects
-            if (mesh.userData.hoverScale) {
-                const targetScale = mesh === this.currentIntersect ? 1.2 : 1;
-                mesh.userData.hoverScale += (targetScale - mesh.userData.hoverScale) * 0.1;
-                mesh.scale.multiplyScalar(mesh.userData.hoverScale);
-            }
+        // Remove event listeners
+        window.removeEventListener('mousemove', this.onMouseMove.bind(this));
+        window.removeEventListener('resize', this.onWindowResize.bind(this));
+        // window.removeEventListener('scroll', this.onScroll.bind(this)); // Ensure scroll listener is removed
 
-            // Floating animation
-            if (mesh.userData.originalPosition) {
-                mesh.position.y = mesh.userData.originalPosition.y + Math.sin(time + index) * 5;
-            }
-        });
-    }
-
-    updateScrollAnimations() {
-        const scrollProgress = this.scrollY / (document.body.scrollHeight - window.innerHeight);
-        
-        this.meshes.forEach(mesh => {
-            if (mesh.userData.scrollOffset !== undefined) {
-                const offset = mesh.userData.scrollOffset;
-                mesh.rotation.z = scrollProgress * Math.PI * 2 + offset;
-                mesh.position.y = mesh.userData.originalY - scrollProgress * 200;
-                
-                // Fade based on scroll
-                if (mesh.material.opacity !== undefined) {
-                    mesh.material.opacity = Math.max(0.1, 1 - scrollProgress);
-                }
-            }
-        });
-
-        // Update camera position based on scroll
-        this.camera.position.z = 100 - scrollProgress * 50;
-    }
-
-    updateCamera() {
-        // Smooth camera movement based on mouse
-        const targetX = this.mouse.x * 20;
-        const targetY = this.mouse.y * 10;
-        
-        this.camera.position.x += (targetX - this.camera.position.x) * 0.05;
-        this.camera.position.y += (targetY - this.camera.position.y) * 0.05;
-        
-        this.camera.lookAt(0, 0, 0);
-    }
-
-    updateRaycasting() {
-        this.raycaster.setFromCamera(this.mouse, this.camera);
-        const intersects = this.raycaster.intersectObjects(this.meshes);
-
-        if (intersects.length > 0) {
-            if (this.currentIntersect !== intersects[0].object) {
-                this.currentIntersect = intersects[0].object;
-                document.body.style.cursor = 'pointer';
-            }
-        } else {
-            if (this.currentIntersect) {
-                this.currentIntersect = null;
-                document.body.style.cursor = 'default';
-            }
-        }
-    }
-
-    // Public methods for external control
-    addScrollTrigger(element, animationType = 'fadeIn') {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    this.triggerElementAnimation(animationType);
-                }
-            });
-        });
-
-        observer.observe(element);
-    }
-
-    triggerElementAnimation(type) {
-        switch (type) {
-            case 'explosion':
-                this.createExplosionEffect();
-                break;
-            case 'wave':
-                this.createWaveEffect();
-                break;
-            case 'spiral':
-                this.createSpiralEffect();
-                break;
-            default:
-                this.createFadeEffect();
-        }
-    }
-
-    createExplosionEffect() {
-        const explosionParticles = new THREE.Group();
-        
-        for (let i = 0; i < 50; i++) {
-            const geometry = new THREE.SphereGeometry(0.5, 4, 4);
-            const material = new THREE.MeshBasicMaterial({
-                color: new THREE.Color().setHSL(Math.random(), 0.8, 0.6)
-            });
-            
-            const particle = new THREE.Mesh(geometry, material);
-            particle.position.set(0, 0, 0);
-            
-            const direction = new THREE.Vector3(
-                (Math.random() - 0.5) * 2,
-                (Math.random() - 0.5) * 2,
-                (Math.random() - 0.5) * 2
-            ).normalize();
-            
-            particle.userData = {
-                velocity: direction.multiplyScalar(Math.random() * 20 + 10),
-                life: 1.0
-            };
-            
-            explosionParticles.add(particle);
-        }
-        
-        this.scene.add(explosionParticles);
-        
-        // Animate explosion
-        const animateExplosion = () => {
-            explosionParticles.children.forEach(particle => {
-                particle.position.add(particle.userData.velocity);
-                particle.userData.velocity.multiplyScalar(0.98);
-                particle.userData.life -= 0.02;
-                particle.material.opacity = particle.userData.life;
-                
-                if (particle.userData.life <= 0) {
-                    explosionParticles.remove(particle);
-                }
-            });
-            
-            if (explosionParticles.children.length > 0) {
-                requestAnimationFrame(animateExplosion);
-            } else {
-                this.scene.remove(explosionParticles);
-            }
-        };
-        
-        animateExplosion();
-    }
-
-    createWaveEffect() {
-        // Create a wave of energy that ripples through the scene
-        const waveGeometry = new THREE.RingGeometry(0, 1, 32);
-        const waveMaterial = new THREE.MeshBasicMaterial({
-            color: 0x4ECDC4,
-            transparent: true,
-            opacity: 0.8,
-            side: THREE.DoubleSide
-        });
-        
-        const wave = new THREE.Mesh(waveGeometry, waveMaterial);
-        wave.position.set(0, 0, 0);
-        this.scene.add(wave);
-        
-        let scale = 0;
-        const animateWave = () => {
-            scale += 2;
-            wave.scale.setScalar(scale);
-            wave.material.opacity = Math.max(0, 0.8 - scale * 0.01);
-            
-            if (wave.material.opacity > 0) {
-                requestAnimationFrame(animateWave);
-            } else {
-                this.scene.remove(wave);
-            }
-        };
-        
-        animateWave();
-    }
-
-    createSpiralEffect() {
-        const spiralGroup = new THREE.Group();
-        
-        for (let i = 0; i < 100; i++) {
-            const geometry = new THREE.BoxGeometry(1, 1, 1);
-            const material = new THREE.MeshBasicMaterial({
-                color: new THREE.Color().setHSL(i * 0.01, 0.8, 0.6)
-            });
-            
-            const cube = new THREE.Mesh(geometry, material);
-            const angle = i * 0.1;
-            const radius = i * 0.5;
-            
-            cube.position.set(
-                Math.cos(angle) * radius,
-                i * 2 - 100,
-                Math.sin(angle) * radius
-            );
-            
-            cube.userData = {
-                originalPosition: cube.position.clone(),
-                angle: angle,
-                speed: Math.random() * 0.05 + 0.02
-            };
-            
-            spiralGroup.add(cube);
-        }
-        
-        this.scene.add(spiralGroup);
-        
-        let time = 0;
-        const animateSpiral = () => {
-            time += 0.02;
-            
-            spiralGroup.children.forEach((cube, index) => {
-                const newAngle = cube.userData.angle + time * cube.userData.speed;
-                const radius = index * 0.5;
-                
-                cube.position.set(
-                    Math.cos(newAngle) * radius,
-                    cube.userData.originalPosition.y + Math.sin(time + index * 0.1) * 5,
-                    Math.sin(newAngle) * radius
-                );
-                
-                cube.rotation.x += 0.02;
-                cube.rotation.y += 0.03;
-            });
-            
-            if (time < 10) {
-                requestAnimationFrame(animateSpiral);
-            } else {
-                this.scene.remove(spiralGroup);
-            }
-        };
-        
-        animateSpiral();
-    }
-
-    createFadeEffect() {
-        // Simple fade effect for default animations
-        this.meshes.forEach(mesh => {
-            if (mesh.material.transparent) {
-                const originalOpacity = mesh.material.opacity;
-                mesh.material.opacity = 0;
-                
-                const fadeIn = () => {
-                    mesh.material.opacity += 0.02;
-                    if (mesh.material.opacity < originalOpacity) {
-                        requestAnimationFrame(fadeIn);
+        // Dispose Three.js objects
+        if (this.scene) {
+            this.scene.traverse(object => {
+                if (object.geometry) object.geometry.dispose();
+                if (object.material) {
+                    if (Array.isArray(object.material)) {
+                        object.material.forEach(material => material.dispose());
                     } else {
-                        mesh.material.opacity = originalOpacity;
+                        object.material.dispose();
                     }
-                };
-                
-                fadeIn();
+                }
+            });
+            this.scene.clear(); // Clears the scene of all objects
+        }
+        
+        if (this.renderer) {
+            this.renderer.dispose();
+            // Remove canvas if it was created by this script and is not the one from HTML
+            const canvas = document.getElementById('enhanced-3d-canvas');
+            if (canvas && canvas.parentElement && canvas.dataset.createdByScript === "true") {
+                // canvas.parentElement.removeChild(canvas);
+            } else if (canvas) {
+                // Clear the canvas context if it's not removed
+                const context = canvas.getContext('webgl2') || canvas.getContext('webgl');
+                if (context) {
+                    context.clear(context.COLOR_BUFFER_BIT | context.DEPTH_BUFFER_BIT | context.STENCIL_BUFFER_BIT);
+                }
             }
-        });
+        }
+
+        // Nullify properties
+        this.scene = null;
+        this.camera = null;
+        this.renderer = null;
+        this.particles = [];
+        this.interactiveMeshes = [];
+        // this.scrollElements = [];
+        this.clock = null;
+        this.raycaster = null;
+
+        // Reset singleton instance
+        if (Enhanced3DEffects.instance === this) {
+            Enhanced3DEffects.instance = null;
+        }
+        console.log("Enhanced3DEffects disposed.");
     }
 }
 
-// Initialize enhanced 3D effects when DOM is loaded
+// Initialize on DOMContentLoaded if canvas exists
+// Ensure this script runs after the canvas element is in the DOM.
+// If the canvas is critical, consider moving this to a more robust initialization strategy.
+// For now, we rely on the script being deferred or placed at the end of the body.
+
+let enhanced3DEffectsInstance = null;
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if Three.js is available
-    if (typeof THREE !== 'undefined') {
-        window.enhanced3D = new Enhanced3DEffects();
-        
-        // Set up scroll triggers for different sections
-        const sections = document.querySelectorAll('section');
-        sections.forEach((section, index) => {
-            const animationType = ['explosion', 'wave', 'spiral', 'fadeIn'][index % 4];
-            window.enhanced3D.addScrollTrigger(section, animationType);
-        });
+    const canvas = document.getElementById('enhanced-3d-canvas');
+    if (canvas) {
+        // enhanced3DEffectsInstance = new Enhanced3DEffects();
+        // To effectively remove the effects, we will not initialize it here.
+        // If an old instance exists, try to dispose it.
+        if (Enhanced3DEffects.instance) {
+            Enhanced3DEffects.instance.dispose();
+        }
+        console.log("Enhanced3DEffects initialization skipped to remove effects.");
+        // Optionally, hide or remove the canvas if it's solely for these effects
+        // canvas.style.display = 'none'; 
+    } else {
+        console.warn("Enhanced3DEffects: Canvas 'enhanced-3d-canvas' not found on DOMContentLoaded. Effects not initialized.");
     }
 });
+
+// Optional: Provide a global function to manually dispose of the effects if needed
+function removeEnhanced3DEffects() {
+    if (Enhanced3DEffects.instance) {
+        Enhanced3DEffects.instance.dispose();
+    }
+    const canvas = document.getElementById('enhanced-3d-canvas');
+    if (canvas) {
+        // canvas.style.display = 'none'; // Or remove it
+    }
+    console.log("Attempted to remove Enhanced3DEffects.");
+}

@@ -290,8 +290,13 @@ class MagneticCursor {
     
     animate() {
         // Smooth cursor following with easing
-        const ease = 0.15;
-        const followerEase = 0.08;
+        // const ease = 0.15; // Original value
+        // const followerEase = 0.08; // Original value
+
+        // Increase easing values for faster response (less "lag")
+        // Values closer to 1 mean faster following. Values too high can make it jerky.
+        const ease = 0.3; // Faster response for the main dot
+        const followerEase = 0.15; // Faster response for the follower
         
         // Update cursor position
         this.cursorPos.x += (this.mousePos.x - this.cursorPos.x) * ease;

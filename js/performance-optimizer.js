@@ -17,7 +17,10 @@ class PerformanceOptimizer {
         this.setupLoadingIndicator();
         this.optimizeBasedOnDevice();
         this.setupIntersectionObserver();
-        this.setupFPSMonitoring();
+        // Conditionally setup FPS monitoring if not on the highest optimization level initially
+        if (this.optimizationLevel !== 'high') {
+            this.setupFPSMonitoring();
+        }
         this.setupMemoryMonitoring();
         this.setupBatteryOptimization();
     }
@@ -31,21 +34,27 @@ class PerformanceOptimizer {
         const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
         const renderer = debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : '';
         
-        // Basic device capability detection
+        // Adjusted device capability detection for more nuanced levels
         const lowEndIndicators = [
-            navigator.hardwareConcurrency < 4,
-            navigator.deviceMemory && navigator.deviceMemory < 4,
-            renderer.toLowerCase().includes('intel'),
+            navigator.hardwareConcurrency < 4, // True if < 4 cores (1, 2, or 3 cores)
+            navigator.deviceMemory && navigator.deviceMemory < 4, // True if < 4GB RAM
+            renderer.toLowerCase().includes('intel integrated graphics'), // More specific for integrated Intel GPUs
             /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
-            window.innerWidth < 1024
+            window.innerWidth < 1024 // Smaller screens more likely low-end
         ];
         
-        return lowEndIndicators.filter(Boolean).length >= 2;
+        // If 2 or more indicators are true, or if it's a mobile device, classify as low-end.
+        return lowEndIndicators.filter(Boolean).length >= 2 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
     
     determineOptimizationLevel() {
-        if (this.isLowEndDevice) return 'high';
-        if (navigator.deviceMemory && navigator.deviceMemory < 8) return 'medium';
+        if (this.isLowEndDevice) { // Based on stricter criteria from detectDeviceCapabilities
+            return 'high'; 
+        } else if ( (navigator.deviceMemory && navigator.deviceMemory < 8) || // RAM is < 8GB (e.g. 4GB, 6GB)
+                    (window.innerWidth < 1366) ) { // Screen width typical of non-high-end laptops
+            return 'medium'; 
+        }
+        // Default to low (full effects) for more capable devices
         return 'low';
     }
     
@@ -225,7 +234,10 @@ class PerformanceOptimizer {
         if (this.loadingScreen) {
             this.loadingScreen.classList.add('hidden');
             setTimeout(() => {
-                this.loadingScreen.remove();
+                if (this.loadingScreen) { // Check if still exists
+                    this.loadingScreen.remove();
+                    this.loadingScreen = null; // Clear reference
+                }
             }, 500);
         }
     }
@@ -258,20 +270,62 @@ class PerformanceOptimizer {
         const style = document.createElement('style');
         style.textContent = `
             .performance-high-optimization * {
-                animation-duration: 0.1s !important;
-                transition-duration: 0.1s !important;
+                /* Apply more aggressive animation disabling */
+                animation-duration: 0s !important;
+                animation-iteration-count: 1 !important; /* Run animations once if at all */
+                transition-duration: 0s !important;
+                transition-delay: 0s !important;
+                animation-delay: 0s !important;
             }
             
             .performance-high-optimization .floating,
+            .performance-high-optimization .floating-element, /* Ensured .floating-element is also targeted */
             .performance-high-optimization .pulse-effect,
-            .performance-high-optimization .morphing-bg {
+            .performance-high-optimization .morphing-bg,
+            .performance-high-optimization .typing-effect,
+            .performance-high-optimization .stagger-in > *,
+            .performance-high-optimization .animate-on-scroll,
+            .performance-high-optimization .scroll-reveal /* Added scroll-reveal */
+             {
                 animation: none !important;
+                transform: none !important; /* Reset transforms that might be part of animations */
+                opacity: 1 !important; /* Ensure visibility if animation was fading in */
+            }
+
+            /* Further reduce motion for medium optimization */
+            .performance-medium-optimization .floating,
+            .performance-medium-optimization .floating-element { /* Ensured .floating-element is also targeted */
+                 animation-duration: 8s !important; /* Slow down floating significantly */
+                 animation-timing-function: ease-in-out !important; /* Smoother easing */
+            }
+            .performance-medium-optimization .pulse-effect {
+                animation-duration: 3s !important; /* Slow down pulse */
+            }
+            .performance-medium-optimization .scroll-reveal {
+                transition-duration: 0.4s !important; /* Faster, less pronounced scroll reveal */
+                transform: translateY(15px) scale(0.98) !important;
+            }
+            .performance-medium-optimization .scroll-reveal.revealed {
+                transform: translateY(0) scale(1) !important;
+            }
+
+            /* Disable backdrop-filter for medium and high optimization on sticky header */
+            .performance-medium-optimization header.sticky,
+            .performance-high-optimization header.sticky {
+                -webkit-backdrop-filter: none !important;
+                backdrop-filter: none !important;
+                background-color: var(--glass-bg) !important; /* Ensure a fallback background */
+            }
+
+            /* Optionally, simplify sticky header background further for high optimization */
+            .performance-high-optimization header.sticky {
+                background-color: var(--bg-secondary) !important; /* Use a solid, less transparent background */
             }
         `;
         document.head.appendChild(style);
     }
     
-    reduceParticleCount(multiplier = 0.5) {
+    reduceParticleCount(multiplier = 0.3) { // Default to a more aggressive reduction
         // Signal to 3D systems to reduce particle counts
         window.performanceMultiplier = multiplier;
     }
@@ -282,19 +336,30 @@ class PerformanceOptimizer {
     
     limitAnimationFPS() {
         let lastTime = 0;
-        const targetFPS = 30;
+        const targetFPS = 30; // Keep at 30 for medium, high will disable/reduce further
         const frameTime = 1000 / targetFPS;
         
-        // Override requestAnimationFrame for heavy animations
+        // Store the original requestAnimationFrame
         const originalRAF = window.requestAnimationFrame;
-        window.requestAnimationFrame = function(callback) {
+        
+        // Create a new function for the throttled RAF
+        const throttledRAF = function(callback) {
             return originalRAF(function(time) {
                 if (time - lastTime >= frameTime) {
                     lastTime = time;
                     callback(time);
+                } else {
+                    // If not enough time has passed, schedule it for the next available slot
+                    // This prevents callbacks from being dropped entirely if the condition isn't met.
+                    originalRAF(() => callback(time));
                 }
             });
         };
+
+        // Only override if not on high optimization (where many animations are disabled anyway)
+        if (this.optimizationLevel === 'medium') {
+            window.requestAnimationFrame = throttledRAF;
+        }
     }
     
     setupIntersectionObserver() {
@@ -336,6 +401,9 @@ class PerformanceOptimizer {
     setupFPSMonitoring() {
         let frames = 0;
         let lastTime = performance.now();
+        let consecutiveLowFPSCount = 0; // Counter for consecutive low FPS readings
+        const LOW_FPS_THRESHOLD = 25; // Stricter FPS threshold
+        const CONSECUTIVE_FRAMES_TO_OPTIMIZE = 5; // Number of consecutive low FPS readings before optimizing
         
         const monitor = () => {
             frames++;
@@ -344,21 +412,34 @@ class PerformanceOptimizer {
             if (currentTime >= lastTime + 1000) {
                 const fps = Math.round(frames * 1000 / (currentTime - lastTime));
                 
-                // Auto-adjust performance based on FPS
-                if (fps < 30 && this.optimizationLevel !== 'high') {
-                    this.increaseOptimization();
+                if (fps < LOW_FPS_THRESHOLD && this.optimizationLevel !== 'high') {
+                    consecutiveLowFPSCount++;
+                    if (consecutiveLowFPSCount >= CONSECUTIVE_FRAMES_TO_OPTIMIZE) {
+                        this.increaseOptimization();
+                        consecutiveLowFPSCount = 0; // Reset counter after optimizing
+                    }
                 } else if (fps > 55 && this.optimizationLevel === 'high') {
-                    this.decreaseOptimization();
+                    // Only decrease optimization if FPS is consistently high
+                    // this.decreaseOptimization(); // Consider if this is desired, might cause layout shifts
+                    consecutiveLowFPSCount = 0; // Reset counter
+                } else {
+                    consecutiveLowFPSCount = 0; // Reset counter if FPS is acceptable
                 }
                 
                 frames = 0;
                 lastTime = currentTime;
             }
             
-            requestAnimationFrame(monitor);
+            // Only continue monitoring if not on the highest optimization level
+            if (this.optimizationLevel !== 'high') {
+                requestAnimationFrame(monitor);
+            }
         };
         
-        monitor();
+        // Start monitoring if not already on high optimization
+        if (this.optimizationLevel !== 'high') {
+            requestAnimationFrame(monitor);
+        }
     }
     
     setupMemoryMonitoring() {
@@ -393,23 +474,51 @@ class PerformanceOptimizer {
     }
     
     increaseOptimization() {
+        const body = document.body;
         if (this.optimizationLevel === 'low') {
             this.optimizationLevel = 'medium';
-            this.reduceParticleCount(0.7);
+            body.classList.remove('performance-low-optimization');
+            body.classList.add('performance-medium-optimization');
+            this.reduceParticleCount(0.5); // Medium reduction
+            this.limitAnimationFPS(); // Apply FPS limiting for medium
+            console.log("Performance Optimizer: Increased to Medium Optimization");
         } else if (this.optimizationLevel === 'medium') {
             this.optimizationLevel = 'high';
+            body.classList.remove('performance-medium-optimization');
+            body.classList.add('performance-high-optimization');
             this.disableHeavyAnimations();
-            this.reduceParticleCount(0.3);
+            this.reduceParticleCount(0.1); // Aggressive reduction for high
+            // FPS monitoring will stop automatically as per setupFPSMonitoring logic
+            console.log("Performance Optimizer: Increased to High Optimization");
         }
     }
     
     decreaseOptimization() {
+        const body = document.body;
         if (this.optimizationLevel === 'high') {
             this.optimizationLevel = 'medium';
+            body.classList.remove('performance-high-optimization');
+            body.classList.add('performance-medium-optimization');
+            // Re-enable FPS monitoring if it was stopped
+            if (!this.fpsMonitorHandle) {
+                 this.setupFPSMonitoring();
+            }
+            console.log("Performance Optimizer: Decreased to Medium Optimization");
+            // location.reload(); // Reloading might be too disruptive, try to re-enable features dynamically
         } else if (this.optimizationLevel === 'medium') {
             this.optimizationLevel = 'low';
+            body.classList.remove('performance-medium-optimization');
+            body.classList.add('performance-low-optimization');
+            // Restore original RAF if it was overridden
+            if (window.originalRAF) {
+                window.requestAnimationFrame = window.originalRAF;
+            }
+            console.log("Performance Optimizer: Decreased to Low Optimization (Full Effects)");
+            // location.reload(); // Reloading might be too disruptive
         }
-        location.reload(); // Reload to restore full effects
+        // Potentially re-initialize or enable features that were disabled
+        // This part needs careful handling to avoid issues.
+        // For now, a reload is safer if full restoration is needed, but we avoid it.
     }
     
     pauseAnimations() {
