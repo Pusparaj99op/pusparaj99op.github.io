@@ -1,8 +1,0 @@
-/* Test CSS Compatibility */
-.test-element {
-    /* This is the correct pattern for Edge support */
-    image-rendering: -webkit-optimize-contrast; /* Edge 79+ */
-    image-rendering: crisp-edges; /* Modern browsers */
-}
-
-/* The linter should NOT complain about this pattern */

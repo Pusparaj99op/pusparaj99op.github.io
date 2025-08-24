@@ -1,0 +1,236 @@
+/*
+* Portfolio Website - Theme Stylesheet
+* Theme color variations for the portfolio website
+* Version: 1.0
+* Last Modified: August 24, 2025
+*/
+
+/* ============================================
+   Theme Colors
+============================================ */
+
+/* Light Theme (Default) */
+[data-theme="light"] {
+    /* Main colors */
+    --color-primary: #4d61fc;
+    --color-primary-light: #6b7bfd;
+    --color-primary-dark: #3a4dd8;
+    --color-primary-transparent: rgba(77, 97, 252, 0.1);
+
+    --color-secondary: #ff6b6b;
+    --color-secondary-light: #ff8e8e;
+    --color-secondary-dark: #e65353;
+
+    /* Background colors */
+    --color-background: #ffffff;
+    --color-background-alt: #f5f7fa;
+    --color-card-bg: #ffffff;
+    --color-footer-bg: #1a1c23;
+
+    /* Text colors */
+    --color-text: #4a4a4a;
+    --color-text-light: #7a7a7a;
+    --color-heading: #2a2a2a;
+    --color-footer-text: #f5f5f5;
+
+    /* Border colors */
+    --color-border: #eaeaea;
+
+    /* Shadow colors */
+    --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+    /* Main colors */
+    --color-primary: #6a7dfe;
+    --color-primary-light: #8a98ff;
+    --color-primary-dark: #5161d5;
+    --color-primary-transparent: rgba(106, 125, 254, 0.15);
+
+    --color-secondary: #ff6b6b;
+    --color-secondary-light: #ff8e8e;
+    --color-secondary-dark: #e65353;
+
+    /* Background colors */
+    --color-background: #121212;
+    --color-background-alt: #1e1e1e;
+    --color-card-bg: #252525;
+    --color-footer-bg: #0d0d0d;
+
+    /* Text colors */
+    --color-text: #e0e0e0;
+    --color-text-light: #a0a0a0;
+    --color-heading: #f5f5f5;
+    --color-footer-text: #f5f5f5;
+
+    /* Border colors */
+    --color-border: #333333;
+
+    /* Shadow colors */
+    --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Neon Theme */
+[data-theme="neon"] {
+    /* Main colors */
+    --color-primary: #00f5d4;
+    --color-primary-light: #4dffed;
+    --color-primary-dark: #00c4a7;
+    --color-primary-transparent: rgba(0, 245, 212, 0.15);
+
+    --color-secondary: #f20089;
+    --color-secondary-light: #ff4db2;
+    --color-secondary-dark: #c9006e;
+
+    /* Background colors */
+    --color-background: #0c0c14;
+    --color-background-alt: #14141f;
+    --color-card-bg: #1a1a2a;
+    --color-footer-bg: #080811;
+
+    /* Text colors */
+    --color-text: #e0e0e0;
+    --color-text-light: #a0a0a0;
+    --color-heading: #ffffff;
+    --color-footer-text: #f5f5f5;
+
+    /* Border colors */
+    --color-border: #292942;
+
+    /* Shadow colors */
+    --shadow-sm: 0 2px 5px rgba(0, 245, 212, 0.1);
+    --shadow-md: 0 5px 15px rgba(0, 245, 212, 0.15);
+    --shadow-lg: 0 10px 25px rgba(0, 245, 212, 0.2);
+}
+
+/* Minimal Theme */
+[data-theme="minimal"] {
+    /* Main colors */
+    --color-primary: #222222;
+    --color-primary-light: #444444;
+    --color-primary-dark: #111111;
+    --color-primary-transparent: rgba(34, 34, 34, 0.1);
+
+    --color-secondary: #666666;
+    --color-secondary-light: #888888;
+    --color-secondary-dark: #444444;
+
+    /* Background colors */
+    --color-background: #ffffff;
+    --color-background-alt: #f9f9f9;
+    --color-card-bg: #ffffff;
+    --color-footer-bg: #f0f0f0;
+
+    /* Text colors */
+    --color-text: #333333;
+    --color-text-light: #666666;
+    --color-heading: #111111;
+    --color-footer-text: #333333;
+
+    /* Border colors */
+    --color-border: #eeeeee;
+
+    /* Shadow colors */
+    --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.02);
+    --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================
+   Theme Transitions
+============================================ */
+
+/* Add transition to all elements that use theme variables */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Some elements need specific overrides to ensure smooth theme transition */
+.hero-title .name,
+.logo-text {
+    transition: background 0.3s ease, -webkit-background-clip 0.3s ease, -webkit-text-fill-color 0.3s ease;
+}
+
+/* ============================================
+   Theme-specific Component Styles
+============================================ */
+
+/* Dark Theme Specific Styles */
+[data-theme="dark"] .progress-bar {
+    background-color: #333;
+}
+
+[data-theme="dark"] .skill-card {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .hero-social a,
+[data-theme="dark"] .contact-social a {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Neon Theme Specific Styles */
+[data-theme="neon"] .hero-title .name,
+[data-theme="neon"] .logo-text {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+[data-theme="neon"] .progress-fill {
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+}
+
+[data-theme="neon"] .btn-primary {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    border: none;
+}
+
+[data-theme="neon"] .hero-canvas-container {
+    opacity: 0.8;
+}
+
+[data-theme="neon"] .section-title::after {
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+}
+
+/* Minimal Theme Specific Styles */
+[data-theme="minimal"] .hero-title .name,
+[data-theme="minimal"] .logo-text {
+    background: var(--color-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+[data-theme="minimal"] .progress-fill {
+    background: var(--color-primary);
+}
+
+[data-theme="minimal"] .btn-primary {
+    background-color: var(--color-background);
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+}
+
+[data-theme="minimal"] .btn-primary:hover {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+}
+
+[data-theme="minimal"] .section-title::after {
+    height: 2px;
+}
+
+[data-theme="minimal"] .hero-social a,
+[data-theme="minimal"] .contact-social a,
+[data-theme="minimal"] .footer-social a {
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+}

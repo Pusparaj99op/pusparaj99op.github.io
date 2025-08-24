@@ -1,6 +1,0 @@
-{
-  "devDependencies": {
-    "css-minify": "^2.1.0",
-    "cssnano-cli": "^1.0.5"
-  }
-}
