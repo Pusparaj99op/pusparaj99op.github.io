@@ -5,8 +5,14 @@
  * Last Modified: August 24, 2025
  */
 
+// Force remove loading class immediately to ensure content visibility
+document.body.classList.remove('loading');
+
 // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Force remove loading class again
+    document.body.classList.remove('loading');
+
     // Initialize all modules
     initLoader();
     initNavigation();
@@ -18,7 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
     initBackToTop();
     initContactForm();
     initThemePanel();
+    initCertificatesStats();
     fetchGitHubData();
+
+    // Hide loader immediately for content visibility
+    hideLoader();
 });
 
 // Window load event (when all resources are loaded)
@@ -30,7 +40,7 @@ window.addEventListener('load', () => {
     setTimeout(() => {
         startHeroAnimation();
         startSkillsAnimation();
-    }, 500);
+    }, 300);
 });
 
 /**
@@ -61,14 +71,28 @@ function hideLoader() {
     const loader = document.querySelector('.loader');
     const body = document.body;
 
+    // Force remove loading class from body immediately
+    body.classList.remove('loading');
+
+    // Ensure all content is visible
+    const sections = document.querySelectorAll('section, header, footer');
+    sections.forEach(section => {
+        section.style.opacity = '1';
+        section.style.visibility = 'visible';
+    });
+
     if (loader) {
         loader.classList.add('hidden');
-        body.classList.remove('loading');
+        loader.style.opacity = '0';
+        loader.style.visibility = 'hidden';
 
         // Remove loader completely after transition
         setTimeout(() => {
             loader.style.display = 'none';
-        }, 600);
+            if (loader.parentNode) {
+                loader.parentNode.removeChild(loader);
+            }
+        }, 300);
     }
 }
 
@@ -723,4 +747,55 @@ function fetchGitHubData() {
                     'Could not load GitHub data. Please try again later.';
             }
         });
+}
+
+/**
+ * Certificates Statistics Animation
+ * Animates number counters when they come into view
+ */
+function initCertificatesStats() {
+    const statsNumbers = document.querySelectorAll('.stat-number[data-count]');
+
+    if (statsNumbers.length === 0) return;
+
+    // Create intersection observer for stats animation
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.5
+    });
+
+    statsNumbers.forEach(statNumber => {
+        observer.observe(statNumber);
+    });
+}
+
+function animateCounter(element) {
+    const targetCount = parseInt(element.dataset.count);
+    const duration = 2000; // 2 seconds
+    const startTime = performance.now();
+
+    function updateCounter(currentTime) {
+        const elapsedTime = currentTime - startTime;
+        const progress = Math.min(elapsedTime / duration, 1);
+
+        // Easing function for smooth animation
+        const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+        const currentCount = Math.floor(easeOutCubic * targetCount);
+
+        element.textContent = currentCount;
+
+        if (progress < 1) {
+            requestAnimationFrame(updateCounter);
+        } else {
+            element.textContent = targetCount;
+        }
+    }
+
+    requestAnimationFrame(updateCounter);
 }

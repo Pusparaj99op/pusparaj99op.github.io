@@ -1,0 +1,126 @@
+/**
+ * Parallax Styling
+ * CSS for parallax scrolling and 3D background effects
+ * Version: 1.0
+ * Last Modified: August 26, 2025
+ */
+
+/* Parallax container setup */
+.parallax-wrapper {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* General parallax layer styling */
+[data-parallax] {
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+/* 3D background parallax layers */
+.parallax-bg-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transition: transform 0.1s ease-out;
+    will-change: transform;
+}
+
+/* Parallax particles/stars */
+.parallax-particle {
+    position: absolute;
+    background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.layer-0 .parallax-particle {
+    animation: twinkle 3s infinite alternate-reverse;
+}
+
+.layer-1 .parallax-particle {
+    animation: twinkle 5s infinite alternate;
+}
+
+.layer-2 .parallax-particle {
+    animation: twinkle 7s infinite alternate-reverse;
+}
+
+/* Hero section parallax enhancements */
+.hero {
+    perspective: 1000px;
+    overflow: hidden;
+}
+
+.hero-content {
+    transition: transform 0.2s ease-out;
+    will-change: transform;
+    transform-style: preserve-3d;
+}
+
+/* Section parallax effects */
+.section {
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.section:before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: 0;
+    width: 100%;
+    height: calc(100% + 100px);
+    background-image: radial-gradient(circle at 30% 40%, rgba(var(--color-primary-rgb), 0.05) 0%, rgba(var(--color-primary-rgb), 0) 40%);
+    transform: translateZ(-1px) scale(1.5);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Twinkle animation for stars */
+@keyframes twinkle {
+    0% {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Section visibility fix */
+section {
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+}
+
+.section-header,
+.about-content,
+.skills-categories,
+.projects-grid,
+.timeline,
+.certificates-grid,
+.contact-container {
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+}
+
+/* Hide section for smooth reveal animation */
+.section > * {
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+/* Ensure content remains visible */
+body:not(.loading) section {
+    visibility: visible !important;
+    opacity: 1 !important;
+}

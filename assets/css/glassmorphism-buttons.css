@@ -1,0 +1,260 @@
+/**
+ * Glassmorphism Button Styles
+ * Enhanced button effects with glassmorphism design
+ * Version: 1.0
+ * Last Modified: August 26, 2025
+ */
+
+/* Base glassmorphism button style */
+.btn-glass {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 155px;
+    height: 50px;
+    margin: 10px;
+    padding: 0 20px;
+    background: rgba(255, 255, 255, 0.051);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: none;
+    border-right: none;
+    color: #fff;
+    border-radius: 30px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: 0.5s;
+    overflow: hidden;
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+    cursor: pointer;
+    font-size: 0.9rem;
+    z-index: 10;
+}
+
+.btn-glass:hover {
+    letter-spacing: 3px;
+    color: #fff;
+}
+
+.btn-glass:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.149), transparent);
+    transform: skewX(45deg);
+    transition: 0.5s;
+    transition-delay: 0.5s;
+}
+
+.btn-glass:hover:before {
+    transform: skewX(45deg) translateX(200%);
+    transition-delay: 0s;
+}
+
+.btn-glass:after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--btn-glow-color, var(--color-primary));
+    bottom: -5px;
+    width: 30px;
+    height: 10px;
+    border-radius: 10px;
+    transition: 0.5s;
+    transition-delay: 0s;
+    box-shadow: 0 0 5px var(--btn-glow-color, var(--color-primary)),
+                0 0 15px var(--btn-glow-color, var(--color-primary)),
+                0 0 30px var(--btn-glow-color, var(--color-primary)),
+                0 0 60px var(--btn-glow-color, var(--color-primary));
+}
+
+.btn-glass:hover:after {
+    bottom: 0px;
+    height: 50%;
+    width: 80%;
+    border-radius: 30px;
+    transition-delay: 0.5s;
+}
+
+/* Primary button with glassmorphism */
+.btn-glass.btn-primary {
+    --btn-glow-color: var(--color-primary);
+}
+
+.btn-glass.btn-secondary {
+    --btn-glow-color: var(--color-secondary);
+}
+
+/* Social media button colors */
+.btn-glass.btn-github {
+    --btn-glow-color: #333;
+}
+
+.btn-glass.btn-linkedin {
+    --btn-glow-color: #0077b5;
+}
+
+.btn-glass.btn-instagram {
+    --btn-glow-color: #e4405f;
+}
+
+.btn-glass.btn-youtube {
+    --btn-glow-color: #ff0000;
+}
+
+/* Netflix-style YouTube button */
+.btn-netflix-style {
+    position: relative;
+    width: 240px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    font-size: 1.2em;
+    transition: 0.5s;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #ff0000;
+    border: none;
+    margin: 10px;
+}
+
+.btn-netflix-style:hover {
+    filter: drop-shadow(0 0 10px #ff0000) drop-shadow(0 0 30px #ff0000);
+    letter-spacing: 0.2em;
+    color: #fff;
+}
+
+.btn-netflix-style span {
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: #ff0000;
+    pointer-events: none;
+    transition: transform 0.2s ease-in-out;
+    z-index: -1;
+    transform: scaleY(0);
+    transform-origin: bottom;
+}
+
+.btn-netflix-style:hover span {
+    transform: scaleY(1);
+    transform-origin: top;
+}
+
+.btn-netflix-style span:nth-child(even) {
+    transform-origin: top;
+}
+
+.btn-netflix-style:hover span:nth-child(even) {
+    transform-origin: bottom;
+}
+
+.btn-netflix-style span:nth-child(1) {
+    left: 0;
+}
+
+.btn-netflix-style span:nth-child(2) {
+    left: 25%;
+}
+
+.btn-netflix-style span:nth-child(3) {
+    left: 50%;
+}
+
+.btn-netflix-style span:nth-child(4) {
+    left: 75%;
+}
+
+.btn-netflix-style span:nth-child(5) {
+    right: 0;
+}
+
+/* Responsive adjustments for glassmorphism buttons */
+@media (max-width: 992px) {
+    .hero-social {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .btn-netflix-style {
+        width: 200px;
+        height: 55px;
+        font-size: 1.1em;
+    }
+}
+
+@media (max-width: 768px) {
+    .btn-glass {
+        min-width: 120px;
+        height: 45px;
+        font-size: 0.8rem;
+        letter-spacing: 0.5px;
+        margin: 5px;
+    }
+
+    .btn-glass:hover {
+        letter-spacing: 2px;
+    }
+
+    .btn-netflix-style {
+        width: 180px;
+        height: 50px;
+        font-size: 1em;
+        margin: 5px;
+    }
+
+    .hero-social {
+        margin-top: 20px;
+    }
+
+    .hero-cta {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-glass {
+        min-width: 100px;
+        height: 40px;
+        font-size: 0.75rem;
+        margin: 5px;
+        padding: 0 15px;
+    }
+
+    .btn-netflix-style {
+        width: 160px;
+        height: 45px;
+        font-size: 0.9em;
+        margin: 5px;
+    }
+
+    .hero-social {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .hero-cta .btn-glass {
+        width: 200px;
+        text-align: center;
+    }
+}

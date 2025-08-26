@@ -452,6 +452,9 @@ function initHoverAnimations() {
 
     // Contact item hover animations
     animateContactItemHovers();
+
+    // Circular social button hover animations
+    animateCircleButtonHovers();
 }
 
 function animateButtonHovers() {
@@ -576,6 +579,52 @@ function animateContactItemHovers() {
                 duration: 0.3,
                 ease: 'power2.out'
             });
+        });
+    });
+}
+
+/**
+ * Circle Button Hover Animations
+ * Special hover effects for circular social media buttons
+ */
+function animateCircleButtonHovers() {
+    const circleButtons = document.querySelectorAll('.circle-btn');
+
+    circleButtons.forEach(btn => {
+        // Create hover timeline
+        const tl = gsap.timeline({ paused: true });
+
+        // Add animations to timeline
+        tl.to(btn, {
+            scale: 1.15,
+            y: -8,
+            boxShadow: '0 15px 30px rgba(0, 0, 0, 0.2)',
+            duration: 0.4,
+            ease: 'back.out(1.7)'
+        })
+        .to(btn, {
+            backgroundColor: btn.classList.contains('github-btn') ? 'rgba(51, 51, 51, 0.8)' :
+                           btn.classList.contains('linkedin-btn') ? 'rgba(0, 119, 181, 0.8)' :
+                           btn.classList.contains('youtube-btn') ? 'rgba(255, 0, 0, 0.8)' :
+                           btn.classList.contains('instagram-btn') ? 'rgba(225, 48, 108, 0.8)' :
+                           btn.classList.contains('award-btn') ? 'rgba(255, 215, 0, 0.8)' :
+                           'rgba(255, 255, 255, 0.15)',
+            color: '#fff',
+            duration: 0.3,
+            ease: 'power1.out'
+        }, 0)
+        .to(btn, {
+            borderColor: 'rgba(255, 255, 255, 0.3)',
+            duration: 0.3
+        }, 0);
+
+        // Trigger on hover
+        btn.addEventListener('mouseenter', () => {
+            tl.play();
+        });
+
+        btn.addEventListener('mouseleave', () => {
+            tl.reverse();
         });
     });
 }

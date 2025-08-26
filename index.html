@@ -19,13 +19,18 @@
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/themes.css">
+    <link rel="stylesheet" href="assets/css/glassmorphism.css">
+    <link rel="stylesheet" href="assets/css/glowing-circle-buttons.css">
+    <link rel="stylesheet" href="assets/css/advanced-animations.css">
     <link rel="stylesheet" href="assets/css/accessibility.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Preload critical assets -->
-    <link rel="preload" href="assets/js/three.min.js" as="script">
-    <link rel="preload" href="assets/js/gsap.min.js" as="script">
-    <link rel="preload" href="assets/fonts/main-font.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" as="script">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" as="script">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 
     <!-- Open Graph / Social Media Meta Tags -->
     <meta property="og:title" content="Pranay Gajbhiye | Portfolio">
@@ -38,7 +43,7 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#6a7dfe">
 </head>
-<body class="loading" data-theme="dark">
+<body data-theme="dark">
     <!-- Loader -->
     <div class="loader">
         <div class="loader-content">
@@ -48,7 +53,7 @@
     </div>
 
     <!-- Header -->
-    <header class="header">
+    <header class="header glass-nav">
         <div class="container">
             <nav class="navbar">
                 <div class="logo">
@@ -63,12 +68,13 @@
                     <span></span>
                 </div>
 
-                <div class="nav-items">
+                <div class="nav-items glass">
                     <ul>
                         <li><a href="#about" class="nav-link">About</a></li>
                         <li><a href="#skills" class="nav-link">Skills</a></li>
                         <li><a href="#projects" class="nav-link">Projects</a></li>
                         <li><a href="#experience" class="nav-link">Experience</a></li>
+                        <li><a href="#certificates" class="nav-link">Certificates</a></li>
                         <li><a href="#contact" class="nav-link">Contact</a></li>
                     </ul>
 
@@ -105,23 +111,23 @@
                     Building innovative web experiences with cutting-edge technology and creative design.
                 </p>
                 <div class="hero-cta">
-                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                    <a href="#projects" class="btn btn-secondary">View My Work</a>
+                    <a href="#contact" class="btn-glass btn-primary">Get In Touch</a>
+                    <a href="#projects" class="btn-glass btn-secondary">View My Work</a>
                 </div>
                 <div class="hero-social">
-                    <a href="https://github.com/Pusparaj99op" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <a href="https://github.com/Pusparaj99op" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="circle-btn github-btn">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="https://linkedin.com/in/pranaygajbhiye" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <a href="https://linkedin.com/in/pranaygajbhiye" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="circle-btn linkedin-btn">
                         <i class="fab fa-linkedin"></i>
                     </a>
-                    <a href="https://youtube.com/@AnonymousRingtonesYT" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                    <a href="https://youtube.com/@AnonymousRingtonesYT" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="circle-btn youtube-btn">
                         <i class="fab fa-youtube"></i>
                     </a>
-                    <a href="https://instagram.com/pranaygajbhiye777" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <a href="https://instagram.com/pranaygajbhiye777" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="circle-btn instagram-btn">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="https://unstop.com/u/pranagaj69179" target="_blank" rel="noopener noreferrer" aria-label="Unstop">
+                    <a href="https://unstop.com/u/pranagaj69179" target="_blank" rel="noopener noreferrer" aria-label="Unstop" class="circle-btn award-btn">
                         <i class="fas fa-award"></i>
                     </a>
                 </div>
@@ -148,12 +154,14 @@
             </div>
 
             <div class="about-content">
-                <div class="about-image" data-animation="fade-right">
-                    <div class="image-container">
-                        <img src="assets/images/profile.jpg" alt="Pranay Gajbhiye" class="profile-img">
-                        <div class="image-decoration"></div>
+                    <div class="about-image" data-animation="fade-right">
+                        <div class="image-container">
+                            <div class="profile-placeholder">
+                                <i class="fas fa-user profile-icon"></i>
+                            </div>
+                            <div class="image-decoration"></div>
+                        </div>
                     </div>
-                </div>
 
                 <div class="about-text" data-animation="fade-left">
                     <p>I am a passionate Full Stack Developer with expertise in creating modern, interactive web applications. With a strong foundation in both frontend and backend technologies, I specialize in building seamless user experiences and robust application architectures.</p>
@@ -167,7 +175,7 @@
                         </div>
                         <div class="detail-item">
                             <span class="detail-label">Email:</span>
-                            <span class="detail-value">contact@pranaygajbhiye.com</span>
+                            <span class="detail-value">pranaygajbhiyeofficial@gmail.com</span>
                         </div>
                         <div class="detail-item">
                             <span class="detail-label">Location:</span>
@@ -179,7 +187,7 @@
                         </div>
                     </div>
 
-                    <a href="assets/resume.pdf" class="btn btn-primary" download>
+                    <a href="assets/resume.pdf" class="btn-glass btn-primary" download>
                         <i class="fas fa-download"></i> Download Resume
                     </a>
                 </div>
@@ -207,7 +215,7 @@
                     <!-- Frontend Skills -->
                     <div class="skills-category active" data-category="frontend">
                         <div class="skills-grid">
-                            <div class="skill-card" data-animation="fade-up">
+                            <div class="skill-card glass hover-lift" data-animation="fade-up">
                                 <div class="skill-icon">
                                     <i class="fab fa-html5"></i>
                                 </div>
@@ -219,7 +227,7 @@
                                 </div>
                             </div>
 
-                            <div class="skill-card" data-animation="fade-up" data-delay="100">
+                            <div class="skill-card glass hover-lift" data-animation="fade-up" data-delay="100">
                                 <div class="skill-icon">
                                     <i class="fab fa-css3-alt"></i>
                                 </div>
@@ -231,7 +239,7 @@
                                 </div>
                             </div>
 
-                            <div class="skill-card" data-animation="fade-up" data-delay="200">
+                            <div class="skill-card glass hover-lift" data-animation="fade-up" data-delay="200">
                                 <div class="skill-icon">
                                     <i class="fab fa-js"></i>
                                 </div>
@@ -243,7 +251,7 @@
                                 </div>
                             </div>
 
-                            <div class="skill-card" data-animation="fade-up" data-delay="300">
+                            <div class="skill-card glass hover-lift" data-animation="fade-up" data-delay="300">
                                 <div class="skill-icon">
                                     <i class="fab fa-react"></i>
                                 </div>
@@ -255,7 +263,7 @@
                                 </div>
                             </div>
 
-                            <div class="skill-card" data-animation="fade-up" data-delay="400">
+                            <div class="skill-card glass hover-lift" data-animation="fade-up" data-delay="400">
                                 <div class="skill-icon">
                                     <i class="fab fa-sass"></i>
                                 </div>
@@ -267,7 +275,7 @@
                                 </div>
                             </div>
 
-                            <div class="skill-card" data-animation="fade-up" data-delay="500">
+                            <div class="skill-card glass hover-lift" data-animation="fade-up" data-delay="500">
                                 <div class="skill-icon">
                                     <i class="fab fa-vuejs"></i>
                                 </div>
@@ -533,9 +541,12 @@
 
             <div class="projects-grid">
                 <!-- Project 1 -->
-                <div class="project-card" data-category="web" data-animation="fade-up">
+                <div class="project-card glass hover-tilt" data-category="web" data-animation="fade-up">
                     <div class="project-img">
-                        <img src="assets/images/projects/project1.jpg" alt="Project 1">
+                        <div class="project-placeholder">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>E-Commerce Platform</span>
+                        </div>
                         <div class="project-overlay">
                             <div class="project-links">
                                 <a href="#" class="project-link" target="_blank" rel="noopener noreferrer" aria-label="View live project" title="View live project">
@@ -692,7 +703,7 @@
             </div>
 
             <div class="projects-cta">
-                <a href="https://github.com/Pusparaj99op?tab=repositories" class="btn btn-secondary">View All Projects</a>
+                <a href="https://github.com/Pusparaj99op?tab=repositories" class="btn-glass btn-secondary">View All Projects</a>
             </div>
         </div>
     </section>
@@ -707,7 +718,7 @@
 
             <div class="timeline">
                 <!-- Experience Item 1 -->
-                <div class="timeline-item" data-animation="fade-right">
+                <div class="timeline-item glass" data-animation="fade-right">
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
                         <div class="timeline-date">2022 - Present</div>
@@ -727,7 +738,7 @@
                 </div>
 
                 <!-- Experience Item 2 -->
-                <div class="timeline-item" data-animation="fade-left">
+                <div class="timeline-item glass" data-animation="fade-left">
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
                         <div class="timeline-date">2020 - 2022</div>
@@ -747,7 +758,7 @@
                 </div>
 
                 <!-- Experience Item 3 -->
-                <div class="timeline-item" data-animation="fade-right">
+                <div class="timeline-item glass" data-animation="fade-right">
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
                         <div class="timeline-date">2018 - 2020</div>
@@ -767,7 +778,7 @@
                 </div>
 
                 <!-- Experience Item 4 -->
-                <div class="timeline-item" data-animation="fade-left">
+                <div class="timeline-item glass" data-animation="fade-left">
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
                         <div class="timeline-date">2016 - 2018</div>
@@ -789,6 +800,197 @@
         </div>
     </section>
 
+    <!-- Certificates & Achievements Section -->
+    <section id="certificates" class="certificates section">
+        <div class="container">
+            <div class="section-header" data-animation="fade-up">
+                <h2 class="section-title">Certificates & Achievements</h2>
+                <p class="section-subtitle">Recognition of my skills and accomplishments</p>
+            </div>
+
+            <div class="certificates-grid">
+                <!-- Certificate 1 -->
+                <div class="certificate-card glass hover-tilt" data-animation="scale-in" data-delay="100">
+                    <div class="certificate-image">
+                        <img src="assets/images/cretificates/CIH 2.0 Hackthon .jpg" alt="CIH 2.0 Hackathon Certificate" loading="lazy">
+                        <div class="certificate-overlay">
+                            <div class="certificate-badge">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="certificate-info">
+                        <h3 class="certificate-title">CIH 2.0 Hackathon</h3>
+                        <p class="certificate-description">Top 6 - Innovative Web Development Solution</p>
+                        <div class="certificate-meta">
+                            <span class="certificate-type">Hackathon</span>
+                            <span class="certificate-level">Top 6</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate 2 -->
+                <div class="certificate-card glass hover-tilt" data-animation="scale-in" data-delay="200">
+                    <div class="certificate-image">
+                        <img src="assets/images/cretificates/YCCE Hackthon.jpg" alt="YCCE Hackathon Certificate" loading="lazy">
+                        <div class="certificate-overlay">
+                            <div class="certificate-badge">
+                                <i class="fas fa-code"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="certificate-info">
+                        <h3 class="certificate-title">YCCE Hackathon</h3>
+                        <p class="certificate-description">Participant - Full Stack Development Challenge</p>
+                        <div class="certificate-meta">
+                            <span class="certificate-type">Hackathon</span>
+                            <span class="certificate-level">Participant</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate 3 -->
+                <div class="certificate-card glass hover-tilt" data-animation="scale-in" data-delay="300">
+                    <div class="certificate-image">
+                        <img src="assets/images/cretificates/SDCE HTH .jpg" alt="SDCE HTH Certificate" loading="lazy">
+                        <div class="certificate-overlay">
+                            <div class="certificate-badge">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="certificate-info">
+                        <h3 class="certificate-title">SDCE HTH</h3>
+                        <p class="certificate-description">Achievement in Technology Innovation</p>
+                        <div class="certificate-meta">
+                            <span class="certificate-type">Achievement</span>
+                            <span class="certificate-level">Recognition</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate 4 -->
+                <div class="certificate-card glass hover-tilt" data-animation="scale-in" data-delay="400">
+                    <div class="certificate-image">
+                        <img src="assets/images/cretificates/SSIT Hackthon .jpg" alt="SSIT Hackathon Certificate" loading="lazy">
+                        <div class="certificate-overlay">
+                            <div class="certificate-badge">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="certificate-info">
+                        <h3 class="certificate-title">SSIT Hackathon</h3>
+                        <p class="certificate-description">Recognition for Innovative Problem Solving</p>
+                        <div class="certificate-meta">
+                            <span class="certificate-type">Hackathon</span>
+                            <span class="certificate-level">Recognition</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate 5 -->
+                <div class="certificate-card glass hover-tilt" data-animation="scale-in" data-delay="500">
+                    <div class="certificate-image">
+                        <img src="assets/images/cretificates/KDK Maths Compition .jpg" alt="KDK Mathematics Competition Certificate" loading="lazy">
+                        <div class="certificate-overlay">
+                            <div class="certificate-badge">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="certificate-info">
+                        <h3 class="certificate-title">KDK Mathematics Competition</h3>
+                        <p class="certificate-description">Excellence in Mathematical Problem Solving</p>
+                        <div class="certificate-meta">
+                            <span class="certificate-type">Competition</span>
+                            <span class="certificate-level">Excellence</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate 6 -->
+                <div class="certificate-card glass hover-tilt" data-animation="scale-in" data-delay="600">
+                    <div class="certificate-image">
+                        <img src="assets/images/cretificates/KDK Maths Compition 2.jpg" alt="KDK Mathematics Competition 2 Certificate" loading="lazy">
+                        <div class="certificate-overlay">
+                            <div class="certificate-badge">
+                                <i class="fas fa-award"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="certificate-info">
+                        <h3 class="certificate-title">KDK Mathematics Competition 2</h3>
+                        <p class="certificate-description">Advanced Mathematical Concepts Achievement</p>
+                        <div class="certificate-meta">
+                            <span class="certificate-type">Competition</span>
+                            <span class="certificate-level">Achievement</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate 7 -->
+                <div class="certificate-card glass hover-tilt" data-animation="scale-in" data-delay="700">
+                    <div class="certificate-image">
+                        <img src="assets/images/cretificates/BIS Volenter.jpg" alt="BIS Volunteer Certificate" loading="lazy">
+                        <div class="certificate-overlay">
+                            <div class="certificate-badge">
+                                <i class="fas fa-hands-helping"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="certificate-info">
+                        <h3 class="certificate-title">BIS Volunteer</h3>
+                        <p class="certificate-description">Community Service and Social Contribution</p>
+                        <div class="certificate-meta">
+                            <span class="certificate-type">Volunteer</span>
+                            <span class="certificate-level">Service</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate 8 -->
+                <div class="certificate-card glass hover-tilt" data-animation="scale-in" data-delay="800">
+                    <div class="certificate-image">
+                        <img src="assets/images/cretificates/Being Volentee .jpg" alt="Being Volunteer Certificate" loading="lazy">
+                        <div class="certificate-overlay">
+                            <div class="certificate-badge">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="certificate-info">
+                        <h3 class="certificate-title">Being Volunteer</h3>
+                        <p class="certificate-description">Dedication to Community Development</p>
+                        <div class="certificate-meta">
+                            <span class="certificate-type">Volunteer</span>
+                            <span class="certificate-level">Dedication</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="certificates-stats">
+                <div class="stat-item glass">
+                    <div class="stat-number" data-count="8">0</div>
+                    <div class="stat-label">Certificates</div>
+                </div>
+                <div class="stat-item glass">
+                    <div class="stat-number" data-count="5">0</div>
+                    <div class="stat-label">Hackathons</div>
+                </div>
+                <div class="stat-item glass">
+                    <div class="stat-number" data-count="3">0</div>
+                    <div class="stat-label">Awards</div>
+                </div>
+                <div class="stat-item glass">
+                    <div class="stat-number" data-count="2">0</div>
+                    <div class="stat-label">Volunteer Work</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="contact section">
         <div class="container">
@@ -805,7 +1007,7 @@
                         </div>
                         <div class="contact-text">
                             <h3>Email</h3>
-                            <p>contact@pranaygajbhiye.com</p>
+                            <p>pranaygajbhiyeofficial@gmail.com</p>
                         </div>
                     </div>
 
@@ -815,7 +1017,7 @@
                         </div>
                         <div class="contact-text">
                             <h3>Location</h3>
-                            <p>India</p>
+                            <p>India, Nagpur</p>
                         </div>
                     </div>
 
@@ -847,28 +1049,28 @@
                 </div>
 
                 <div class="contact-form-container" data-animation="fade-left">
-                    <form class="contact-form" id="contact-form">
+                    <form class="contact-form glass" id="contact-form">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" id="name" name="name" required>
+                            <input type="text" id="name" name="name" class="glass" required>
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
+                            <input type="email" id="email" name="email" class="glass" required>
                         </div>
 
                         <div class="form-group">
                             <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" required>
+                            <input type="text" id="subject" name="subject" class="glass" required>
                         </div>
 
                         <div class="form-group">
                             <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <textarea id="message" name="message" rows="5" class="glass" required></textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Send Message</button>
+                        <button type="submit" class="btn-glass btn-primary">Send Message</button>
                     </form>
                 </div>
             </div>
@@ -908,6 +1110,7 @@
                         <li><a href="#skills">Skills</a></li>
                         <li><a href="#projects">Projects</a></li>
                         <li><a href="#experience">Experience</a></li>
+                        <li><a href="#certificates">Certificates</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
@@ -920,7 +1123,7 @@
     </footer>
 
     <!-- Theme Panel -->
-    <div class="theme-panel">
+    <div class="theme-panel glass">
         <div class="theme-panel-toggle">
             <i class="fas fa-palette"></i>
         </div>
@@ -974,6 +1177,9 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
+    <!-- Mouse Trail Canvas -->
+    <canvas id="canvas" class="mouse-trail-canvas"></canvas>
+
     <!-- Scripts -->
     <!-- Vendor Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -981,6 +1187,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
 
     <!-- Custom Scripts -->
+    <script src="assets/js/glsl-shaders.js"></script>
+    <script src="assets/js/webgl-effects.js"></script>
+    <script src="assets/js/canvas-animations.js"></script>
+    <script src="assets/js/mouse-trail.js"></script>
+    <script src="assets/js/3d-background.js"></script>
+    <script src="assets/js/parallax.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/three-background.js"></script>
     <script src="assets/js/animations.js"></script>

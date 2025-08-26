@@ -1,0 +1,144 @@
+/**
+ * Glowing Circle Buttons
+ * Circular buttons with pulsating glow effect
+ * Version: 1.0
+ * Last Modified: August 26, 2025
+ */
+
+/* Base circular button style */
+.circle-btn {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    margin: 0 10px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.5rem;
+    z-index: 10;
+}
+
+/* Glow effect */
+.circle-btn:before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 50%;
+    background: var(--circle-glow-color, #fff);
+    z-index: -2;
+    opacity: 0.2;
+    animation: pulse 2s ease-in-out infinite;
+    box-shadow:
+        0 0 5px var(--circle-glow-color, #fff),
+        0 0 15px var(--circle-glow-color, #fff),
+        0 0 30px var(--circle-glow-color, #fff);
+}
+
+/* Inner shadow for depth */
+.circle-btn:after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,
+        rgba(255,255,255,0.1) 0%,
+        rgba(0,0,0,0.1) 100%);
+    z-index: -1;
+}
+
+/* Hover effect */
+.circle-btn:hover {
+    transform: scale(1.1);
+    box-shadow:
+        0 0 10px var(--circle-glow-color, #fff),
+        0 0 20px var(--circle-glow-color, #fff);
+    color: #fff;
+}
+
+.circle-btn:hover:before {
+    animation: pulse 1s ease-in-out infinite;
+    opacity: 0.5;
+}
+
+/* Icon style */
+.circle-btn i {
+    font-size: 1.2rem;
+    z-index: 2;
+}
+
+/* Specific social media colors */
+.circle-btn.github-btn {
+    --circle-glow-color: #6e5494;
+}
+
+.circle-btn.linkedin-btn {
+    --circle-glow-color: #0077b5;
+}
+
+.circle-btn.youtube-btn {
+    --circle-glow-color: #ff0000;
+}
+
+.circle-btn.instagram-btn {
+    --circle-glow-color: #e4405f;
+}
+
+.circle-btn.award-btn {
+    --circle-glow-color: #ffc107;
+}
+
+/* Pulse animation for glow effect */
+@keyframes pulse {
+    0% {
+        opacity: 0.2;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.4;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 0.2;
+        transform: scale(1);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-social {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .circle-btn {
+        width: 45px;
+        height: 45px;
+        margin: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .circle-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+    .circle-btn i {
+        font-size: 1rem;
+    }
+}
