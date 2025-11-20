@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pranay Gajbhiye - Links Tree">
+    <title>Pranay Gajbhiye | Links</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(218, 165, 32, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            text-align: center;
+            color: #f5f5f5;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #d4af37 50%, #f5f5f5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: none;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            font-size: 1rem;
+            color: #d4af37;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        .menu-wrap {
+            width: 100%;
+            flex: 1;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+                        0 0 0 1px rgba(212, 175, 55, 0.2),
+                        inset 0 0 20px rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .menu__item {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            box-shadow: 0 -1px rgba(212, 175, 55, 0.15);
+            background: linear-gradient(135deg, rgba(245, 245, 245, 0.05) 0%, rgba(10, 10, 10, 0.8) 100%);
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+        }
+
+        .menu__item:first-child {
+            box-shadow: none;
+        }
+
+        .menu__item:hover {
+            background: linear-gradient(135deg, rgba(245, 245, 245, 0.08) 0%, rgba(10, 10, 10, 0.9) 100%);
+            box-shadow: 0 -1px rgba(212, 175, 55, 0.3);
+        }
+
+        .menu__item-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            position: relative;
+            cursor: pointer;
+            text-transform: uppercase;
+            text-decoration: none;
+            white-space: nowrap;
+            font-weight: 600;
+            color: #f5f5f5;
+            font-size: clamp(1.2rem, 4vh, 2.5rem);
+            transition: all 0.3s ease;
+            padding: 0 20px;
+            letter-spacing: 2px;
+        }
+
+        .menu__item-link:hover {
+            color: #0a0a0a;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .menu__item-link:focus {
+            outline: 2px solid #d4af37;
+            outline-offset: -4px;
+        }
+
+        .marquee {
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 50%, #f5f5f5 100%);
+            transform: translate3d(0, 101%, 0);
+            will-change: transform;
+            box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.1);
+        }
+
+        .marquee__inner-wrap {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            transform: translate3d(0, 101%, 0);
+            will-change: transform;
+        }
+
+        .marquee__inner {
+            display: flex;
+            align-items: center;
+            position: relative;
+            height: 100%;
+            width: fit-content;
+            will-change: transform;
+            animation: marquee 15s linear infinite;
+        }
+
+        .marquee__inner.paused {
+            animation-play-state: paused;
+        }
+
+        .marquee span {
+            color: #0a0a0a;
+            white-space: nowrap;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: clamp(1rem, 3.5vh, 2rem);
+            line-height: 1.2;
+            padding: 1vh 1vw 0;
+            text-shadow: 0 1px 2px rgba(212, 175, 55, 0.3);
+        }
+
+        .marquee__img {
+            width: clamp(100px, 150px, 180px);
+            height: clamp(40px, 7vh, 80px);
+            margin: 0 2vw;
+            padding: 0.5em 0;
+            border-radius: 12px;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            flex-shrink: 0;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .header p {
+                font-size: 0.9rem;
+            }
+
+            .menu__item-link {
+                font-size: clamp(1rem, 3.5vh, 2rem);
+            }
+
+            .marquee span {
+                font-size: clamp(0.9rem, 3vh, 1.5rem);
+            }
+
+            .marquee__img {
+                width: clamp(100px, 150px, 180px);
+                height: clamp(35px, 6vh, 60px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.3rem;
+            }
+
+            .menu__item-link {
+                font-size: clamp(0.9rem, 3vh, 1.5rem);
+                padding: 0 10px;
+            }
+
+            .marquee span {
+                font-size: clamp(0.8rem, 2.5vh, 1.2rem);
+                padding: 0.5vh 0.5vw 0;
+            }
+
+            .marquee__img {
+                width: clamp(80px, 120px, 150px);
+                height: clamp(30px, 5vh, 50px);
+                margin: 0 1vw;
+            }
+        }
+
+        @media (orientation: landscape) and (max-height: 600px) {
+            .header {
+                padding: 10px 0;
+                margin-bottom: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.3rem;
+            }
+
+            .header p {
+                font-size: 0.85rem;
+            }
+
+            .menu__item-link {
+                font-size: clamp(0.8rem, 2.5vh, 1.5rem);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Pranay Gajbhiye</h1>
+            <p>Connect with me</p>
+        </div>
+        <div class="menu-wrap">
+            <nav class="menu" id="menu"></nav>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
+    <script>
+        const menuItems = [
+            {
+                text: 'Portfolio',
+                link: 'https://pusparaj99op.github.io/',
+                image: 'https://img.icons8.com/fluency/240/portfolio.png'
+            },
+            {
+                text: 'Github',
+                link: 'https://github.com/Pusparaj99op',
+                image: 'https://img.icons8.com/3d-fluency/240/github.png'
+            },
+            {
+                text: 'LinkedIn',
+                link: 'https://linkedin.com/in/pranaygajbhiye',
+                image: 'https://img.icons8.com/3d-fluency/240/linkedin.png'
+            },
+            {
+                text: 'Instagram',
+                link: 'https://www.instagram.com/pranaygajbhiye777/',
+                image: 'https://img.icons8.com/3d-fluency/240/instagram-new.png'
+            }
+        ];
+
+        const animationDefaults = { duration: 0.6, ease: 'expo' };
+
+        function findClosestEdge(mouseX, mouseY, width, height) {
+            const topEdgeDist = distMetric(mouseX, mouseY, width / 2, 0);
+            const bottomEdgeDist = distMetric(mouseX, mouseY, width / 2, height);
+            return topEdgeDist < bottomEdgeDist ? 'top' : 'bottom';
+        }
+
+        function distMetric(x, y, x2, y2) {
+            const xDiff = x - x2;
+            const yDiff = y - y2;
+            return xDiff * xDiff + yDiff * yDiff;
+        }
+
+        function createMenuItem(item) {
+            const menuItem = document.createElement('div');
+            menuItem.className = 'menu__item';
+
+            const link = document.createElement('a');
+            link.className = 'menu__item-link';
+            link.href = item.link;
+            link.textContent = item.text;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+
+            const marquee = document.createElement('div');
+            marquee.className = 'marquee';
+
+            const marqueeInnerWrap = document.createElement('div');
+            marqueeInnerWrap.className = 'marquee__inner-wrap';
+
+            const marqueeInner = document.createElement('div');
+            marqueeInner.className = 'marquee__inner';
+            marqueeInner.setAttribute('aria-hidden', 'true');
+
+            // Create repeated content for marquee effect
+            for (let i = 0; i < 8; i++) {
+                const span = document.createElement('span');
+                span.textContent = item.text;
+                marqueeInner.appendChild(span);
+
+                const img = document.createElement('div');
+                img.className = 'marquee__img';
+                img.style.backgroundImage = `url(${item.image})`;
+                marqueeInner.appendChild(img);
+            }
+
+            marqueeInnerWrap.appendChild(marqueeInner);
+            marquee.appendChild(marqueeInnerWrap);
+            menuItem.appendChild(link);
+            menuItem.appendChild(marquee);
+
+            // Event handlers
+            link.addEventListener('mouseenter', (ev) => {
+                const rect = menuItem.getBoundingClientRect();
+                const x = ev.clientX - rect.left;
+                const y = ev.clientY - rect.top;
+                const edge = findClosestEdge(x, y, rect.width, rect.height);
+
+                gsap.timeline({ defaults: animationDefaults })
+                    .set(marquee, { y: edge === 'top' ? '-101%' : '101%' }, 0)
+                    .set(marqueeInnerWrap, { y: edge === 'top' ? '101%' : '-101%' }, 0)
+                    .to([marquee, marqueeInnerWrap], { y: '0%' }, 0);
+            });
+
+            link.addEventListener('mouseleave', (ev) => {
+                const rect = menuItem.getBoundingClientRect();
+                const x = ev.clientX - rect.left;
+                const y = ev.clientY - rect.top;
+                const edge = findClosestEdge(x, y, rect.width, rect.height);
+
+                gsap.timeline({ defaults: animationDefaults })
+                    .to(marquee, { y: edge === 'top' ? '-101%' : '101%' }, 0)
+                    .to(marqueeInnerWrap, { y: edge === 'top' ? '101%' : '-101%' }, 0);
+            });
+
+            // Touch support for mobile
+            link.addEventListener('touchstart', (ev) => {
+                ev.preventDefault();
+                const rect = menuItem.getBoundingClientRect();
+                const touch = ev.touches[0];
+                const x = touch.clientX - rect.left;
+                const y = touch.clientY - rect.top;
+                const edge = findClosestEdge(x, y, rect.width, rect.height);
+
+                gsap.timeline({ defaults: animationDefaults })
+                    .set(marquee, { y: edge === 'top' ? '-101%' : '101%' }, 0)
+                    .set(marqueeInnerWrap, { y: edge === 'top' ? '101%' : '-101%' }, 0)
+                    .to([marquee, marqueeInnerWrap], { y: '0%' }, 0);
+
+                // Navigate after animation
+                setTimeout(() => {
+                    window.open(item.link, '_blank', 'noopener,noreferrer');
+                }, 300);
+            });
+
+            link.addEventListener('touchend', (ev) => {
+                const rect = menuItem.getBoundingClientRect();
+                const touch = ev.changedTouches[0];
+                const x = touch.clientX - rect.left;
+                const y = touch.clientY - rect.top;
+                const edge = findClosestEdge(x, y, rect.width, rect.height);
+
+                gsap.timeline({ defaults: animationDefaults })
+                    .to(marquee, { y: edge === 'top' ? '-101%' : '101%' }, 0)
+                    .to(marqueeInnerWrap, { y: edge === 'top' ? '101%' : '-101%' }, 0);
+            });
+
+            return menuItem;
+        }
+
+        // Initialize menu
+        const menu = document.getElementById('menu');
+        menuItems.forEach(item => {
+            menu.appendChild(createMenuItem(item));
+        });
+
+        // Keyboard navigation support
+        document.querySelectorAll('.menu__item-link').forEach((link, index) => {
+            link.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    const next = document.querySelectorAll('.menu__item-link')[index + 1];
+                    if (next) next.focus();
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    const prev = document.querySelectorAll('.menu__item-link')[index - 1];
+                    if (prev) prev.focus();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
