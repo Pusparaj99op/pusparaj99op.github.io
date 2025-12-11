@@ -14,15 +14,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 252, 225, 0.05);
+    border: 1px solid rgba(255, 252, 225, 0.1);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
     margin: 0 10px;
     text-decoration: none;
-    color: #fff;
+    color: rgb(255,252,225);
     font-size: 1.5rem;
     z-index: 10;
 }
@@ -36,14 +36,14 @@
     right: -2px;
     bottom: -2px;
     border-radius: 50%;
-    background: var(--circle-glow-color, #fff);
+    background: var(--circle-glow-color, rgb(255,252,225));
     z-index: -2;
     opacity: 0.2;
     animation: pulse 2s ease-in-out infinite;
     box-shadow:
-        0 0 5px var(--circle-glow-color, #fff),
-        0 0 15px var(--circle-glow-color, #fff),
-        0 0 30px var(--circle-glow-color, #fff);
+        0 0 5px var(--circle-glow-color, rgb(255,252,225)),
+        0 0 15px var(--circle-glow-color, rgb(255,252,225)),
+        0 0 30px var(--circle-glow-color, rgb(255,252,225));
 }
 
 /* Inner shadow for depth */
@@ -53,7 +53,7 @@
     inset: 3px;
     border-radius: 50%;
     background: linear-gradient(135deg,
-        rgba(255,255,255,0.1) 0%,
+        rgba(255,252,225,0.1) 0%,
         rgba(0,0,0,0.1) 100%);
     z-index: -1;
 }
@@ -62,9 +62,9 @@
 .circle-btn:hover {
     transform: scale(1.1);
     box-shadow:
-        0 0 10px var(--circle-glow-color, #fff),
-        0 0 20px var(--circle-glow-color, #fff);
-    color: #fff;
+        0 0 10px var(--circle-glow-color, rgb(255,252,225)),
+        0 0 20px var(--circle-glow-color, rgb(255,252,225));
+    color: rgb(255,252,225);
 }
 
 .circle-btn:hover:before {

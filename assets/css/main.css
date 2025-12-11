@@ -13,11 +13,11 @@
   --bg-primary: #0a0a0f;
   --bg-secondary: #12121a;
   --bg-tertiary: #1a1a25;
-  --bg-card: rgba(255, 255, 255, 0.03);
+  --bg-card: rgba(255, 252, 225, 0.03);
 
-  --text-primary: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --text-muted: rgba(255, 255, 255, 0.5);
+  --text-primary: rgb(255,252,225);
+  --text-secondary: rgba(255, 252, 225, 0.7);
+  --text-muted: rgba(255, 252, 225, 0.5);
 
   --accent-primary: #6366f1;
   --accent-secondary: #8b5cf6;
@@ -25,10 +25,10 @@
   --accent-gradient: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary));
 
   /* Glassmorphism */
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-bg-hover: rgba(255, 255, 255, 0.08);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-border-hover: rgba(255, 255, 255, 0.2);
+  --glass-bg: rgba(255, 252, 225, 0.05);
+  --glass-bg-hover: rgba(255, 252, 225, 0.08);
+  --glass-border: rgba(255, 252, 225, 0.1);
+  --glass-border-hover: rgba(255, 252, 225, 0.2);
   --glass-blur: 20px;
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 
@@ -87,8 +87,8 @@
   --text-secondary: rgba(10, 10, 15, 0.7);
   --text-muted: rgba(10, 10, 15, 0.5);
 
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-bg-hover: rgba(255, 255, 255, 0.85);
+  --glass-bg: rgba(255, 252, 225, 0.7);
+  --glass-bg-hover: rgba(255, 252, 225, 0.85);
   --glass-border: rgba(0, 0, 0, 0.08);
   --glass-border-hover: rgba(0, 0, 0, 0.15);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);

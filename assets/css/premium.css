@@ -19,7 +19,7 @@
     --black-surface: #2a2a2a;
 
     /* Rich White Scale */
-    --white-pure: #ffffff;
+    --white-pure: rgb(255,252,225);
     --white-rich: #f8f8f8;
     --white-soft: #f0f0f0;
     --white-muted: #e8e8e8;
@@ -44,9 +44,9 @@
     --text-muted: var(--white-faded);
     --text-accent: var(--gsap-green);
 
-    --border-subtle: rgba(255, 255, 255, 0.06);
-    --border-normal: rgba(255, 255, 255, 0.1);
-    --border-strong: rgba(255, 255, 255, 0.15);
+    --border-subtle: rgba(255, 252, 225, 0.06);
+    --border-normal: rgba(255, 252, 225, 0.1);
+    --border-strong: rgba(255, 252, 225, 0.15);
 
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
@@ -55,7 +55,7 @@
 
     /* Glass Effect */
     --glass-bg: rgba(20, 20, 20, 0.6);
-    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 252, 225, 0.08);
     --glass-blur: 20px;
 
     /* Typography */
@@ -121,7 +121,7 @@
     --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
     --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
 
-    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-bg: rgba(255, 252, 225, 0.7);
     --glass-border: rgba(0, 0, 0, 0.06);
 }
 

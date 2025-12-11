@@ -15,13 +15,13 @@
     height: 50px;
     margin: 10px;
     padding: 0 20px;
-    background: rgba(255, 255, 255, 0.051);
+    background: rgba(255, 252, 225, 0.051);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 252, 225, 0.1);
+    border-bottom: 1px solid rgba(255, 252, 225, 0.1);
     border-left: none;
     border-right: none;
-    color: #fff;
+    color: rgb(255,252,225);
     border-radius: 30px;
     font-weight: 400;
     letter-spacing: 1px;
@@ -37,7 +37,7 @@
 
 .btn-glass:hover {
     letter-spacing: 3px;
-    color: #fff;
+    color: rgb(255,252,225);
 }
 
 .btn-glass:before {
@@ -47,7 +47,7 @@
     left: 0;
     width: 50%;
     height: 100%;
-    background: linear-gradient(to left, rgba(255, 255, 255, 0.149), transparent);
+    background: linear-gradient(to left, rgba(255, 252, 225, 0.149), transparent);
     transform: skewX(45deg);
     transition: 0.5s;
     transition-delay: 0.5s;
@@ -135,7 +135,7 @@
 .btn-netflix-style:hover {
     filter: drop-shadow(0 0 10px #ff0000) drop-shadow(0 0 30px #ff0000);
     letter-spacing: 0.2em;
-    color: #fff;
+    color: rgb(255,252,225);
 }
 
 .btn-netflix-style span {
