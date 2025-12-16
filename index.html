@@ -51,15 +51,40 @@
   <!-- ========================================
        Loading Screen
   ======================================== -->
-  <div class="loader" id="loader">
-    <div class="loader-content">
-      <div class="loader-logo">PG</div>
-      <div class="loader-counter" id="loader-counter">0</div>
-      <div class="loader-bar-wrap">
-        <div class="loader-bar" id="loader-bar"></div>
-      </div>
-      <div class="loader-text">Loading Experience</div>
+  <div class="loader-wrapper" id="loader-wrapper">
+    <!-- Curved Loop Marquee -->
+    <div class="curved-loop-wrapper" id="curved-loop">
+      <svg class="curved-loop-svg" viewBox="0 0 1440 120">
+        <defs>
+          <linearGradient id="curved-loop-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#0ae448" />
+            <stop offset="50%" stop-color="#00d4ff" />
+            <stop offset="100%" stop-color="#0ae448" />
+          </linearGradient>
+          <path id="curved-loop-path" d="M-100,40 Q500,440 1540,40" fill="none" stroke="transparent" />
+        </defs>
+        <text class="curved-loop-text" fill="url(#curved-loop-gradient)" font-weight="bold" xml:space="preserve">
+          <textPath id="curved-loop-textpath" href="#curved-loop-path" startOffset="0px" xml:space="preserve">
+          </textPath>
+        </text>
+      </svg>
     </div>
+    <div class="loading-text">
+      <span class="loading-number" id="loading-number">0</span>
+    </div>
+  </div>
+
+  <div class="transition-overlay">
+    <svg class="transition-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMin slice">
+      <defs>
+        <linearGradient id="grad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+          <stop offset="0.2" stop-color="#0ae448" />
+          <stop offset="0.7" stop-color="#00d4ff" />
+        </linearGradient>
+      </defs>
+      <path class="transition-path" stroke="url(#grad)" fill="url(#grad)" stroke-width="2px"
+        vector-effect="non-scaling-stroke" d="M 0 100 V 100 Q 50 100 100 100 V 100 z" />
+    </svg>
   </div>
 
   <!-- ========================================
@@ -195,7 +220,7 @@
   <!-- ========================================
        About Section
   ======================================== -->
-  <section id="about" class="section">
+  <section id="about" class="section premium-grid-bg">
     <div class="container">
       <div class="section-header">
         <span class="section-label">About Me</span>
@@ -245,7 +270,7 @@
   <!-- ========================================
        Skills Section
   ======================================== -->
-  <section id="skills" class="section">
+  <section id="skills" class="section premium-grid-bg">
     <div class="container">
       <div class="section-header">
         <span class="section-label">My Skills</span>
@@ -348,15 +373,18 @@
   <!-- ========================================
        Projects Section
   ======================================== -->
-  <section id="projects" class="section">
+  <section id="projects" class="section premium-grid-bg">
     <div class="container">
       <div class="section-header">
         <span class="section-label">My Work</span>
         <h2 class="section-title">Featured <span class="text-gradient">Projects</span></h2>
         <p class="section-desc">A showcase of my latest projects and creative endeavors.</p>
       </div>
+    </div>
 
-      <div class="projects-grid">
+    <!-- Full Width Horizontal Gallery -->
+    <div class="horiz-gallery-wrapper">
+      <div class="horiz-gallery-strip">
         <!-- Project 1 -->
         <div class="project-card reveal">
           <div class="project-image">
@@ -494,7 +522,9 @@
           </div>
         </div>
       </div>
+    </div>
 
+    <div class="container">
       <div style="text-align: center; margin-top: var(--space-3xl);">
         <a href="https://github.com/Pusparaj99op?tab=repositories" class="btn btn-secondary" target="_blank">
           <i class="fab fa-github"></i>
@@ -507,7 +537,7 @@
   <!-- ========================================
        Experience Section
   ======================================== -->
-  <section id="experience" class="section">
+  <section id="experience" class="section premium-grid-bg">
     <div class="container">
       <div class="section-header">
         <span class="section-label">Experience</span>
@@ -573,7 +603,7 @@
   <!-- ========================================
        Certificates Section
   ======================================== -->
-  <section id="certificates" class="section">
+  <section id="certificates" class="section premium-grid-bg">
     <div class="container">
       <div class="section-header">
         <span class="section-label">Achievements</span>
@@ -581,64 +611,60 @@
         <p class="section-desc">Awards and certifications that validate my skills and dedication.</p>
       </div>
 
-      <div class="certificates-grid">
-        <div class="certificate-card reveal">
-          <div class="certificate-image">
-            <img src="assets/images/cretificates/CIH 2.0 Hackthon .jpg" alt="CIH 2.0 Hackathon" loading="lazy">
+      <div class="boxes-container">
+        <div class="box reveal">
+          <div class="box-content" style="background-image: url('assets/images/cretificates/CIH 2.0 Hackthon .jpg');">
           </div>
         </div>
-        <div class="certificate-card reveal">
-          <div class="certificate-image">
-            <img src="assets/images/cretificates/YCCE Hackthon.jpg" alt="YCCE Hackathon" loading="lazy">
+        <div class="box reveal">
+          <div class="box-content" style="background-image: url('assets/images/cretificates/YCCE Hackthon.jpg');"></div>
+        </div>
+        <div class="box reveal">
+          <div class="box-content" style="background-image: url('assets/images/cretificates/SDCE HTH .jpg');"></div>
+        </div>
+        <div class="box reveal">
+          <div class="box-content" style="background-image: url('assets/images/cretificates/SSIT Hackthon .jpg');">
           </div>
         </div>
-        <div class="certificate-card reveal">
-          <div class="certificate-image">
-            <img src="assets/images/cretificates/SDCE HTH .jpg" alt="SDCE HTH" loading="lazy">
-          </div>
+        <div class="box reveal">
+          <div class="box-content"
+            style="background-image: url('assets/images/cretificates/KDK Maths Compition .jpg');"></div>
         </div>
-        <div class="certificate-card reveal">
-          <div class="certificate-image">
-            <img src="assets/images/cretificates/SSIT Hackthon .jpg" alt="SSIT Hackathon" loading="lazy">
-          </div>
+        <div class="box reveal">
+          <div class="box-content"
+            style="background-image: url('assets/images/cretificates/KDK Maths Compition 2.jpg');"></div>
         </div>
-        <div class="certificate-card reveal">
-          <div class="certificate-image">
-            <img src="assets/images/cretificates/KDK Maths Compition .jpg" alt="KDK Math Competition" loading="lazy">
-          </div>
+        <div class="box reveal">
+          <div class="box-content" style="background-image: url('assets/images/cretificates/BIS Volenter.jpg');"></div>
         </div>
-        <div class="certificate-card reveal">
-          <div class="certificate-image">
-            <img src="assets/images/cretificates/KDK Maths Compition 2.jpg" alt="KDK Math Competition 2" loading="lazy">
-          </div>
-        </div>
-        <div class="certificate-card reveal">
-          <div class="certificate-image">
-            <img src="assets/images/cretificates/BIS Volenter.jpg" alt="BIS Volunteer" loading="lazy">
-          </div>
-        </div>
-        <div class="certificate-card reveal">
-          <div class="certificate-image">
-            <img src="assets/images/cretificates/Being Volentee .jpg" alt="Being Volunteer" loading="lazy">
+        <div class="box reveal">
+          <div class="box-content" style="background-image: url('assets/images/cretificates/Being Volentee .jpg');">
           </div>
         </div>
       </div>
 
+
+
+      <!-- Stats -->
       <!-- Stats -->
       <div class="stats-grid">
         <div class="stat-card reveal">
+          <div class="stat-icon"><i class="fas fa-certificate"></i></div>
           <div class="stat-number" data-count="8">0</div>
           <div class="stat-label">Certificates</div>
         </div>
         <div class="stat-card reveal">
+          <div class="stat-icon"><i class="fas fa-trophy"></i></div>
           <div class="stat-number" data-count="5">0</div>
           <div class="stat-label">Hackathons</div>
         </div>
         <div class="stat-card reveal">
+          <div class="stat-icon"><i class="fas fa-award"></i></div>
           <div class="stat-number" data-count="3">0</div>
           <div class="stat-label">Awards</div>
         </div>
         <div class="stat-card reveal">
+          <div class="stat-icon"><i class="fas fa-project-diagram"></i></div>
           <div class="stat-number" data-count="50">0</div>
           <div class="stat-label">Projects</div>
         </div>
@@ -649,7 +675,20 @@
   <!-- ========================================
        Contact Section
   ======================================== -->
-  <section id="contact" class="section">
+  <section id="contact" class="section premium-grid-bg">
+    <!-- Background Footer Effect -->
+    <div class="contact-bg-effect">
+      <svg preserveAspectRatio="none" id="footer-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2278 683">
+        <defs>
+          <linearGradient id="grad-1" x1="0" y1="0" x2="2278" y2="683" gradientUnits="userSpaceOnUse">
+            <stop id="footer-grad-start" offset="0.2"></stop>
+            <stop id="footer-grad-end" offset="0.8"></stop>
+          </linearGradient>
+        </defs>
+        <path class="footer-svg" id="bouncy-path" fill="url(#grad-1)"
+          d="M0-0.3C0-0.3,464,156,1139,156S2278-0.3,2278-0.3V683H0V-0.3z" />
+      </svg>
+    </div>
     <div class="container">
       <div class="section-header">
         <span class="section-label">Contact</span>
@@ -702,66 +741,47 @@
 
         <!-- Contact Form -->
         <form id="contact-form" class="contact-form reveal">
+          <h3 class="form-title">Send a Message</h3>
+
           <div class="form-group">
-            <label class="form-label" for="name">Name</label>
-            <input type="text" id="name" name="name" class="form-input" placeholder="Your Name" required>
+            <input type="text" id="name" name="name" class="form-input" placeholder=" " required>
+            <label class="form-label" for="name">Your Name</label>
+            <div class="form-line"></div>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="email">Email</label>
-            <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com" required>
+            <input type="email" id="email" name="email" class="form-input" placeholder=" " required>
+            <label class="form-label" for="email">Email Address</label>
+            <div class="form-line"></div>
           </div>
 
           <div class="form-group">
+            <input type="text" id="subject" name="subject" class="form-input" placeholder=" " required>
             <label class="form-label" for="subject">Subject</label>
-            <input type="text" id="subject" name="subject" class="form-input" placeholder="Project Inquiry" required>
+            <div class="form-line"></div>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="message">Message</label>
-            <textarea id="message" name="message" class="form-input" placeholder="Tell me about your project..."
-              required></textarea>
+            <textarea id="message" name="message" class="form-input" placeholder=" " required></textarea>
+            <label class="form-label" for="message">Tell me about your project...</label>
+            <div class="form-line"></div>
           </div>
 
-          <button type="submit" class="btn btn-primary" style="width: 100%;">
+          <button type="submit" class="btn btn-primary btn-block">
+            <span class="btn-text">Send Message</span>
             <i class="fas fa-paper-plane"></i>
-            Send Message
+            <div class="btn-shine"></div>
           </button>
         </form>
       </div>
     </div>
   </section>
 
-  <!-- ========================================
-       Footer
-  ======================================== -->
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-logo">Pranay Gajbhiye</div>
 
-      <nav class="footer-links">
-        <a href="#hero" class="footer-link">Home</a>
-        <a href="#about" class="footer-link">About</a>
-        <a href="#skills" class="footer-link">Skills</a>
-        <a href="#projects" class="footer-link">Projects</a>
-        <a href="#experience" class="footer-link">Experience</a>
-        <a href="#certificates" class="footer-link">Achievements</a>
-        <a href="#contact" class="footer-link">Contact</a>
-      </nav>
 
-      <div class="footer-social">
-        <a href="https://github.com/Pusparaj99op" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/pranaygajbhiye/" target="_blank" class="social-link"><i
-            class="fab fa-linkedin-in"></i></a>
-        <a href="https://www.youtube.com/@AnonymousRingtonesYT" target="_blank" class="social-link"><i
-            class="fab fa-youtube"></i></a>
-        <a href="https://www.instagram.com/pranaygajbhiye777/" target="_blank" class="social-link"><i
-            class="fab fa-instagram"></i></a>
-      </div>
+  <!-- Footer Content Overlay -->
 
-      <p class="footer-copyright">© 2025 Pranay Gajbhiye. Crafted with <span class="heart">♥</span> and GSAP</p>
-    </div>
-  </footer>
+  </div>
 
   <!-- Back to Top -->
   <button class="back-to-top" id="back-to-top" aria-label="Back to Top">
@@ -772,15 +792,35 @@
        Scripts
   ======================================== -->
   <!-- Lenis Smooth Scroll -->
+  <!-- Certificate Gallery Modal -->
+  <div class="modal">
+    <div class="overlay"></div>
+    <div class="modal-close"><i class="fas fa-times"></i></div>
+    <div class="content"></div>
+  </div>
+
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 
   <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  <script src="https://assets.codepen.io/16327/MorphSVGPlugin3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Flip.min.js"></script>
+
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
   <!-- Premium JS -->
+  <script src="assets/js/loader.js" defer></script>
   <script src="assets/js/premium.js"></script>
+  <script src="assets/js/skills-interactive.js" defer></script>
+
+  <!-- Silk Effect -->
+  <script src="assets/js/silk-effect.js" defer></script>
+
+  <!-- Liquid Glass Navigation Effect -->
+  <script src="assets/js/liquid-glass-nav.js" defer></script>
 </body>
 
 </html>
