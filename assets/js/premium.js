@@ -521,6 +521,62 @@ function initHorizontalScroll() {
             img.addEventListener('load', () => ScrollTrigger.refresh());
         }
     });
+
+    // ============================================
+    // Drag Implementation
+    // ============================================
+    let isDragging = false;
+    let startX = 0;
+    let scrollStart = 0;
+    const dragSensitivity = 2.5; // Adjust for faster/slower scroll
+
+    const handleDragStart = (x) => {
+        isDragging = true;
+        startX = x;
+        scrollStart = lenis.scroll; // Capture current scroll position
+        horizontalSection.style.cursor = 'grabbing';
+        document.body.style.userSelect = 'none'; // Prevent text selection
+    };
+
+    const handleDragMove = (x) => {
+        if (!isDragging) return;
+        const deltaX = (x - startX) * dragSensitivity;
+
+        // Map horizontal drag to vertical scroll
+        // Dragging Left (negative delta) -> Scroll Down (positive offset)
+        // Dragging Right (positive delta) -> Scroll Up (negative offset)
+        lenis.scrollTo(scrollStart - deltaX, { immediate: true });
+    };
+
+    const handleDragEnd = () => {
+        isDragging = false;
+        horizontalSection.style.cursor = 'grab';
+        document.body.style.userSelect = '';
+    };
+
+    // Mouse Events
+    horizontalSection.addEventListener('mousedown', (e) => {
+        e.preventDefault(); // Prevent default text selection
+        handleDragStart(e.clientX);
+    });
+
+    window.addEventListener('mousemove', (e) => handleDragMove(e.clientX));
+    window.addEventListener('mouseup', handleDragEnd);
+
+    // Touch Events
+    horizontalSection.addEventListener('touchstart', (e) => {
+        handleDragStart(e.touches[0].clientX);
+    }, { passive: false });
+
+    window.addEventListener('touchmove', (e) => {
+        if (isDragging) {
+            e.preventDefault(); // Prevent native scroll
+            handleDragMove(e.touches[0].clientX);
+        }
+    }, { passive: false });
+
+    window.addEventListener('touchend', handleDragEnd);
+
 }
 
 // ============================================

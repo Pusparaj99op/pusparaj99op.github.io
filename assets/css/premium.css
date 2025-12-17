@@ -3714,3 +3714,16 @@ textarea.form-input {
     height: 100%;
     outline: none;
 }
+
+/* ========================================
+   Horizontal Gallery Drag Styles
+   ======================================== */
+.horiz-gallery-wrapper {
+    cursor: grab;
+    user-select: none;
+    /* Prevent text selection during drag */
+}
+
+.horiz-gallery-wrapper:active {
+    cursor: grabbing;
+}
