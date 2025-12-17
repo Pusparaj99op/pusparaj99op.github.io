@@ -117,6 +117,9 @@ function exitLoader() {
 // ============================================
 // Marquee Animation
 // ============================================
+// ============================================
+// Marquee Animation
+// ============================================
 function initMarquee() {
     const marquee = document.querySelector('.marquee');
     if (!marquee) return;
@@ -134,7 +137,6 @@ function initMarquee() {
         distance = singleContentWidth + gap;
 
         // Ensure we have enough copies to fill screen + buffer
-        // We need (windowWidth / distance) + 2 copies approx
         const requiredCopies = Math.ceil(window.innerWidth / distance) + 2;
 
         while (marquee.children.length < requiredCopies) {
@@ -146,74 +148,72 @@ function initMarquee() {
 
     // Initial measure
     updateDistance();
-    window.addEventListener('resize', () => {
-        updateDistance();
-        // Reset position on resize might be needed, but sticking to flow for now
-    });
+    window.addEventListener('resize', updateDistance);
 
+    // State
     let xPos = 0;
-    let targetVelocity = -60;
-    let currentVelocity = -60;
+    let currentDirection = 1; // 1 = Move Left (Default), -1 = Move Right
+    let targetSpeed = 100; // px per second
+    let currentSpeed = 100;
     let hoverFactor = 1;
+
+    // Drag State
     let isDragging = false;
     let startX = 0;
-    let lastX = 0;
+    let lastDragX = 0;
+    let dragVelocity = 0;
     let lastDragTime = 0;
-    let lastScrollDirection = 1; // 1 = Left (Scroll Down), -1 = Right (Scroll Up)
 
     const section = document.querySelector('.marquee-section');
+
     if (section) {
-        // Cursor styles
         section.style.cursor = 'grab';
 
-        // Hover effects
+        // Hover Effects
         section.addEventListener('mouseenter', () => {
-            // Only slow down if not dragging
-            if (!isDragging) {
-                gsap.to({ val: hoverFactor }, {
-                    val: 0.2,
-                    duration: 0.5,
-                    onUpdate: function () { hoverFactor = this.targets()[0].val; }
-                });
-            }
+            gsap.to({ val: hoverFactor }, {
+                val: 0.1, // Slow down to 10%
+                duration: 0.5,
+                ease: 'power2.out',
+                onUpdate: function () { hoverFactor = this.targets()[0].val; }
+            });
         });
 
         section.addEventListener('mouseleave', () => {
-            if (!isDragging) {
-                gsap.to({ val: hoverFactor }, {
-                    val: 1,
-                    duration: 0.5,
-                    onUpdate: function () { hoverFactor = this.targets()[0].val; }
-                });
-            }
+            gsap.to({ val: hoverFactor }, {
+                val: 1,
+                duration: 0.5,
+                ease: 'power2.out',
+                onUpdate: function () { hoverFactor = this.targets()[0].val; }
+            });
         });
 
-        // Drag Events
+        // Drag Handler
         const handleDragStart = (x) => {
             isDragging = true;
             startX = x;
-            lastX = x;
+            lastDragX = x;
             lastDragTime = Date.now();
             section.style.cursor = 'grabbing';
-            // Stop automatic damping temporarily to allow throw
+            dragVelocity = 0;
         };
 
         const handleDragMove = (x) => {
             if (!isDragging) return;
-            const currentX = x;
-            const deltaX = currentX - lastX;
+
             const now = Date.now();
-            const deltaTime = now - lastDragTime;
+            const dt = now - lastDragTime;
+            const delta = x - lastDragX;
 
-            xPos += deltaX;
-            lastX = currentX;
+            xPos += delta; // Direct movement
 
-            // Calculate velocity for momentum (pixels per second)
-            if (deltaTime > 0) {
-                // Low-pass filter for velocity to avoid spikes
-                const newVel = (deltaX / deltaTime) * 1000;
-                currentVelocity += (newVel - currentVelocity) * 0.5;
+            if (dt > 0) {
+                // Calculate velocity (px/ms -> px/sec slightly smoothed)
+                const instantVel = (delta / dt) * 1000;
+                dragVelocity += (instantVel - dragVelocity) * 0.5;
             }
+
+            lastDragX = x;
             lastDragTime = now;
         };
 
@@ -221,118 +221,62 @@ function initMarquee() {
             if (!isDragging) return;
             isDragging = false;
             section.style.cursor = 'grab';
-            // Resume hover factor logic if mouse is still in or out
-            // Let momentum decay naturally in the ticker
+
+            // Determine direction from drag throw
+            if (Math.abs(dragVelocity) > 50) {
+                // If velocity is significant, take its direction
+                // Dragging Left (negative vel) -> Direction 1 (Move Left)
+                // Dragging Right (positive vel) -> Direction -1 (Move Right)
+                currentDirection = dragVelocity < 0 ? 1 : -1;
+            }
         };
 
-        // Mouse Listeners
-        section.addEventListener('mousedown', (e) => {
-            e.preventDefault();
-            handleDragStart(e.clientX);
-        });
+        // Event Listeners
+        section.addEventListener('mousedown', (e) => { e.preventDefault(); handleDragStart(e.clientX); });
         window.addEventListener('mousemove', (e) => handleDragMove(e.clientX));
         window.addEventListener('mouseup', handleDragEnd);
 
-        // Touch Listeners
-        section.addEventListener('touchstart', (e) => {
-            handleDragStart(e.touches[0].clientX);
-        }, { passive: false });
-        window.addEventListener('touchmove', (e) => {
-            if (isDragging) handleDragMove(e.touches[0].clientX);
-        }, { passive: false });
+        section.addEventListener('touchstart', (e) => handleDragStart(e.touches[0].clientX), { passive: false });
+        window.addEventListener('touchmove', (e) => { if (isDragging) handleDragMove(e.touches[0].clientX); }, { passive: false });
         window.addEventListener('touchend', handleDragEnd);
     }
 
-    // Scroll Velocity Tracker
-    let scrollVelocity = 0;
-    let velocityFactor = 0;
-    let currentScrollDirection = 1; // 1 or -1
-
+    // Scroll Direction Listener
     ScrollTrigger.create({
-        trigger: 'body',
-        start: 'top top',
-        end: 'bottom bottom',
+        trigger: 'html', // Watch global scroll
+        start: 0,
+        end: 'max',
         onUpdate: (self) => {
-            scrollVelocity = self.getVelocity(); // px/second
+            if (isDragging) return;
 
-            // Update direction based on scroll
-            if (scrollVelocity < 0) {
-                currentScrollDirection = -1; // Scrolling Up (Right)
-            } else if (scrollVelocity > 0) {
-                currentScrollDirection = 1;  // Scrolling Down (Left)
-            }
+            const vel = self.getVelocity();
+            // Scroll Down (vel > 0) -> Move Left (Direction 1)
+            // Scroll Up (vel < 0) -> Move Right (Direction -1)
+            if (vel > 50) currentDirection = 1;
+            if (vel < -50) currentDirection = -1;
         }
     });
 
+    // Animation Loop
     gsap.ticker.add((time, deltaTime) => {
-        const deltaSeconds = deltaTime * 0.001;
+        const dt = deltaTime * 0.001; // seconds
 
         if (!isDragging) {
-            // 1. Smooth out velocity (Spring-like damping)
-            // Analogous to useSpring in React example
-            // Damping factor: lower = smoother/slower adaptation
-            const damping = 0.1;
-            velocityFactor += (Math.abs(scrollVelocity) - velocityFactor) * damping;
+            // Constant movement
+            // moveAmount = speed * direction * hoverFactor
+            // We want direction 1 to decrease xPos (move left)
 
-            // Map velocity to speed multiplier
-            // approx [0, 1000] -> [0, 5]
-            const speedMultiplier = gsap.utils.mapRange(0, 1000, 0, 5, velocityFactor);
-
-            // 2. Determine base movement
-            const baseVelocity = 60; // px per second
-
-            // 3. Apply Direction
-            // Logic: The bar should move in the direction of the scroll
-            // React logic mimics: moveBy += direction * moveBy * velocityFactor
-
-            let direction = currentScrollDirection;
-
-            // If scroll is effectively stopped, revert to default direction (optional, or stick to last)
-            if (velocityFactor < 10) {
-                // When stationary/slow, maybe default to Left (-1)?
-                // Or keep last direction? React example switches direction based on scroll.
-                // Let's stick with currentScrollDirection.
-            }
-
-            // Calculate final move distance
-            // Base flow + Scroll Boost
-            // We flip the sign because typically Marquee moves Left (negative x)
-            // Scrolling Down (positive) -> Move Left (negative) -> direction 1 maps to negative logic?
-            // Let's standardise:
-            // - Moving Right = Positive X
-            // - Moving Left = Negative X
-
-            // If scrolling DOWN (vel > 0), we want moving LEFT (-).
-            // So if currentScrollDirection is 1, we want negative movement.
-            // If scrolling UP (vel < 0), we want moving RIGHT (+).
-            // So if currentScrollDirection is -1, we want positive movement.
-
-            let moveStep = -baseVelocity * direction * deltaSeconds;
-
-            // Apply Velocity Boost
-            // The formula: moveBy += direction * moveBy * velocityFactor
-            // Simplified: moveStep = moveStep + (moveStep * speedMultiplier)
-            moveStep = moveStep * (1 + speedMultiplier);
-
-            xPos += moveStep;
-
-            // Decay scrollVelocity (it's instantaneous from ScrollTrigger, we need it to drop to 0 if not scrolling)
-            // ScrollTrigger gives velocity only during scroll. If scroll stops, getVelocity() returns 0?
-            // No, onUpdate only fires ON scroll. We need to decay `scrollVelocity` manually or use a proxy.
-            // Actually, `self.getVelocity()` returns the velocity calculated between updates.
-            // But we need to reset it if no scroll event happens.
-            // A common trick is to decay it in the ticker.
-            scrollVelocity *= 0.9; // Decay raw velocity frame-by-frame
-
-        } else {
-            // Dragging logic updates xPos elsewhere
+            const moveAmount = currentSpeed * currentDirection * hoverFactor * dt;
+            xPos -= moveAmount;
         }
 
-        // Wrap Logic
+        // Infinite Loop Logic
+        // If we've moved too far left (xPos very negative), wrap back
         if (xPos <= -distance) {
             xPos += distance;
         }
-        if (xPos > 0) {
+        // If we've moved too far right (xPos positive), wrap back
+        else if (xPos > 0) {
             xPos -= distance;
         }
 

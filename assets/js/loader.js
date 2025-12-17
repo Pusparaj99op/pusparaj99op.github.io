@@ -1,3 +1,9 @@
+// Force scroll to top on refresh
+if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
 document.addEventListener("DOMContentLoaded", () => {
     const loaderWrapper = document.getElementById("loader-wrapper");
     const loadingNumber = document.getElementById("loading-number");
