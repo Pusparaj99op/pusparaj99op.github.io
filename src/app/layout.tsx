@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import SmoothScrollProvider from '@/components/ui/SmoothScrollProvider';
 
 export const metadata: Metadata = {
   title: 'Pranay Krupakar Gajbhiye — Full Stack Developer & Quant Trader',
@@ -45,7 +46,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#050505" />
       </head>
-      <body>{children}</body>
+      <body>
+        <SmoothScrollProvider>
+          {children}
+        </SmoothScrollProvider>
+      </body>
     </html>
   );
 }
