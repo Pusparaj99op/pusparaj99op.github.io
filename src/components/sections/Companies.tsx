@@ -22,6 +22,7 @@ const companies = [
     subtitle: 'Algorithmic Trading',
     description: 'Autonomous trading systems for Nifty 50 derivatives, XAUUSD, crypto options — powered by quantitative models.',
     tags: ['Algo Trading', 'XAUUSD', 'Derivatives', 'HFT'],
+    href: 'https://zorvainsteet-com.vercel.app/',
     icon: (
       <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
         <polyline points="4,36 14,20 20,28 28,14 36,24 44,10" stroke="#0ae448" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
@@ -59,7 +60,7 @@ export default function Companies() {
           transition={{ duration: 0.7 }}
           style={{ marginBottom: 64, textAlign: 'center' }}
         >
-          <span className="label-text" style={{ display: 'block', marginBottom: 16 }}>// ventures</span>
+          <span className="label-text" style={{ display: 'block', marginBottom: 16 }}>{'// ventures'}</span>
           <h2 style={{
             fontFamily: 'Syne, sans-serif', fontWeight: 800,
             fontSize: 'clamp(32px,4vw,52px)', color: '#f0f0f0',
@@ -133,13 +134,31 @@ export default function Companies() {
                 <div className="label-text" style={{ marginBottom: 8, color: '#0ae448', opacity: 0.7 }}>
                   {company.subtitle}
                 </div>
-                <h3 style={{
-                  fontFamily: 'Syne, sans-serif', fontWeight: 800,
-                  fontSize: 'clamp(24px, 3vw, 36px)',
-                  color: '#f0f0f0', letterSpacing: '-0.02em', marginBottom: 12,
-                }}>
-                  {company.name}
-                </h3>
+                {company.href ? (
+                  <a
+                    href={company.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Open ${company.name}`}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <h3 style={{
+                      fontFamily: 'Syne, sans-serif', fontWeight: 800,
+                      fontSize: 'clamp(24px, 3vw, 36px)',
+                      color: '#f0f0f0', letterSpacing: '-0.02em', marginBottom: 12,
+                    }}>
+                      {company.name}
+                    </h3>
+                  </a>
+                ) : (
+                  <h3 style={{
+                    fontFamily: 'Syne, sans-serif', fontWeight: 800,
+                    fontSize: 'clamp(24px, 3vw, 36px)',
+                    color: '#f0f0f0', letterSpacing: '-0.02em', marginBottom: 12,
+                  }}>
+                    {company.name}
+                  </h3>
+                )}
                 <p style={{
                   fontFamily: 'Inter, sans-serif', fontSize: 15,
                   color: '#777', lineHeight: 1.7, maxWidth: 500, marginBottom: 20,
@@ -164,14 +183,33 @@ export default function Companies() {
               </div>
 
               {/* Arrow */}
-              <div className="hidden-mobile" style={{
-                width: 48, height: 48, borderRadius: '50%',
-                border: '1px solid rgba(10,228,72,0.2)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: '#0ae448', fontSize: 18, flexShrink: 0,
-              }}>
-                ↗
-              </div>
+              {company.href ? (
+                <a
+                  className="hidden-mobile"
+                  href={company.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Visit ${company.name}`}
+                  style={{
+                    width: 48, height: 48, borderRadius: '50%',
+                    border: '1px solid rgba(10,228,72,0.2)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: '#0ae448', fontSize: 18, flexShrink: 0,
+                    textDecoration: 'none',
+                  }}
+                >
+                  ↗
+                </a>
+              ) : (
+                <div className="hidden-mobile" style={{
+                  width: 48, height: 48, borderRadius: '50%',
+                  border: '1px solid rgba(10,228,72,0.2)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: '#0ae448', fontSize: 18, flexShrink: 0,
+                }}>
+                  ↗
+                </div>
+              )}
             </motion.div>
           ))}
         </div>
