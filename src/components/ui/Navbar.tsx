@@ -13,11 +13,27 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [time, setTime] = useState('');
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    const tick = () => {
+      const formatted = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Asia/Kolkata',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      }).format(new Date());
+      setTime(formatted);
+    };
+    tick();
+    const id = setInterval(tick, 1000 * 30);
+    return () => clearInterval(id);
   }, []);
 
   const scrollTo = (href: string) => {
@@ -77,20 +93,17 @@ export default function Navbar() {
         </div>
 
         {/* Right actions */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
           <div
             className="hidden-mobile"
             style={{
               display: 'flex', alignItems: 'center', gap: 8,
-              padding: '6px 14px', borderRadius: 9999,
-              border: '1px solid rgba(10,228,72,0.25)',
-              background: 'rgba(10,228,72,0.05)',
+              fontFamily: 'Inter, sans-serif', fontSize: 12,
+              color: '#666', letterSpacing: '0.04em',
             }}
           >
-            <span className="pulse-dot" style={{ width: 6, height: 6 }} />
-            <span style={{ fontFamily: 'Inter, sans-serif', fontSize: 12, color: '#0ae448', fontWeight: 500 }}>
-              Open to Work
-            </span>
+            <span className="pulse-dot" style={{ width: 5, height: 5 }} />
+            NGP {time}
           </div>
 
           <button

@@ -79,10 +79,11 @@ export default function Hero() {
       ref={sectionRef}
       id="hero"
       style={{
-        minHeight: '100vh',
+        minHeight: '100dvh',
         position: 'relative',
         display: 'flex',
-        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'center',
         overflow: 'hidden',
         background: 'radial-gradient(ellipse 80% 60% at 70% 0%, rgba(10,228,72,0.06) 0%, transparent 60%), var(--bg-primary)',
       }}
@@ -104,153 +105,98 @@ export default function Hero() {
       }} />
 
       <div style={{
-        maxWidth: 1200, margin: '0 auto',
-        padding: '100px clamp(24px,5vw,64px) 60px',
+        maxWidth: 1120, margin: '0 auto',
+        padding: '140px clamp(24px,5vw,64px) 0',
         width: '100%', position: 'relative', zIndex: 1,
-        display: 'grid', gridTemplateColumns: '1fr auto',
-        gap: 64, alignItems: 'center',
+        display: 'flex', flexDirection: 'column', alignItems: 'center',
+        textAlign: 'center',
       }}>
-        {/* LEFT CONTENT */}
-        <div style={{ maxWidth: 780 }}>
-          {/* Top label + availability badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.4, duration: 0.6 }}
-            style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 32, flexWrap: 'wrap' }}
-          >
-            <span className="label-text" style={{ color: '#444' }}>— Founder · BlackObsidian · Zorvain Street</span>
-            <span style={{
-              display: 'flex', alignItems: 'center', gap: 6,
-              padding: '5px 12px', borderRadius: 9999,
-              border: '1px solid rgba(10,228,72,0.25)',
-              background: 'rgba(10,228,72,0.05)',
-              fontFamily: 'Inter, sans-serif', fontSize: 11,
-              color: '#0ae448', fontWeight: 500,
-            }}>
-              <span className="pulse-dot" style={{ width: 6, height: 6 }} />
-              Available for collaboration
-            </span>
-          </motion.div>
+        {/* Eyebrow */}
+        <motion.span
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.4, duration: 0.6 }}
+          className="label-text"
+          style={{ color: '#555', marginBottom: 28 }}
+        >
+          Founder, BlackObsidian &amp; Zorvain Street
+        </motion.span>
 
-          {/* Headline */}
-          <div
-            ref={headlineRef}
-            style={{
-              fontFamily: 'Syne, sans-serif',
-              fontWeight: 800,
-              fontSize: 'clamp(52px, 7vw, 108px)',
-              lineHeight: 1.02,
-              letterSpacing: '-0.04em',
-              color: '#f0f0f0',
-              marginBottom: 28,
-              overflow: 'hidden',
-            }}
-          >
-            {['Building', 'Systems', 'That', 'Trade,', 'Scale', '&', 'Inspire.'].map((word, i) => (
-              <span
-                key={i}
-                className="word"
-                style={{
-                  display: 'inline-block',
-                  marginRight: word === 'Systems' || word === 'Trade,' || word === 'Inspire.' ? '0' : '0.22em',
-                  color: word === '&' || word === 'Inspire.' ? '#0ae448' : '#f0f0f0',
-                }}
-              >
-                {word}
-                {(word === 'Systems' || word === 'Trade,') && <br />}
-              </span>
-            ))}
-          </div>
-
-          {/* Subline */}
-          <motion.p
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2.0, duration: 0.7 }}
-            style={{
-              fontFamily: 'Inter, sans-serif', fontSize: 'clamp(15px,1.6vw,18px)',
-              color: '#888', lineHeight: 1.75, maxWidth: 560, marginBottom: 44,
-            }}
-          >
-            Full Stack Developer & Quantitative Trader crafting algorithmic systems,
-            premium digital products, and scalable web experiences.
-          </motion.p>
-
-          {/* CTA Row */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2.2, duration: 0.6 }}
-            style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap', marginBottom: 64 }}
-          >
-            <MagneticElement>
-              <a
-                href="#contact"
-                onClick={(e) => { e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }); }}
-                className="btn-accent"
-                style={{ padding: '14px 32px', fontSize: 15, display: 'inline-block', textDecoration: 'none' }}
-              >
-                Start a Project →
-              </a>
-            </MagneticElement>
-            <MagneticElement>
-              <a
-                href="#projects"
-                onClick={(e) => { e.preventDefault(); document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' }); }}
-                className="btn-ghost"
-                style={{ padding: '13px 30px', fontSize: 15, display: 'inline-block', textDecoration: 'none' }}
-              >
-                <span className="btn-label">View My Work</span>
-              </a>
-            </MagneticElement>
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
+        {/* Headline */}
+        <div
+          ref={headlineRef}
+          className="font-display"
+          style={{
+            fontWeight: 800,
+            fontSize: 'clamp(2.75rem, 6vw, 5.25rem)',
+            lineHeight: 1.05,
+            letterSpacing: '-0.03em',
+            color: '#f0f0f0',
+            marginBottom: 32,
+            overflow: 'hidden',
+            maxWidth: 900,
+          }}
+        >
+          {['Building', 'systems', 'that', 'trade,', 'scale', '&', 'inspire.'].map((word, i) => (
+            <span
+              key={i}
+              className="word"
               style={{
-                color: '#888', fontFamily: 'Inter, sans-serif', fontSize: 14,
-                textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 6,
-                borderBottom: '1px solid rgba(136,136,136,0.3)',
-                paddingBottom: 2,
+                display: 'inline-block',
+                marginRight: '0.22em',
+                color: word === '&' || word === 'inspire.' ? '#0ae448' : '#f0f0f0',
               }}
             >
-              Resume ↗
-            </a>
-          </motion.div>
-
-          {/* Stats Row */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2.4, duration: 0.8 }}
-            style={{ display: 'flex', gap: 0, flexWrap: 'wrap' }}
-          >
-            {stats.map((stat, i) => (
-              <div key={stat.label} style={{
-                display: 'flex', alignItems: 'stretch',
-              }}>
-                {i > 0 && (
-                  <div style={{ width: 1, background: 'rgba(255,255,255,0.08)', margin: '0 24px', alignSelf: 'stretch', minHeight: 40 }} />
-                )}
-                <div>
-                  <div style={{
-                    fontFamily: 'Syne, sans-serif', fontWeight: 700,
-                    fontSize: 'clamp(20px,2.5vw,28px)',
-                    color: '#0ae448', letterSpacing: '-0.02em',
-                  }}>
-                    {stat.number}
-                  </div>
-                  <div className="label-text" style={{ marginTop: 2, fontSize: 10 }}>{stat.label}</div>
-                </div>
-              </div>
-            ))}
-          </motion.div>
+              {word}
+            </span>
+          ))}
         </div>
 
-        {/* RIGHT — Rotating ring + 3D */}
-        <div className="hidden-mobile" style={{ position: 'relative', width: 280, height: 280, flexShrink: 0 }}>
-          {/* Rotating SVG text ring */}
+        {/* Subline */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2.0, duration: 0.7 }}
+          style={{
+            fontFamily: 'Inter, sans-serif', fontSize: 'clamp(15px,1.4vw,18px)',
+            color: '#888', lineHeight: 1.6, maxWidth: 540, marginBottom: 40,
+          }}
+        >
+          Full stack developer and quantitative trader crafting algorithmic
+          systems, premium digital products, and scalable web experiences.
+        </motion.p>
+
+        {/* CTA Row */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2.2, duration: 0.6 }}
+          style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap', justifyContent: 'center', marginBottom: 96 }}
+        >
+          <MagneticElement>
+            <a
+              href="#contact"
+              onClick={(e) => { e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }); }}
+              className="btn-accent"
+              style={{ padding: '14px 32px', fontSize: 15, display: 'inline-block', textDecoration: 'none' }}
+            >
+              Start a Project
+            </a>
+          </MagneticElement>
+          <MagneticElement>
+            <a
+              href="#projects"
+              onClick={(e) => { e.preventDefault(); document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' }); }}
+              className="btn-ghost"
+              style={{ padding: '13px 30px', fontSize: 15, display: 'inline-block', textDecoration: 'none' }}
+            >
+              <span className="btn-label">View Work</span>
+            </a>
+          </MagneticElement>
+        </motion.div>
+
+        {/* Centered ring + 3D accent */}
+        <div className="hidden-mobile" style={{ position: 'relative', width: 220, height: 220 }}>
           <svg
             className="rotating-ring"
             viewBox="0 0 200 200"
@@ -263,33 +209,42 @@ export default function Hero() {
               <textPath href="#circle">DEVELOPER · QUANT · DESIGNER · FOUNDER · </textPath>
             </text>
           </svg>
-
-          {/* 3D Torus */}
-          <div style={{ position: 'absolute', inset: 30 }}>
+          <div style={{ position: 'absolute', inset: 24 }}>
             <TorusKnot />
           </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Stat strip — sits below the hero moment, not inside it */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.8, duration: 0.6 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2.4, duration: 0.8 }}
         style={{
-          position: 'absolute', bottom: 40, left: '50%',
-          transform: 'translateX(-50%)',
-          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
+          position: 'relative', zIndex: 1,
+          display: 'flex', justifyContent: 'center', gap: 0, flexWrap: 'wrap',
+          padding: '32px clamp(24px,5vw,64px) 48px',
+          borderTop: '1px solid rgba(255,255,255,0.06)',
+          marginTop: 32,
         }}
       >
-        <span className="label-text" style={{ fontSize: 10 }}>scroll</span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
-          style={{ color: '#0ae448', fontSize: 18 }}
-        >
-          ↓
-        </motion.div>
+        {stats.map((stat, i) => (
+          <div key={stat.label} style={{ display: 'flex', alignItems: 'stretch' }}>
+            {i > 0 && (
+              <div style={{ width: 1, background: 'rgba(255,255,255,0.08)', margin: '0 32px', alignSelf: 'stretch', minHeight: 40 }} />
+            )}
+            <div style={{ textAlign: 'center' }}>
+              <div style={{
+                fontFamily: 'Syne, sans-serif', fontWeight: 700,
+                fontSize: 'clamp(18px,2vw,24px)',
+                color: '#0ae448', letterSpacing: '-0.02em',
+              }}>
+                {stat.number}
+              </div>
+              <div className="label-text" style={{ marginTop: 4, fontSize: 10 }}>{stat.label}</div>
+            </div>
+          </div>
+        ))}
       </motion.div>
     </section>
   );

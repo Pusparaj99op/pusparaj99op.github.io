@@ -207,8 +207,11 @@ body::after {
 @media (max-width: 640px) { .bento-grid { grid-template-columns: 1fr; } }
 
 /* ─── Section padding ─── */
-.section-padding { padding: 120px 0; }
-@media (max-width: 768px) { .section-padding { padding: 80px 0; } }
+.section-padding { padding: 160px 0; }
+@media (max-width: 768px) { .section-padding { padding: 88px 0; } }
+
+/* ─── Display font (Cabinet Grotesk via Fontshare) ─── */
+.font-display { font-family: 'Cabinet Grotesk', 'Syne', sans-serif; }
 
 /* ─── Horizontal scroll ─── */
 .no-scrollbar::-webkit-scrollbar { display: none; }
