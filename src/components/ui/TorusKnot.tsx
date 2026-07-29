@@ -17,7 +17,7 @@ function TorusKnotMesh() {
   return (
     <mesh ref={meshRef}>
       <torusKnotGeometry args={[1, 0.3, 128, 16]} />
-      <meshBasicMaterial color="#0ae448" wireframe />
+      <meshBasicMaterial color="#000000" wireframe />
     </mesh>
   );
 }

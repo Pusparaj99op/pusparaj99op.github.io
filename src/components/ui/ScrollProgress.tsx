@@ -23,9 +23,9 @@ export default function ScrollProgress() {
       style={{
         position: 'fixed', top: 0, left: 0,
         height: 1, width: '0%',
-        background: '#0ae448',
+        background: '#c9a96e',
         zIndex: 99997,
-        boxShadow: '0 0 10px #0ae44880',
+        boxShadow: '0 0 10px #c9a96e80',
         transition: 'width 0.05s linear',
         pointerEvents: 'none',
       }}

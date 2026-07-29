@@ -38,7 +38,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
       ref={containerRef}
       style={{
         position: 'fixed', inset: 0,
-        background: '#050505',
+        background: '#060606',
         zIndex: 100000,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         flexDirection: 'column', gap: 24,
@@ -48,7 +48,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
         <path
           ref={pathRef}
           d="M8 80 L8 10 L42 10 Q70 10 70 38 Q70 60 42 60 L8 60 M90 80 L90 10 L125 10 Q138 10 138 22 Q138 34 125 40 L138 80"
-          stroke="#0ae448"
+          stroke="#c9a96e"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -57,7 +57,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
       </svg>
       <div style={{
         width: 120, height: 1,
-        background: 'linear-gradient(90deg, transparent, #0ae448, transparent)',
+        background: 'linear-gradient(90deg, transparent, #c9a96e, transparent)',
         opacity: 0.4,
       }} />
     </div>

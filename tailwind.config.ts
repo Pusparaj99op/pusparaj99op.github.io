@@ -9,16 +9,21 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'bg-primary': '#050505',
-        'bg-secondary': '#0a0a0a',
-        'bg-card': '#111111',
-        accent: '#0ae448',
-        'text-primary': '#f0f0f0',
-        'text-muted': '#666666',
+        'bg-primary': '#060606',
+        'bg-secondary': '#0e0e0e',
+        'bg-elevated': '#161616',
+        accent: '#c9a96e',
+        ink: '#c9a96e',
+        'text-primary': '#f2f0ec',
+        'text-secondary': '#8a8883',
+        'text-tertiary': '#4a4845',
+        'text-muted': '#8a8883',
+        line: 'rgba(255,255,255,0.08)',
       },
       fontFamily: {
-        syne: ['Syne', 'sans-serif'],
-        inter: ['Inter', 'sans-serif'],
+        display: ['var(--font-display)', 'Playfair Display', 'serif'],
+        body: ['var(--font-body)', 'Inter', 'sans-serif'],
+        mono: ['var(--font-mono)', 'Space Mono', 'monospace'],
       },
       animation: {
         'spin-slow': 'spin 8s linear infinite',

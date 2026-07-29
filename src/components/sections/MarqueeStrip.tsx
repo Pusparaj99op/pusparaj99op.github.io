@@ -1,31 +1,59 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
 
 const MARQUEE_ITEMS = [
   'REACT', 'NEXT.JS', 'NODE.JS', 'GSAP', 'THREE.JS', 'PYTHON',
-  'ALGORITHMIC TRADING', 'QUANTITATIVE FINANCE', 'WEBGL', 'FIGMA',
-  'TYPESCRIPT', 'BLACKOBSIDIAN', 'ZORVAIN STREET', 'FRAMER MOTION', 'TAILWIND',
+  'ALGO TRADING', 'QUANT FINANCE', 'WEBGL', 'FIGMA',
+  'TYPESCRIPT', 'BLACKOBSIDIAN', 'ZORVAIN STREET', 'FRAMER MOTION',
 ];
 
 export default function MarqueeStrip() {
   const trackRef = useRef<HTMLDivElement>(null);
-  const [paused, setPaused] = useState(false);
-  const [reversed, setReversed] = useState(false);
+  const tweenRef = useRef<gsap.core.Tween | null>(null);
 
   const doubled = [...MARQUEE_ITEMS, ...MARQUEE_ITEMS];
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const ctx = gsap.context(() => {
+      tweenRef.current = gsap.to(track, {
+        xPercent: -50,
+        duration: 40,
+        ease: 'none',
+        repeat: -1,
+      });
+    }, track);
+
+    return () => ctx.revert();
+  }, []);
+
+  const handleEnter = () => {
+    tweenRef.current?.pause();
+  };
+  const handleLeave = () => {
+    tweenRef.current?.play();
+  };
 
   return (
     <div
       style={{
-        background: '#0ae448',
-        padding: '18px 0',
+        background: 'var(--bg-secondary)',
+        height: 48,
+        display: 'flex',
+        alignItems: 'center',
         overflow: 'hidden',
         position: 'relative',
         zIndex: 2,
+        borderTop: '1px solid var(--border-dim)',
+        borderBottom: '1px solid var(--border-dim)',
       }}
-      onMouseEnter={() => { setPaused(true); setReversed(true); }}
-      onMouseLeave={() => { setPaused(false); setReversed(false); }}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
     >
       <div
         ref={trackRef}
@@ -33,33 +61,28 @@ export default function MarqueeStrip() {
           display: 'flex',
           gap: 0,
           width: 'max-content',
-          animationName: reversed ? 'marqueeReverse' : 'marquee',
-          animationDuration: '30s',
-          animationTimingFunction: 'linear',
-          animationIterationCount: 'infinite',
-          animationPlayState: paused ? 'paused' : 'running',
           willChange: 'transform',
         }}
       >
         {doubled.map((item, i) => (
           <span
             key={i}
+            className="font-mono"
             style={{
-              fontFamily: 'Syne, sans-serif',
-              fontWeight: 700,
-              fontSize: 14,
-              color: '#000',
+              fontWeight: 400,
+              fontSize: 11,
+              color: 'var(--text-secondary)',
               textTransform: 'uppercase',
-              letterSpacing: '0.08em',
+              letterSpacing: '0.10em',
               whiteSpace: 'nowrap',
-              padding: '0 32px',
+              padding: '0 24px',
               display: 'flex',
               alignItems: 'center',
-              gap: 32,
+              gap: 24,
             }}
           >
             {item}
-            <span style={{ display: 'inline-block', width: 5, height: 5, borderRadius: '50%', background: '#000', opacity: 0.4 }} />
+            <span style={{ display: 'inline-block', width: 4, height: 4, borderRadius: '50%', background: 'var(--accent-gold)', opacity: 0.6 }} />
           </span>
         ))}
       </div>

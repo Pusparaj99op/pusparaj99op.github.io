@@ -13,27 +13,11 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [time, setTime] = useState('');
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
+    const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  useEffect(() => {
-    const tick = () => {
-      const formatted = new Intl.DateTimeFormat('en-GB', {
-        timeZone: 'Asia/Kolkata',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false,
-      }).format(new Date());
-      setTime(formatted);
-    };
-    tick();
-    const id = setInterval(tick, 1000 * 30);
-    return () => clearInterval(id);
   }, []);
 
   const scrollTo = (href: string) => {
@@ -44,75 +28,70 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94], delay: 1.8 }}
+      <nav
         style={{
           position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
-          padding: '0 clamp(24px, 5vw, 64px)',
-          height: 72,
+          padding: '0 clamp(24px, 5vw, 80px)',
+          height: 64,
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          background: scrolled ? 'rgba(5,5,5,0.85)' : 'transparent',
+          background: scrolled ? 'rgba(6,6,6,0.85)' : 'transparent',
           backdropFilter: scrolled ? 'blur(20px)' : 'none',
           WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
-          borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent',
+          borderBottom: scrolled ? '1px solid var(--border-dim)' : '1px solid transparent',
           transition: 'background 0.4s ease, border-color 0.4s ease',
         }}
       >
         {/* Monogram */}
-        <button
+        <motion.button
+          initial={{ y: -10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="font-display"
           style={{
-            fontFamily: 'Syne, sans-serif', fontWeight: 800,
-            fontSize: 24, color: '#0ae448',
-            letterSpacing: '-0.02em',
+            fontStyle: 'italic', fontWeight: 700,
+            fontSize: '1.5rem', color: 'var(--accent-gold)',
             background: 'none', border: 'none', padding: 0,
           }}
         >
           PG
-        </button>
+        </motion.button>
 
         {/* Desktop links */}
         <div className="hidden-mobile" style={{ display: 'flex', gap: 40 }}>
-          {NAV_LINKS.map(link => (
-            <button
+          {NAV_LINKS.map((link, i) => (
+            <motion.button
               key={link.label}
+              initial={{ y: -10, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.28 + i * 0.08 }}
               onClick={() => scrollTo(link.href)}
-              className="nav-link"
+              className="nav-link font-body"
               style={{
                 background: 'none', border: 'none',
-                color: '#f0f0f0', fontFamily: 'Inter, sans-serif',
+                color: 'var(--text-secondary)',
                 fontSize: 14, fontWeight: 500, letterSpacing: '0.02em',
-                padding: '4px 0',
+                padding: '4px 0', transition: 'color 200ms ease',
               }}
+              onMouseEnter={e => { e.currentTarget.style.color = 'var(--text-primary)'; }}
+              onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-secondary)'; }}
             >
               {link.label}
-            </button>
+            </motion.button>
           ))}
         </div>
 
         {/* Right actions */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-          <div
-            className="hidden-mobile"
-            style={{
-              display: 'flex', alignItems: 'center', gap: 8,
-              fontFamily: 'Inter, sans-serif', fontSize: 12,
-              color: '#666', letterSpacing: '0.04em',
-            }}
-          >
-            <span className="pulse-dot" style={{ width: 5, height: 5 }} />
-            NGP {time}
-          </div>
-
-          <button
+          <motion.button
+            initial={{ y: -10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
             onClick={() => scrollTo('#contact')}
             className="btn-accent hidden-mobile"
-            style={{ padding: '9px 22px', fontSize: 13 }}
           >
-            Hire Me
-          </button>
+            Hire Me &rarr;
+          </motion.button>
 
           {/* Hamburger */}
           <button
@@ -122,14 +101,14 @@ export default function Navbar() {
             aria-label="Toggle menu"
           >
             <motion.span animate={{ rotate: menuOpen ? 45 : 0, y: menuOpen ? 7 : 0 }}
-              style={{ display: 'block', width: 24, height: 1.5, background: '#f0f0f0', transformOrigin: 'center' }} />
+              style={{ display: 'block', width: 24, height: 1.5, background: 'var(--text-primary)', transformOrigin: 'center' }} />
             <motion.span animate={{ opacity: menuOpen ? 0 : 1 }}
-              style={{ display: 'block', width: 24, height: 1.5, background: '#f0f0f0' }} />
+              style={{ display: 'block', width: 24, height: 1.5, background: 'var(--text-primary)' }} />
             <motion.span animate={{ rotate: menuOpen ? -45 : 0, y: menuOpen ? -7 : 0 }}
-              style={{ display: 'block', width: 24, height: 1.5, background: '#f0f0f0', transformOrigin: 'center' }} />
+              style={{ display: 'block', width: 24, height: 1.5, background: 'var(--text-primary)', transformOrigin: 'center' }} />
           </button>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* Mobile fullscreen menu */}
       <AnimatePresence>
@@ -141,7 +120,7 @@ export default function Navbar() {
             transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
             style={{
               position: 'fixed', inset: 0,
-              background: '#050505', zIndex: 999,
+              background: 'var(--bg-primary)', zIndex: 999,
               display: 'flex', flexDirection: 'column',
               alignItems: 'center', justifyContent: 'center', gap: 40,
             }}
@@ -154,11 +133,12 @@ export default function Navbar() {
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ delay: i * 0.08, duration: 0.4 }}
                 onClick={() => scrollTo(link.href)}
+                className="font-display"
                 style={{
                   background: 'none', border: 'none',
-                  fontFamily: 'Syne, sans-serif', fontWeight: 700,
+                  fontWeight: 700,
                   fontSize: 'clamp(36px, 10vw, 56px)',
-                  color: '#f0f0f0', letterSpacing: '-0.03em',
+                  color: 'var(--text-primary)', letterSpacing: 'var(--tracking-display)',
                 }}
               >
                 {link.label}
@@ -169,7 +149,8 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
               href="mailto:pranaygajbhiyeofficial@gmail.com"
-              style={{ color: '#666', fontFamily: 'Inter, sans-serif', fontSize: 14 }}
+              className="font-body"
+              style={{ color: 'var(--text-secondary)', fontSize: 14 }}
             >
               pranaygajbhiyeofficial@gmail.com
             </motion.a>
