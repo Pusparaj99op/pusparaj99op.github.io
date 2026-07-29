@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import SplitReveal from '@/components/ui/SplitReveal';
+import KineticText from '@/components/ui/KineticText';
 
 export default function About() {
   return (
@@ -18,9 +18,10 @@ export default function About() {
           </motion.div>
 
           <div>
-            <SplitReveal
+            <KineticText
               as="h2"
               className="font-display"
+              accentWords={['Capital.']}
               style={{
                 fontWeight: 800,
                 fontSize: 'var(--text-display-lg)',
@@ -32,7 +33,7 @@ export default function About() {
               }}
             >
               I Build at the Intersection of Code & Capital.
-            </SplitReveal>
+            </KineticText>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}

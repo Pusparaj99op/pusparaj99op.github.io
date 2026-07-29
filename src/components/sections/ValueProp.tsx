@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import KineticText from '@/components/ui/KineticText';
 
 export default function ValueProp() {
   return (
@@ -21,17 +22,14 @@ export default function ValueProp() {
             <span className="kicker">Systems. Code. Capital.</span>
             <span className="font-mono" style={{ fontSize: 11, color: 'var(--text-tertiary)' }}>(PG &mdash; 01)</span>
           </motion.div>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.65, delay: 0.1 }}
+          <KineticText
+            as="p"
             className="font-body"
+            accentWords={['execution.']}
             style={{ fontWeight: 300, fontSize: 18, color: 'var(--text-secondary)', maxWidth: 560, lineHeight: 1.65 }}
           >
-            Get elite quant infrastructure and full-stack engineering in one founder.
-            No bloat. No hand-holding. Pure execution.
-          </motion.p>
+            Get elite quant infrastructure and full-stack engineering in one founder. No bloat. No hand-holding. Pure execution.
+          </KineticText>
         </div>
       </div>
       <style jsx>{`

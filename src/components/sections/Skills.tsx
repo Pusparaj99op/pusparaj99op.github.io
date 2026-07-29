@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import SectionBadge from '@/components/ui/SectionBadge';
+import KineticText from '@/components/ui/KineticText';
 
 const STACK: Record<string, string[]> = {
   'Core Stack': ['React', 'Next.js', 'Node.js', 'TypeScript', 'Python'],
@@ -18,12 +19,17 @@ export default function Skills() {
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 clamp(24px,5vw,80px)' }}>
         <SectionBadge id="PG — 05" label="Skills & Stack" />
 
-        <h2 className="font-display" style={{
-          fontWeight: 800, fontSize: 'var(--text-display-lg)', color: 'var(--text-primary)',
-          letterSpacing: 'var(--tracking-display)', marginBottom: 64,
-        }}>
+        <KineticText
+          as="h2"
+          className="font-display"
+          accentWords={['Trade.']}
+          style={{
+            fontWeight: 800, fontSize: 'var(--text-display-lg)', color: 'var(--text-primary)',
+            letterSpacing: 'var(--tracking-display)', marginBottom: 64,
+          }}
+        >
           Tools of the Trade.
-        </h2>
+        </KineticText>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '48px 40px' }} className="skills-grid">
           {Object.entries(STACK).map(([category, items], i) => (

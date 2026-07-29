@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import KineticText from '@/components/ui/KineticText';
 
 const BADGES = ['NISM Certified', 'FIDE Rated', 'AIR 7616', 'Meydan Freezone'];
 
@@ -12,12 +13,10 @@ export default function Testimonial() {
           <span className="kicker">Recognized</span>
         </div>
 
-        <motion.blockquote
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.7 }}
+        <KineticText
+          as="blockquote"
           className="font-display"
+          start="top 85%"
           style={{
             fontStyle: 'italic', fontWeight: 500,
             fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
@@ -30,9 +29,8 @@ export default function Testimonial() {
             display: 'inline-block',
           }}
         >
-          &ldquo;I approach every problem like a chess game &mdash; with depth,
-          patience, and strategy.&rdquo;
-        </motion.blockquote>
+          &ldquo;I approach every problem like a chess game &mdash; with depth, patience, and strategy.&rdquo;
+        </KineticText>
 
         <div className="font-mono" style={{ fontSize: 12, color: 'var(--text-tertiary)', marginBottom: 48 }}>
           &mdash; Pranay Gajbhiye

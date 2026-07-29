@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import MagneticElement from '@/components/ui/MagneticElement';
 import SectionBadge from '@/components/ui/SectionBadge';
+import KineticText from '@/components/ui/KineticText';
 
 const EMAIL = 'pranaygajbhiyeofficial@gmail.com';
 
@@ -74,15 +75,20 @@ export default function Contact() {
         }}>
           {/* LEFT */}
           <div>
-            <h2 className="font-display" style={{
-              fontWeight: 900,
-              fontSize: 'var(--text-display-lg)',
-              lineHeight: 1.05, letterSpacing: 'var(--tracking-display)',
-              color: 'var(--text-primary)', marginBottom: 40,
-              maxWidth: 480,
-            }}>
+            <KineticText
+              as="h2"
+              className="font-display"
+              accentWords={['Extraordinary.']}
+              style={{
+                fontWeight: 900,
+                fontSize: 'var(--text-display-lg)',
+                lineHeight: 1.05, letterSpacing: 'var(--tracking-display)',
+                color: 'var(--text-primary)', marginBottom: 40,
+                maxWidth: 480,
+              }}
+            >
               Let&apos;s Build Something Extraordinary.
-            </h2>
+            </KineticText>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}

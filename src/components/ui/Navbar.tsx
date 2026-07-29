@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import GlassSurface from './GlassSurface';
 
 const NAV_LINKS = [
   { label: 'About', href: '#about' },
@@ -31,16 +32,28 @@ export default function Navbar() {
       <nav
         style={{
           position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
-          padding: '0 clamp(24px, 5vw, 80px)',
           height: 64,
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          background: scrolled ? 'rgba(6,6,6,0.85)' : 'transparent',
-          backdropFilter: scrolled ? 'blur(20px)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
-          borderBottom: scrolled ? '1px solid var(--border-dim)' : '1px solid transparent',
-          transition: 'background 0.4s ease, border-color 0.4s ease',
         }}
       >
+        <GlassSurface
+          width="100%"
+          height={64}
+          borderRadius={0}
+          backgroundOpacity={scrolled ? 0.5 : 0}
+          saturation={1.4}
+          blur={8}
+          displace={scrolled ? 2 : 0}
+          distortionScale={-120}
+          style={{
+            borderBottom: scrolled ? '1px solid var(--border-dim)' : '1px solid transparent',
+            transition: 'border-color 0.4s ease',
+          }}
+        >
+        <div style={{
+          width: '100%', height: '100%',
+          padding: '0 clamp(24px, 5vw, 80px)',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        }}>
         {/* Monogram */}
         <motion.button
           initial={{ y: -10, opacity: 0 }}
@@ -108,6 +121,8 @@ export default function Navbar() {
               style={{ display: 'block', width: 24, height: 1.5, background: 'var(--text-primary)', transformOrigin: 'center' }} />
           </button>
         </div>
+        </div>
+        </GlassSurface>
       </nav>
 
       {/* Mobile fullscreen menu */}

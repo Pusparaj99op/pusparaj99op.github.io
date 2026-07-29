@@ -28,14 +28,41 @@ export default function Hero() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const lines = headlineRef.current?.querySelectorAll('.hero-line');
     if (!lines) return;
+    gsap.set(headlineRef.current, { perspective: 700 });
+
     const tl = gsap.timeline({ delay: 0.5 });
+    let wordIndex = 0;
     lines.forEach((line, i) => {
       const words = line.querySelectorAll('.word');
-      tl.fromTo(words,
-        { y: 60, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7, stagger: 0.06, ease: 'power3.out' },
-        i * 0.1
-      );
+      words.forEach((word, j) => {
+        const variant = wordIndex % 4;
+        wordIndex++;
+        if (variant === 0) {
+          tl.fromTo(word,
+            { y: 60, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out' },
+            i * 0.1 + j * 0.06
+          );
+        } else if (variant === 1) {
+          tl.fromTo(word,
+            { scale: 0.55, opacity: 0, filter: 'blur(12px)' },
+            { scale: 1, opacity: 1, filter: 'blur(0px)', duration: 0.65, ease: 'back.out(2)' },
+            i * 0.1 + j * 0.06
+          );
+        } else if (variant === 2) {
+          tl.fromTo(word,
+            { x: -40, skewX: -12, opacity: 0 },
+            { x: 0, skewX: 0, opacity: 1, duration: 0.6, ease: 'power3.out' },
+            i * 0.1 + j * 0.06
+          );
+        } else {
+          tl.fromTo(word,
+            { rotateX: 85, y: 24, opacity: 0, transformOrigin: '50% 100%' },
+            { rotateX: 0, y: 0, opacity: 1, duration: 0.7, ease: 'power3.out' },
+            i * 0.1 + j * 0.06
+          );
+        }
+      });
     });
   }, []);
 
@@ -80,19 +107,19 @@ export default function Hero() {
         padding: '160px clamp(24px,5vw,80px) 80px', position: 'relative', zIndex: 1,
       }}>
         <div ref={headlineRef} className="giant-type" style={{ fontSize: 'var(--text-display-xl)', color: 'var(--text-primary)', marginBottom: 40 }}>
-          <div className="hero-line" style={{ overflow: 'hidden' }}>
+          <div className="hero-line" style={{ overflow: 'visible', paddingBottom: '0.1em' }}>
             {['Building', 'systems'].map((w, i) => (
-              <span key={i} className="word" style={{ display: 'inline-block', marginRight: '0.22em' }}>{w}</span>
+              <span key={i} className="word" style={{ display: 'inline-block', marginRight: '0.22em', willChange: 'transform, opacity, filter' }}>{w}</span>
             ))}
           </div>
-          <div className="hero-line" style={{ overflow: 'hidden', fontStyle: 'italic', fontWeight: 700 }}>
+          <div className="hero-line" style={{ overflow: 'visible', fontStyle: 'italic', fontWeight: 700, paddingBottom: '0.1em' }}>
             {['that', 'trade,'].map((w, i) => (
-              <span key={i} className="word" style={{ display: 'inline-block', marginRight: '0.22em' }}>{w}</span>
+              <span key={i} className="word" style={{ display: 'inline-block', marginRight: '0.22em', willChange: 'transform, opacity, filter' }}>{w}</span>
             ))}
           </div>
-          <div className="hero-line" style={{ overflow: 'hidden' }}>
+          <div className="hero-line" style={{ overflow: 'visible', paddingBottom: '0.1em' }}>
             {['scale', '&', 'inspire.'].map((w, i) => (
-              <span key={i} className="word" style={{ display: 'inline-block', marginRight: '0.22em' }}>{w}</span>
+              <span key={i} className="word" style={{ display: 'inline-block', marginRight: '0.22em', willChange: 'transform, opacity, filter' }}>{w}</span>
             ))}
           </div>
         </div>
