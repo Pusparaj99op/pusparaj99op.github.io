@@ -1,27 +1,27 @@
-# Session Snapshot — 2026-07-30 00:24
+# Session Snapshot — 2026-07-30 00:27
 
 ## Files Changed
-- .claude/sessions/.claude-md-validated-2026-07-29
-- .claude/sessions/.claude-md-validated-2026-07-30
-- .claude/sessions/.ghost-checked-20260729
-- .claude/sessions/.ghost-checked-20260730
-- .claude/sessions/.notification-shown-2026-07-29
-- .claude/sessions/.notification-shown-2026-07-30
-- .claude/sessions/.snapshot-injected-2026-07-29
-- .claude/sessions/.snapshot-injected-2026-07-30
 - .claude/sessions/snapshot.md
 - .claude/sessions/token-log.md
+- .claude/sessions/write-log.md
+- src/components/sections/About.tsx
+- src/components/sections/Contact.tsx
+- src/components/sections/Hero.tsx
+- src/components/sections/Skills.tsx
+- src/components/sections/Testimonial.tsx
+- src/components/sections/ValueProp.tsx
+- src/components/ui/KineticText.tsx
 
 ## Recent Commits
+- 7c480d3 version 777
 - 5910ecf 777
 - 344e509 update 2.0.2
 - 3b9b6d5 cto inint
 - 7daac07 Update Companies.tsx
-- 03ca0cb Add Lenis smooth scroll and GitHub Actions deploy workflow
 
 ## Token Estimate
 ~362 tokens in auto-loaded files
 
 ## Last Turn
-Summary: edited `src/components/ui/Navbar.tsx` to wrap the nav content in `GlassSurface` (full-width, `borderRadius: 0`,
+Fixed a layout snag from the mixed transforms: hero-line wrappers had `overflow: hidden` (needed for the old simple slid
 
