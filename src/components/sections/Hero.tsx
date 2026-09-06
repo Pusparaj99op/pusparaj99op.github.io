@@ -6,6 +6,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import dynamic from 'next/dynamic';
 import MagneticElement from '@/components/ui/MagneticElement';
+import GlassTiles from '@/components/ui/GlassTiles';
 
 const HeroBackground = dynamic(() => import('@/components/ui/HeroBackground'), { ssr: false });
 
@@ -78,6 +79,7 @@ export default function Hero() {
         background: 'var(--bg-primary)',
       }}
     >
+      <GlassTiles rows={5} cols={8} />
       {showParticles && <HeroBackground />}
 
       {/* Corner badge */}

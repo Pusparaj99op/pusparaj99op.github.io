@@ -156,3 +156,9 @@
 | 2026-07-30 | 00:23 | Edit | `C:\Users\kalvi\OneDrive\Documents\VS\pusparaj99op.github.io\src\components\ui\Navbar.tsx` | ~787 |
 | 2026-07-30 | 00:23 | Edit | `C:\Users\kalvi\OneDrive\Documents\VS\pusparaj99op.github.io\src\components\ui\Navbar.tsx` | ~795 |
 | 2026-07-30 | 00:24 | Edit | `C:\Users\kalvi\OneDrive\Documents\VS\pusparaj99op.github.io\src\components\ui\Navbar.tsx` | ~798 |
+| 2026-09-07 | 00:13 | Write | `C:\Users\kalvi\OneDrive\Documents\VS\pusparaj99op.github.io\src\components\ui\GlassTiles.tsx` | ~234 |
+| 2026-09-07 | 00:13 | Edit | `C:\Users\kalvi\OneDrive\Documents\VS\pusparaj99op.github.io\src\app\globals.css` | ~1573 |
+| 2026-09-07 | 00:13 | Edit | `C:\Users\kalvi\OneDrive\Documents\VS\pusparaj99op.github.io\src\components\sections\Hero.tsx` | ~835 |
+| 2026-09-07 | 00:13 | Edit | `C:\Users\kalvi\OneDrive\Documents\VS\pusparaj99op.github.io\src\components\sections\Hero.tsx` | ~841 |
+| 2026-09-07 | 00:14 | Edit | `C:\Users\kalvi\OneDrive\Documents\VS\pusparaj99op.github.io\src\components\ui\GlassTiles.tsx` | ~236 |
+| 2026-09-07 | 00:14 | Edit | `C:\Users\kalvi\OneDrive\Documents\VS\pusparaj99op.github.io\src\components\ui\GlassTiles.tsx` | ~236 |

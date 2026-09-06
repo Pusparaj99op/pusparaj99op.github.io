@@ -395,8 +395,44 @@ body::after {
   animation-direction: reverse;
 }
 
+/* ─── Glass tiles ─── */
+.glass-tile {
+  position: relative;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(135deg, hsla(var(--tile-hue), 70%, 65%, 0.14), transparent 60%),
+    rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  overflow: hidden;
+  animation: tile-breathe var(--tile-duration) ease-in-out var(--tile-delay) infinite;
+}
+.glass-tile::after {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    hsla(var(--tile-hue), 85%, 80%, 0.22) 50%,
+    transparent 60%
+  );
+  transform: translateX(-100%);
+  animation: tile-shimmer var(--tile-duration) ease-in-out var(--tile-delay) infinite;
+}
+@keyframes tile-breathe {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+@keyframes tile-shimmer {
+  0% { transform: translateX(-100%); }
+  50%, 100% { transform: translateX(100%); }
+}
+
 /* ─── Reduced motion ─── */
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; }
+  .glass-tile, .glass-tile::after { animation: none; }
   * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
