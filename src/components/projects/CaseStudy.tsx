@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
-import type { Project, ProjectFeatureTag } from '@/data/projects';
+import { getProjectCover, type Project, type ProjectFeatureTag } from '@/data/projects';
 import Navbar from '@/components/ui/Navbar';
 import Footer from '@/components/sections/Footer';
 import GlassSurface from '@/components/ui/GlassSurface';
@@ -224,7 +224,7 @@ export default function CaseStudy({ project, related }: { project: Project; rela
           >
             <img
               ref={heroImgRef}
-              src={`https://picsum.photos/seed/${project.seed}/1800/1013`}
+              src={getProjectCover(project)}
               alt={project.title}
               style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', willChange: 'transform' }}
             />
@@ -426,7 +426,7 @@ export default function CaseStudy({ project, related }: { project: Project; rela
                     overflow: 'hidden', border: '1px solid var(--border-dim)', marginBottom: 16,
                   }}>
                     <img
-                      src={`https://picsum.photos/seed/${r.seed}/800/600`}
+                      src={getProjectCover(r)}
                       alt={r.title}
                       style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                     />

@@ -162,3 +162,8 @@
 | 2026-09-07 | 00:13 | Edit | `C:\Users\kalvi\OneDrive\Documents\VS\pusparaj99op.github.io\src\components\sections\Hero.tsx` | ~841 |
 | 2026-09-07 | 00:14 | Edit | `C:\Users\kalvi\OneDrive\Documents\VS\pusparaj99op.github.io\src\components\ui\GlassTiles.tsx` | ~236 |
 | 2026-09-07 | 00:14 | Edit | `C:\Users\kalvi\OneDrive\Documents\VS\pusparaj99op.github.io\src\components\ui\GlassTiles.tsx` | ~236 |
+| 2026-09-23 | 23:01 | Write | `C:\Users\kalvi\.claude\plans\i-want-to-add-mossy-wozniak.md` | ~566 |
+| 2026-09-23 | 23:28 | Write | `C:\Users\kalvi\.claude\plans\i-want-to-add-mossy-wozniak.md` | ~461 |
+| 2026-09-23 | 23:30 | Write | `C:\Users\kalvi\AppData\Local\Temp\claude\C--Users-kalvi-OneDrive-Documents-VS-pusparaj99op-github-io\5a249b67-9708-4978-a158-630d0726268c\scratchpad\make-tree-assets.mjs` | ~1134 |
+| 2026-09-23 | 23:31 | Write | `C:\Users\kalvi\OneDrive\Documents\VS\pusparaj99op.github.io\image\AI_PROMPTS.md` | ~460 |
+| 2026-09-23 | 23:37 | Write | `C:\Users\kalvi\OneDrive\Documents\VS\pusparaj99op.github.io\src\components\tree\scroll-timeline.tsx` | ~344 |

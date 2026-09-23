@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
-import { projects } from '@/data/projects';
+import { projects, getProjectCover } from '@/data/projects';
 
 const NAV_ITEMS = ['About', 'Work', 'Ventures', 'Contact', 'GitHub', 'LinkedIn'];
 const doubledProjects = [...projects, ...projects];
@@ -40,7 +40,7 @@ function ImageStrip({ reverse }: { reverse?: boolean }) {
             }}
           >
             <img
-              src={`https://picsum.photos/seed/${p.seed}/480/320`}
+              src={getProjectCover(p)}
               alt={p.title}
               style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'grayscale(0.3) brightness(0.8)' }}
             />

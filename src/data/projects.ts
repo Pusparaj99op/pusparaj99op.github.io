@@ -202,3 +202,7 @@ export function getRelatedProjects(slug: string, count = 3): Project[] {
   const others = projects.filter(p => p.slug !== slug);
   return others.slice(0, count);
 }
+
+export function getProjectCover(project: Pick<Project, 'slug'>): string {
+  return `/covers/${project.slug}.svg`;
+}
